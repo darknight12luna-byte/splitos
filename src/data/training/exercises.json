@@ -43,7 +43,11 @@
     "defaultSets": "3-4",
     "defaultReps": "8-12",
     "defaultRest": "90s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "How to Dumbbell Flat Bench Press - Form Tutorial",
+      "url": "https://www.youtube.com/watch?v=i1fywF_g-1U",
+      "source": null
+    },
     "recommendedSearchQuery": "flat dumbbell bench press form",
     "coachNotes": [
       "reduce load if shoulder discomfort appears",
@@ -79,7 +83,11 @@
     "defaultSets": "3-4",
     "defaultReps": "8-10",
     "defaultRest": "75-90s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Seated Cable Row - Exercise Tutorial",
+      "url": "https://www.youtube.com/watch?v=6hvQh3muYB8",
+      "source": null
+    },
     "recommendedSearchQuery": "seated row machine proper form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -108,7 +116,11 @@
     "defaultSets": "3-4",
     "defaultReps": "8-10",
     "defaultRest": "75-90s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "How to do Lat Pulldowns",
+      "url": "https://www.youtube.com/watch?v=SALxEARiMkw",
+      "source": null
+    },
     "recommendedSearchQuery": "lat pulldown chest up form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -138,7 +150,11 @@
     "defaultSets": "2-4",
     "defaultReps": "8-10",
     "defaultRest": "75-90s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Dumbbell Shoulder Press - Exercise Guide",
+      "url": "https://www.youtube.com/watch?v=0JfYxMRsUCQ",
+      "source": null
+    },
     "recommendedSearchQuery": "seated dumbbell shoulder press form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -166,7 +182,11 @@
     "defaultSets": "2-3",
     "defaultReps": "10-15",
     "defaultRest": "60s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "How to PROPERLY Cable Lateral Raise",
+      "url": "https://www.youtube.com/watch?v=qitQHqNZbeM",
+      "source": null
+    },
     "recommendedSearchQuery": "cable lateral raise form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -194,7 +214,11 @@
     "defaultSets": "2-3",
     "defaultReps": "10-12",
     "defaultRest": "60s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Cable Triceps Pushdown: 3 Golden Rules",
+      "url": "https://www.youtube.com/watch?v=_w-HpW70nSQ",
+      "source": null
+    },
     "recommendedSearchQuery": "cable triceps pressdown form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -223,7 +247,11 @@
     "defaultSets": "2-3",
     "defaultReps": "10-12",
     "defaultRest": "60s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Dumbbell Hammer Curls Tutorial",
+      "url": "https://www.youtube.com/watch?v=4BRAf2BajWw",
+      "source": null
+    },
     "recommendedSearchQuery": "hammer curl dumbbell form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -369,7 +397,11 @@
     "defaultSets": "4",
     "defaultReps": "10",
     "defaultRest": "90s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "How to PROPERLY Leg Press",
+      "url": "https://www.youtube.com/watch?v=K5n2vg3oZa4",
+      "source": null
+    },
     "recommendedSearchQuery": "leg press knees over toes form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -397,7 +429,11 @@
     "defaultSets": "3",
     "defaultReps": "10-12",
     "defaultRest": "60-75s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Exercise Tutorial: Technogym Seated Leg Curl Machine",
+      "url": "https://www.youtube.com/watch?v=IOufFLwNOTU",
+      "source": null
+    },
     "recommendedSearchQuery": "leg curl machine proper form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -427,7 +463,11 @@
     "defaultSets": "3",
     "defaultReps": "10",
     "defaultRest": "90s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "How to do romanian deadlifts safely",
+      "url": "https://www.youtube.com/watch?v=ZEnWV4kguKc",
+      "source": null
+    },
     "recommendedSearchQuery": "dumbbell romanian deadlift form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -455,7 +495,11 @@
     "defaultSets": "3",
     "defaultReps": "12-15",
     "defaultRest": "60s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Standing Calf Raise - Exercise Tutorial",
+      "url": "https://www.youtube.com/watch?v=EmyjIRHl3CU",
+      "source": null
+    },
     "recommendedSearchQuery": "standing calf raise form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -484,7 +528,11 @@
     "defaultSets": "2",
     "defaultReps": "12",
     "defaultRest": "45-60s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "How To Do A Glute Bridge",
+      "url": "https://www.youtube.com/watch?v=wPM8icPu6H8",
+      "source": null
+    },
     "recommendedSearchQuery": "glute bridge form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -542,7 +590,11 @@
     "defaultSets": "2",
     "defaultReps": "8_side",
     "defaultRest": "30s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "How to PROPERLY Do Deadbugs",
+      "url": "https://www.youtube.com/watch?v=lqnuY3wiBzA",
+      "source": null
+    },
     "recommendedSearchQuery": "dead bug exercise tutorial",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -563,15 +615,38 @@
       "chest",
       "shoulders"
     ],
-    "executionSteps": [],
-    "cues": [],
-    "mistakes": [],
-    "regressions": [],
-    "progressions": [],
+    "executionSteps": [
+      "Start in a high plank position: hands under shoulders, body in a straight line.",
+      "Keep the arms straight throughout — this is not a regular push-up.",
+      "Squeeze the shoulder blades together (retraction): the chest drops slightly between the arms.",
+      "Push the shoulder blades apart (protraction): the upper back rounds slightly.",
+      "Control both movements with a slow tempo, about 3 seconds each direction.",
+      "Breathe in on retraction, out on protraction."
+    ],
+    "cues": [
+      "arms stay straight",
+      "slow 3 second tempo each way",
+      "breathe with the movement"
+    ],
+    "mistakes": [
+      "bending the elbows",
+      "shrugging instead of retracting/protracting",
+      "moving too fast to control"
+    ],
+    "regressions": [
+      "do the movement from the knees instead of a full plank"
+    ],
+    "progressions": [
+      "add a pause at full protraction"
+    ],
     "defaultSets": "2",
     "defaultReps": "10",
     "defaultRest": "30-45s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Exercise With an Athletic Trainer: Scapular Pushups",
+      "url": "https://www.youtube.com/watch?v=LeMk15TN0No",
+      "source": null
+    },
     "recommendedSearchQuery": "scapular push up form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -600,7 +675,11 @@
     "defaultSets": "2",
     "defaultReps": "15",
     "defaultRest": "30-45s",
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "How to Do Band Pull-Aparts (Shoulder + Upper Back Strength)",
+      "url": "https://www.youtube.com/watch?v=ZAqlGLJkeZU",
+      "source": null
+    },
     "recommendedSearchQuery": "band pull apart form",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -628,7 +707,11 @@
     "defaultSets": "1-2",
     "defaultReps": "15_each",
     "defaultRest": null,
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Workout Warm-Up - Arm Circles",
+      "url": "https://www.youtube.com/watch?v=mwDgFY86zck",
+      "source": null
+    },
     "recommendedSearchQuery": "arm circles shoulder warm up",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -657,7 +740,11 @@
     "defaultSets": "1",
     "defaultReps": "1-2_min",
     "defaultRest": null,
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Animal Flow Tutorial: Wrist Mobilizations",
+      "url": "https://www.youtube.com/watch?v=I9bYCIfG-go",
+      "source": null
+    },
     "recommendedSearchQuery": "wrist warm up for animal flow",
     "coachNotes": [],
     "beginnerInstructions": []
@@ -717,7 +804,11 @@
     "defaultSets": null,
     "defaultReps": "time_or_distance",
     "defaultRest": null,
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "How To: Incline Treadmill Walk (12-3-30 Workout)",
+      "url": "https://www.youtube.com/watch?v=NAsObfFJXvE",
+      "source": null
+    },
     "recommendedSearchQuery": "treadmill walking warm up pace",
     "coachNotes": [],
     "beginnerInstructions": []

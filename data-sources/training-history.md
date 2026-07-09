@@ -43,30 +43,30 @@ Below is a normalized app-database version of your training history and coaching
 
 | slug | name | category | movement_pattern | equipment | difficulty | primary_muscles | secondary_muscles | default_sets | default_reps | default_rest | media_reference | recommended_search_query |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | --: | :-- | :-- | :-- | :-- |
-| flat-db-bench-press | Flat DB Bench Press | strength | horizontal_push | dumbbells, flat_bench | beginner_intermediate | chest | front_delts, triceps | 3-4 | 8-12 | 90s | null | `flat dumbbell bench press form` |
-| seated-row | Seated Row | strength | horizontal_pull | row_machine_or_cable | beginner_intermediate | mid_back, lats | rear_delts, biceps | 3-4 | 8-10 | 75-90s | null | `seated row machine proper form` |
-| lat-pulldown | Lat Pulldown | strength | vertical_pull | lat_pulldown_machine | beginner_intermediate | lats | upper_back, biceps | 3-4 | 8-10 | 75-90s | null | `lat pulldown chest up form` |
-| db-shoulder-press | DB Shoulder Press | strength | vertical_push | dumbbells, bench | beginner_intermediate | delts | triceps, upper_chest | 2-4 | 8-10 | 75-90s | null | `seated dumbbell shoulder press form` |
-| cable-lateral-raise | Cable Lateral Raise | accessory | shoulder_abduction | cable_machine | beginner | lateral_delts | upper_traps | 2-3 | 10-15 | 60s | null | `cable lateral raise form` |
-| cable-triceps-pressdown | Cable Triceps Pressdown | accessory | elbow_extension | cable_machine | beginner | triceps | shoulders_stabilizers | 2-3 | 10-12 | 60s | null | `cable triceps pressdown form` |
-| db-hammer-curl | DB Hammer Curl | accessory | elbow_flexion | dumbbells | beginner | brachialis, biceps | forearms | 2-3 | 10-12 | 60s | null | `hammer curl dumbbell form` |
+| flat-db-bench-press | Flat DB Bench Press | strength | horizontal_push | dumbbells, flat_bench | beginner_intermediate | chest | front_delts, triceps | 3-4 | 8-12 | 90s | [How to Dumbbell Flat Bench Press - Form Tutorial](https://www.youtube.com/watch?v=i1fywF_g-1U) | `flat dumbbell bench press form` |
+| seated-row | Seated Row | strength | horizontal_pull | row_machine_or_cable | beginner_intermediate | mid_back, lats | rear_delts, biceps | 3-4 | 8-10 | 75-90s | [Seated Cable Row - Exercise Tutorial](https://www.youtube.com/watch?v=6hvQh3muYB8) | `seated row machine proper form` |
+| lat-pulldown | Lat Pulldown | strength | vertical_pull | lat_pulldown_machine | beginner_intermediate | lats | upper_back, biceps | 3-4 | 8-10 | 75-90s | [How to do Lat Pulldowns](https://www.youtube.com/watch?v=SALxEARiMkw) | `lat pulldown chest up form` |
+| db-shoulder-press | DB Shoulder Press | strength | vertical_push | dumbbells, bench | beginner_intermediate | delts | triceps, upper_chest | 2-4 | 8-10 | 75-90s | [Dumbbell Shoulder Press - Exercise Guide](https://www.youtube.com/watch?v=0JfYxMRsUCQ) | `seated dumbbell shoulder press form` |
+| cable-lateral-raise | Cable Lateral Raise | accessory | shoulder_abduction | cable_machine | beginner | lateral_delts | upper_traps | 2-3 | 10-15 | 60s | [How to PROPERLY Cable Lateral Raise](https://www.youtube.com/watch?v=qitQHqNZbeM) | `cable lateral raise form` |
+| cable-triceps-pressdown | Cable Triceps Pressdown | accessory | elbow_extension | cable_machine | beginner | triceps | shoulders_stabilizers | 2-3 | 10-12 | 60s | [Cable Triceps Pushdown: 3 Golden Rules](https://www.youtube.com/watch?v=_w-HpW70nSQ) | `cable triceps pressdown form` |
+| db-hammer-curl | DB Hammer Curl | accessory | elbow_flexion | dumbbells | beginner | brachialis, biceps | forearms | 2-3 | 10-12 | 60s | [Dumbbell Hammer Curls Tutorial](https://www.youtube.com/watch?v=4BRAf2BajWw) | `hammer curl dumbbell form` |
 | panatta-chest-press | Panatta Chest Press | machine_strength | horizontal_push | panatta_machine | beginner_intermediate | chest | triceps, front_delts | 2-4 | 10 | null | null | `panatta chest press form` |
 | pectoral-machine | Pectoral Machine | machine_strength | chest_isolation_or_press | machine | beginner | chest | front_delts | 2-3 | 10-20 | null | null | `pectoral machine exercise form` |
 | hanging-knee-raise | Hanging Knee Raise | core | trunk_flexion | hanging_station | beginner_intermediate | abs | hip_flexors, grip | 2 | 10 | 45-60s | null | `hanging knee raise form` |
 | rowing-machine | Rowing Machine | conditioning | cyclical_full_body_pull | rower | beginner | posterior_chain, back | legs, arms, cardio_system | null | time_or_strokes | null | null | `indoor rowing machine technique` |
-| leg-press | Leg Press | strength | squat_pattern | leg_press_machine | beginner_intermediate | quads, glutes | adductors | 4 | 10 | 90s | null | `leg press knees over toes form` |
-| leg-curl | Seated or Lying Leg Curl | accessory | knee_flexion | leg_curl_machine | beginner | hamstrings | calves | 3 | 10-12 | 60-75s | null | `leg curl machine proper form` |
-| db-romanian-deadlift | DB Romanian Deadlift | strength | hip_hinge | dumbbells | beginner_intermediate | hamstrings, glutes | spinal_erectors, grip | 3 | 10 | 90s | null | `dumbbell romanian deadlift form` |
-| standing-calf-raise | Standing Calf Raise | accessory | ankle_plantarflexion | calf_raise_machine | beginner | calves | foot_stabilizers | 3 | 12-15 | 60s | null | `standing calf raise form` |
-| glute-bridge | Glute Bridge | accessory | hip_extension | floor | beginner | glutes | hamstrings, core | 2 | 12 | 45-60s | null | `glute bridge form` |
+| leg-press | Leg Press | strength | squat_pattern | leg_press_machine | beginner_intermediate | quads, glutes | adductors | 4 | 10 | 90s | [How to PROPERLY Leg Press](https://www.youtube.com/watch?v=K5n2vg3oZa4) | `leg press knees over toes form` |
+| leg-curl | Seated or Lying Leg Curl | accessory | knee_flexion | leg_curl_machine | beginner | hamstrings | calves | 3 | 10-12 | 60-75s | [Exercise Tutorial: Technogym Seated Leg Curl Machine](https://www.youtube.com/watch?v=IOufFLwNOTU) | `leg curl machine proper form` |
+| db-romanian-deadlift | DB Romanian Deadlift | strength | hip_hinge | dumbbells | beginner_intermediate | hamstrings, glutes | spinal_erectors, grip | 3 | 10 | 90s | [How to do romanian deadlifts safely](https://www.youtube.com/watch?v=ZEnWV4kguKc) | `dumbbell romanian deadlift form` |
+| standing-calf-raise | Standing Calf Raise | accessory | ankle_plantarflexion | calf_raise_machine | beginner | calves | foot_stabilizers | 3 | 12-15 | 60s | [Standing Calf Raise - Exercise Tutorial](https://www.youtube.com/watch?v=EmyjIRHl3CU) | `standing calf raise form` |
+| glute-bridge | Glute Bridge | accessory | hip_extension | floor | beginner | glutes | hamstrings, core | 2 | 12 | 45-60s | [How To Do A Glute Bridge](https://www.youtube.com/watch?v=wPM8icPu6H8) | `glute bridge form` |
 | cable-crunch | Cable Crunch | core | trunk_flexion | cable_machine | beginner | abs | obliques | 2-3 | 12 | 45-60s | null | `cable crunch form` |
-| dead-bug | Dead Bug | core | anti_extension | floor | beginner | deep_core, abs | hip_flexors, shoulder_stabilizers | 2 | 8_side | 30s | null | `dead bug exercise tutorial` |
-| scapular-push-up | Scapular Push-up | warmup | scapular_control | floor | beginner | serratus_anterior | chest, shoulders | 2 | 10 | 30-45s | null | `scapular push up form` |
-| band-pull-apart | Band Pull-Apart | warmup | scapular_retraction | resistance_band | beginner | rear_delts, upper_back | rotator_cuff | 2 | 15 | 30-45s | null | `band pull apart form` |
-| arm-circles | Arm Circles | warmup | shoulder_mobility | bodyweight | beginner | shoulders | upper_back | 1-2 | 15_each | null | null | `arm circles shoulder warm up` |
-| wrist-circles-finger-pumps | Wrist Circles + Finger Pumps | mobility | wrist_mobility | bodyweight | beginner | wrists, forearms | hands | 1 | 1-2_min | null | null | `wrist warm up for animal flow` |
+| dead-bug | Dead Bug | core | anti_extension | floor | beginner | deep_core, abs | hip_flexors, shoulder_stabilizers | 2 | 8_side | 30s | [How to PROPERLY Do Deadbugs](https://www.youtube.com/watch?v=lqnuY3wiBzA) | `dead bug exercise tutorial` |
+| scapular-push-up | Scapular Push-up | warmup | scapular_control | floor | beginner | serratus_anterior | chest, shoulders | 2 | 10 | 30-45s | [Exercise With an Athletic Trainer: Scapular Pushups](https://www.youtube.com/watch?v=LeMk15TN0No) | `scapular push up form` |
+| band-pull-apart | Band Pull-Apart | warmup | scapular_retraction | resistance_band | beginner | rear_delts, upper_back | rotator_cuff | 2 | 15 | 30-45s | [How to Do Band Pull-Aparts (Shoulder + Upper Back Strength)](https://www.youtube.com/watch?v=ZAqlGLJkeZU) | `band pull apart form` |
+| arm-circles | Arm Circles | warmup | shoulder_mobility | bodyweight | beginner | shoulders | upper_back | 1-2 | 15_each | null | [Workout Warm-Up - Arm Circles](https://www.youtube.com/watch?v=mwDgFY86zck) | `arm circles shoulder warm up` |
+| wrist-circles-finger-pumps | Wrist Circles + Finger Pumps | mobility | wrist_mobility | bodyweight | beginner | wrists, forearms | hands | 1 | 1-2_min | null | [Animal Flow Tutorial: Wrist Mobilizations](https://www.youtube.com/watch?v=I9bYCIfG-go) | `wrist warm up for animal flow` |
 | beast-rock | Beast Rock | animal_flow_prep | quadrupedal_activation | floor | beginner | core, shoulders | wrists, hips | 2 | 20s | 30s | null | `beast rock animal flow` |
-| treadmill-walk | Treadmill Walk | conditioning | steady_state_gait | treadmill | beginner | legs, cardio_system | calves, core | null | time_or_distance | null | null | `treadmill walking warm up pace` |
+| treadmill-walk | Treadmill Walk | conditioning | steady_state_gait | treadmill | beginner | legs, cardio_system | calves, core | null | time_or_distance | null | [How To: Incline Treadmill Walk (12-3-30 Workout)](https://www.youtube.com/watch?v=NAsObfFJXvE) | `treadmill walking warm up pace` |
 | cooldown-walk | Cooldown Walk | conditioning | steady_state_gait | treadmill_or_floor | beginner | legs, cardio_system | calves | null | time | null | null | `post workout cooldown walk pace` |
 | leg-swings | Leg Swings | warmup | hip_mobility | bodyweight | beginner | hip_flexors, hamstrings | glutes, adductors | 1-2 | 10-15_each | null | null | `leg swings dynamic warm up` |
 | bodyweight-squat | Bodyweight Squat | warmup | squat_pattern | bodyweight | beginner | quads, glutes | hamstrings, core | 1-2 | 10-15 | null | null | `bodyweight squat warm up form` |
@@ -85,9 +85,24 @@ All Animal Flow uses quadrupedal loading, contralateral coordination, wrist mobi
 | beast-side-kickthrough | Side Kickthrough | switch_transition | animal_flow | beginner_intermediate | rotational_power, shoulder_stability, hip_mobility | Start from Beast and move slowly one side at a time. | straight_support_arm, shoulder_stack, heel_pivot, long_kick | bent_support_arm, rushed_rotation, no_pivot | slow_reps -> linked_reps -> levitating_side_kickthrough [^1] | [Animal Flow Side Kickthrough](https://www.youtube.com/watch?v=kPHVAKZ0x90) [^1] | `animal flow side kickthrough tutorial` |
 | table-hand-foot-tap-hip-slide | Table Hand-Foot Tap + Hip Slide | mobility_transition | primal_movement | beginner | core, shoulders, hamstrings, coordination | Start with taps only before adding the hip slide. | hips_active, opposite_hand_to_foot, move_slowly | hips_drop, rushing | taps_only -> taps_plus_slide -> longer_intervals | null | `animal flow tabletop opposite hand foot tap hip slide` |
 | ninja-turn | Ninja Turn | transition | primal_movement | beginner_intermediate | coordination, trunk_control, shoulder_support | Break the move into phases instead of rushing the turn. | hand_support, controlled_rotation | momentum_only, unstable_hands | segmented_turn -> continuous_transition | null | `animal flow ninja turn transition tutorial` |
-| knee-forward-squat-tap | Knee-Forward Squat Tap | mobility_drill | lower_mobility | beginner | knee_capacity, quads, balance | Use a small range first and keep control through the foot. | smooth_knee_travel, balance, control | knee_collapse, loss_of_balance | short_range -> deeper_range -> longer_sets | null | `knee forward squat tap mobility drill` |
-| scapular-push-up-technique | Scapular Push-up Technique | prep_control | shoulder_prep | beginner | serratus_control, scapular_mobility | Move only the shoulder blades, not the elbows. | locked_elbows, neck_relaxed | elbow_bending, shrugging | incline_version -> floor_version -> higher_reps | null | `scapular push up technique` |
-| wrist-mobilization | Wrist Mobilization | mobility_prep | animal_flow | beginner | wrist_tolerance, prep_for_loading | Start with gentle circles before loaded positions. | gradual_range, no_sharp_pain | skipping_prep, aggressive_loading | circles -> loaded_beast_prep | null | `wrist warm up quadrupedal training` |
+| knee-forward-squat-tap | Knee-Forward Squat Tap | mobility_drill | lower_mobility | beginner | knee_capacity, quads, balance | Use a small range first and keep control through the foot. | smooth_knee_travel, balance, control | knee_collapse, loss_of_balance | short_range -> deeper_range -> longer_sets | [Knee Tap Squats - hip mobility exercise](https://www.youtube.com/watch?v=D5Mq3ysh7pA) | `knee forward squat tap mobility drill` |
+| scapular-push-up-technique | Scapular Push-up Technique | prep_control | shoulder_prep | beginner | serratus_control, scapular_mobility | Move only the shoulder blades, not the elbows. | locked_elbows, neck_relaxed | elbow_bending, shrugging | incline_version -> floor_version -> higher_reps | [Exercise With an Athletic Trainer: Scapular Pushups](https://www.youtube.com/watch?v=LeMk15TN0No) | `scapular push up technique` |
+| wrist-mobilization | Wrist Mobilization | mobility_prep | animal_flow | beginner | wrist_tolerance, prep_for_loading | Start with gentle circles before loaded positions. | gradual_range, no_sharp_pain | skipping_prep, aggressive_loading | circles -> loaded_beast_prep | [Animal Flow Tutorial: Wrist Mobilizations](https://www.youtube.com/watch?v=I9bYCIfG-go) | `wrist warm up quadrupedal training` |
+| crab-reach | Crab Reach | extension_reach | animal_flow | beginner_intermediate | shoulder_mobility, thoracic_rotation, glute_activation | Practice three-point bridge first before adding the reach. | drive_hips_up, squeeze_glute_at_top, head_follows_hand | sagging_hips, skipped_head_turn, rushed_return | three_point_bridge -> single_reach -> full_flowing_crab_reach [^1] | [Animal Flow Crab Reach](https://www.youtube.com/watch?v=GzeyBUJdWw0) [^1] | `animal flow crab reach tutorial` |
+
+| underswitch | Underswitch | switch_transition | animal_flow | beginner_intermediate | rotational_control, shoulder_stability, hip_mobility | Break the transition into two slow phases before linking it. | continuous_hip_rotation, stable_support_leg, controlled_pivot | rushed_pivot, hips_leading_late, collapsed_support_arm | phased_reps -> linked_reps -> flowing_transition | [Animal Flow Movement Tutorial: Underswitch](https://www.youtube.com/watch?v=JIKPCgIZh7E) | `animal flow underswitch tutorial` |
+| thoracic-rotation | Thoracic Rotation | mobility_drill | lower_mobility | beginner | thoracic_mobility, rotational_control | Move slowly and keep the hips square throughout. | hips_stay_square, eyes_follow_hand, slow_control | rotating_from_hips, rushing_the_reps | short_range -> full_range -> loaded_variation | [11 Thoracic Spine Rotation Mobility Exercises](https://www.youtube.com/watch?v=h54us18qc20) | `thoracic rotation mobility drill` |
+| pigeon-pose | Pigeon Pose | mobility_drill | lower_mobility | beginner | hip_mobility, hip_flexor_length | Only go as deep as feels comfortable, don't force range. | hips_stay_level, steady_breathing, front_hip_stays_closed | hips_rolling_open, forcing_depth, holding_breath | shallow_hold -> deeper_hold -> longer_duration | [How to do PIGEON Pose for beginners](https://www.youtube.com/watch?v=46phRH_09yM) | `pigeon pose hip flexor stretch` |
+| deep-squat-hold | Deep Squat Hold | mobility_drill | lower_mobility | beginner | hip_mobility, ankle_mobility, squat_capacity | Use a wall or support in front of you if balance is difficult. | heels_stay_down, chest_lifted, knees_pressed_out | heels_lifting, rounded_spine, forcing_the_hold | supported_hold -> unsupported_hold -> longer_duration | [How to Deep Squat Hold](https://www.youtube.com/watch?v=0wzrgyAurT8) | `deep squat hold mobility` |
+| spinal-wave | Spinal Wave | flow_drill | animal_flow | beginner_intermediate | spinal_mobility, segmental_control | Move slowly at first to feel each segment of the spine. | wave_starts_at_hips, arms_stay_stable, continuous_motion | rushing_the_wave, moving_from_arms_not_spine | segmented_wave -> continuous_wave -> flowing_wave | [Beast Wave Tutorial](https://www.youtube.com/watch?v=JQUf-7NJ3KY) | `spinal wave primal movement` |
+
+Added during this session (2026-07-09): Crab Reach, Underswitch, Thoracic Rotation, Pigeon Pose,
+Deep Squat Hold, and Spinal Wave were requested for the full UI rebuild but had no catalog entry
+yet. Crab Reach's execution steps came directly from the user. The other five are common,
+publicly-documented movements (not proprietary coaching content), so their execution steps below
+were drafted by the assistant rather than pulled from this source — each carries an explicit
+coach_notes flag saying so, and should be reviewed/edited by the user before being treated as
+verified coaching content the way the rest of this catalog is.
 
 Animal Flow is organized around six components—wrist mobilizations, activations, form-specific stretches, traveling forms, switches/transitions, and flows—so your movement-technique catalog should support that taxonomy separately from standard lifting exercises.[^1]
 
@@ -341,6 +356,290 @@ This schema keeps exercise records normalized and lets templates reference exerc
 }
 ```
 
+
+### Sample movement-technique record
+
+```json
+{
+  "slug": "static-beast",
+  "execution_steps": [
+    "Start on all fours: hands under shoulders, knees under hips, fingers spread wide.",
+    "Tuck your toes under and brace your core, pulling belly button toward spine.",
+    "Corkscrew the arms outward so the pit of each elbow faces forward.",
+    "Press hands into the floor and lift the knees exactly one inch off the ground.",
+    "Hold the position: knees low, hips level, spine neutral.",
+    "Breathe steadily throughout — do not hold your breath."
+  ]
+}
+```
+
+### Sample movement-technique record
+
+```json
+{
+  "slug": "table-hand-foot-tap-hip-slide",
+  "execution_steps": [
+    "Sit with knees bent, feet flat on the floor, hands planted behind the hips.",
+    "Lift into the crab (table top) position.",
+    "Lift one hand and the opposite foot, and tap them together above the body.",
+    "Lower back to the crab position with control.",
+    "Then slide the hips side to side while staying in a low crab position (the hip slide).",
+    "Breathe naturally throughout."
+  ]
+}
+```
+
+### Sample movement-technique record
+
+```json
+{
+  "slug": "wrist-mobilization",
+  "execution_steps": [
+    "Start kneeling or standing with hands in a prayer position.",
+    "Roll the wrists in full circles: 10 reps each direction.",
+    "Spread the fingers wide, press the palms flat on the floor, and make small waves through the hands.",
+    "Place the hands on the floor with fingertips pointing back toward the knees and gently shift weight back.",
+    "Rotate the fingertips to point sideways, then forward, shifting weight through each position.",
+    "Finish with gentle fingertip push-ups: fingers on the ground, pulsing gently."
+  ],
+  "coach_notes": [
+    "total duration 2 to 3 minutes",
+    "beginner: gentle rolls only, avoid pain",
+    "advanced: full floor wrist-loading positions"
+  ]
+}
+```
+
+### Sample movement-technique record
+
+```json
+{
+  "slug": "scapular-push-up-technique",
+  "execution_steps": [
+    "Start in a high plank position: hands under shoulders, body in a straight line.",
+    "Keep the arms straight throughout — this is not a regular push-up.",
+    "Squeeze the shoulder blades together (retraction): the chest drops slightly between the arms.",
+    "Push the shoulder blades apart (protraction): the upper back rounds slightly.",
+    "Control both movements with a slow tempo, about 3 seconds each direction.",
+    "Breathe in on retraction, out on protraction."
+  ],
+  "beginner_version": [
+    "Do the movement from the knees instead of a full plank."
+  ],
+  "progression_version": [
+    "knee_version",
+    "full_plank_version",
+    "pause_at_full_protraction"
+  ]
+}
+```
+
+### Sample movement-technique record
+
+```json
+{
+  "slug": "crab-reach",
+  "execution_steps": [
+    "Sit with knees bent, feet flat, hands behind the hips with fingers pointing back or sideways.",
+    "Press through the hands and feet to lift the hips off the floor into crab position.",
+    "From crab, bring one arm across the body with the elbow bent, thumb near the nose.",
+    "Drive the hips up high, squeezing the glutes, then reach that arm overhead toward the ground.",
+    "Turn the head to follow the reaching hand.",
+    "Return along the same path: the hand comes back first, then the hips lower."
+  ],
+  "key_cues": [
+    "drive hips up",
+    "squeeze glute at the top",
+    "head follows the hand",
+    "control the return"
+  ],
+  "common_mistakes": [
+    "letting the hips sag low",
+    "skipping the head turn",
+    "rushing the return path"
+  ],
+  "beginner_version": [
+    "Practice the three-point bridge first, without the reach."
+  ],
+  "progression_version": [
+    "three_point_bridge",
+    "single_reach",
+    "full_flowing_crab_reach_both_sides"
+  ],
+  "media_reference": {
+    "title": "Animal Flow Crab Reach",
+    "url": "https://www.youtube.com/watch?v=GzeyBUJdWw0",
+    "source": null
+  }
+}
+```
+
+### Sample exercise record
+
+```json
+{
+  "slug": "scapular-push-up",
+  "execution_steps": [
+    "Start in a high plank position: hands under shoulders, body in a straight line.",
+    "Keep the arms straight throughout — this is not a regular push-up.",
+    "Squeeze the shoulder blades together (retraction): the chest drops slightly between the arms.",
+    "Push the shoulder blades apart (protraction): the upper back rounds slightly.",
+    "Control both movements with a slow tempo, about 3 seconds each direction.",
+    "Breathe in on retraction, out on protraction."
+  ],
+  "cues": [
+    "arms stay straight",
+    "slow 3 second tempo each way",
+    "breathe with the movement"
+  ],
+  "mistakes": [
+    "bending the elbows",
+    "shrugging instead of retracting/protracting",
+    "moving too fast to control"
+  ],
+  "regressions": [
+    "do the movement from the knees instead of a full plank"
+  ],
+  "progressions": [
+    "add a pause at full protraction"
+  ]
+}
+```
+
+### Sample movement-technique record
+
+```json
+{
+  "slug": "ninja-turn",
+  "execution_steps": [
+    "Start in Beast position with the knees hovering low.",
+    "Shift weight into the hands and hop or step both feet outside the hands at the same time.",
+    "Land in a low crouched \"ninja\" position, feet flat, knees bent, facing a new direction.",
+    "Keep the chest up and the hands hovering, ready to catch balance.",
+    "Reverse the same path to return to Beast, or keep rotating to link into a flow.",
+    "Move with control before adding speed."
+  ],
+  "coach_notes": [
+    "AI-drafted execution steps — review before relying on this as coaching content.",
+    "the user's original description of this movement was cut off mid-sentence; these steps complete it from standard Animal Flow technique, not from the user's own notes"
+  ]
+}
+```
+
+### Sample movement-technique record
+
+```json
+{
+  "slug": "knee-forward-squat-tap",
+  "execution_steps": [
+    "Start standing with feet hip-width apart.",
+    "Shift weight onto one leg and bend that knee, driving it forward over the toes into a mini squat.",
+    "Tap the opposite knee or foot lightly forward for balance, keeping the torso upright.",
+    "Push back through the working leg to return to standing.",
+    "Keep the movement slow and controlled, tracking the knee in line with the foot.",
+    "Repeat on the other side."
+  ],
+  "coach_notes": [
+    "AI-drafted execution steps — review before relying on this as coaching content.",
+    "linked video is the closest match found, not an exact match for this specific drill"
+  ]
+}
+```
+
+### Sample movement-technique record
+
+```json
+{
+  "slug": "underswitch",
+  "execution_steps": [
+    "Start in Beast position with the knees hovering low.",
+    "Lift one hand and reach it underneath the body toward the opposite side, rotating the torso.",
+    "As the hand plants on the far side, pivot the hips and let the body rotate into Crab position.",
+    "Keep the support leg stable and the movement continuous through the hips.",
+    "Reverse the same path to switch back from Crab to Beast.",
+    "Move slowly at first, keeping the shoulders and hips moving in sync."
+  ],
+  "coach_notes": [
+    "AI-drafted execution steps — review before relying on this as coaching content."
+  ]
+}
+```
+
+### Sample movement-technique record
+
+```json
+{
+  "slug": "thoracic-rotation",
+  "execution_steps": [
+    "Start on all fours: hands under shoulders, knees under hips.",
+    "Reach one arm underneath the body, rotating the torso and resting the shoulder and ear toward the floor.",
+    "Hold briefly, feeling the stretch through the upper back.",
+    "Reverse the motion, rotating the same arm up toward the ceiling, following it with your eyes.",
+    "Keep the hips square and stationary throughout — the rotation comes from the upper spine.",
+    "Repeat for reps, then switch sides."
+  ],
+  "coach_notes": [
+    "AI-drafted execution steps — review before relying on this as coaching content."
+  ]
+}
+```
+
+### Sample movement-technique record
+
+```json
+{
+  "slug": "pigeon-pose",
+  "execution_steps": [
+    "Start on all fours, then bring one knee forward and place it behind the same-side wrist, angling the shin across the body.",
+    "Extend the opposite leg straight back behind you, hips square to the front.",
+    "Walk the hands forward and lower the torso toward the floor as far as is comfortable.",
+    "Keep the hips level — avoid letting the front hip roll open.",
+    "Hold and breathe steadily, relaxing deeper into the stretch with each exhale.",
+    "Return to all fours and repeat on the other side."
+  ],
+  "coach_notes": [
+    "AI-drafted execution steps — review before relying on this as coaching content."
+  ]
+}
+```
+
+### Sample movement-technique record
+
+```json
+{
+  "slug": "deep-squat-hold",
+  "execution_steps": [
+    "Stand with feet slightly wider than shoulder-width, toes turned out slightly.",
+    "Lower into a full squat, hips dropping below knee height while keeping the heels on the floor.",
+    "Bring the elbows inside the knees and gently press the knees outward with the elbows.",
+    "Keep the chest lifted and the spine as tall as possible.",
+    "Hold the position, breathing steadily, and rock gently side to side to open the hips.",
+    "Use a wall or support in front of you if balance is difficult at first."
+  ],
+  "coach_notes": [
+    "AI-drafted execution steps — review before relying on this as coaching content."
+  ]
+}
+```
+
+### Sample movement-technique record
+
+```json
+{
+  "slug": "spinal-wave",
+  "execution_steps": [
+    "Start in Beast position with the knees hovering low.",
+    "Begin the wave at the hips, tucking them under and rounding the lower back.",
+    "Let the wave travel up the spine, rounding through the mid and upper back in sequence.",
+    "Continue the motion into the neck and head, then reverse the wave from the head back down through the spine.",
+    "Keep the arms stable and let the movement flow through the spine, not the limbs.",
+    "Move slowly at first to feel each segment of the spine before increasing speed."
+  ],
+  "coach_notes": [
+    "AI-drafted execution steps — review before relying on this as coaching content."
+  ]
+}
+```
 
 ### Sample workout template record
 

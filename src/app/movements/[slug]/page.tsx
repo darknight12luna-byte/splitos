@@ -4,10 +4,9 @@ import { getTechniqueBySlug } from "@/lib/training/catalog";
 import { getItemHistory } from "@/lib/training/history";
 import { Card } from "@/components/ui/Card";
 import { ItemHistoryCard } from "@/components/library/ItemHistoryCard";
-
-function youtubeSearchUrl(query: string) {
-  return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
-}
+import { WatchAndLearn } from "@/components/WatchAndLearn";
+import { formatLabels } from "@/lib/formatLabel";
+import { extractYouTubeId } from "@/lib/youtube";
 
 function ListOrPlaceholder({ items }: { items: string[] }) {
   if (items.length === 0) {
@@ -71,7 +70,7 @@ export default async function MovementDetailPage({
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
           What It Trains
         </h2>
-        <p className="text-sm">{technique.whatItTrains.join(", ") || "—"}</p>
+        <p className="text-sm">{formatLabels(technique.whatItTrains).join(", ") || "—"}</p>
       </Card>
 
       <Card className="space-y-2">
@@ -83,14 +82,14 @@ export default async function MovementDetailPage({
 
       <Card className="space-y-2">
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">Key Cues</h2>
-        <ListOrPlaceholder items={technique.keyCues} />
+        <ListOrPlaceholder items={formatLabels(technique.keyCues)} />
       </Card>
 
       <Card className="space-y-2">
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
           Common Mistakes
         </h2>
-        <ListOrPlaceholder items={technique.commonMistakes} />
+        <ListOrPlaceholder items={formatLabels(technique.commonMistakes)} />
       </Card>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -104,7 +103,7 @@ export default async function MovementDetailPage({
           <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
             Progression Path
           </h2>
-          <ListOrPlaceholder items={technique.progressionVersion} />
+          <ListOrPlaceholder items={formatLabels(technique.progressionVersion)} />
         </Card>
       </div>
 
@@ -117,34 +116,14 @@ export default async function MovementDetailPage({
         </Card>
       )}
 
-      <Card>
-        {technique.mediaReference?.url ? (
-          <div>
-            <a
-              href={technique.mediaReference.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent-blue underline"
-            >
-              ▶ {technique.mediaReference.title ?? "Watch reference"}
-            </a>
-            {technique.mediaReference.source && (
-              <p className="mt-1 text-xs text-muted">
-                Source: {technique.mediaReference.source}
-              </p>
-            )}
-          </div>
-        ) : (
-          <a
-            href={youtubeSearchUrl(technique.recommendedSearchQuery)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent-blue underline"
-          >
-            🔍 Search &quot;{technique.recommendedSearchQuery}&quot;
-          </a>
-        )}
-      </Card>
+      <WatchAndLearn
+        videoId={extractYouTubeId(technique.mediaReference?.url)}
+        title={technique.mediaReference?.title ?? technique.name}
+        tiktokQuery={technique.recommendedSearchQuery}
+      />
+      {technique.mediaReference?.source && (
+        <p className="-mt-3 px-1 text-xs text-muted">Source: {technique.mediaReference.source}</p>
+      )}
     </div>
   );
 }

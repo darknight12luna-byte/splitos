@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import clsx from "clsx";
 import { logItemActual, toggleHighlight, type ActualValuesInput } from "@/lib/actions";
 import type { ResolvedItem } from "@/lib/training/catalog";
+import { formatLabels } from "@/lib/formatLabel";
 
 const KIND_ICON: Record<string, string> = {
   exercise: "🏋️",
@@ -385,7 +386,7 @@ export function SessionItemLogCard(props: Props) {
               {cues.length > 0 && (
                 <div>
                   <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">Cues</p>
-                  <p className="text-foreground/90">{cues.join(" · ")}</p>
+                  <p className="text-foreground/90">{formatLabels(cues).join(" · ")}</p>
                 </div>
               )}
               {mistakes.length > 0 && (
@@ -393,7 +394,7 @@ export function SessionItemLogCard(props: Props) {
                   <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">
                     Common mistakes
                   </p>
-                  <p className="text-accent-red/90">{mistakes.join(" · ")}</p>
+                  <p className="text-accent-red/90">{formatLabels(mistakes).join(" · ")}</p>
                 </div>
               )}
               {regressions.length > 0 && (
@@ -401,7 +402,7 @@ export function SessionItemLogCard(props: Props) {
                   <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">
                     {ex ? "Regressions" : "Beginner version"}
                   </p>
-                  <p className="text-foreground/90">{regressions.join(" · ")}</p>
+                  <p className="text-foreground/90">{formatLabels(regressions).join(" · ")}</p>
                 </div>
               )}
               {progressions.length > 0 && (
@@ -409,7 +410,7 @@ export function SessionItemLogCard(props: Props) {
                   <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">
                     Progressions
                   </p>
-                  <p className="text-foreground/90">{progressions.join(" → ")}</p>
+                  <p className="text-foreground/90">{formatLabels(progressions).join(" → ")}</p>
                 </div>
               )}
               {media?.url ? (

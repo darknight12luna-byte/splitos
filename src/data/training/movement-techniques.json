@@ -10,7 +10,14 @@
       "shoulder_stability",
       "anti_rotation"
     ],
-    "executionSteps": [],
+    "executionSteps": [
+      "Start on all fours: hands under shoulders, knees under hips, fingers spread wide.",
+      "Tuck your toes under and brace your core, pulling belly button toward spine.",
+      "Corkscrew the arms outward so the pit of each elbow faces forward.",
+      "Press hands into the floor and lift the knees exactly one inch off the ground.",
+      "Hold the position: knees low, hips level, spine neutral.",
+      "Breathe steadily throughout — do not hold your breath."
+    ],
     "keyCues": [
       "fingers_wide",
       "shoulders_packed",
@@ -105,7 +112,14 @@
       "hamstrings",
       "coordination"
     ],
-    "executionSteps": [],
+    "executionSteps": [
+      "Sit with knees bent, feet flat on the floor, hands planted behind the hips.",
+      "Lift into the crab (table top) position.",
+      "Lift one hand and the opposite foot, and tap them together above the body.",
+      "Lower back to the crab position with control.",
+      "Then slide the hips side to side while staying in a low crab position (the hip slide).",
+      "Breathe naturally throughout."
+    ],
     "keyCues": [
       "hips_active",
       "opposite_hand_to_foot",
@@ -140,7 +154,14 @@
       "trunk_control",
       "shoulder_support"
     ],
-    "executionSteps": [],
+    "executionSteps": [
+      "Start in Beast position with the knees hovering low.",
+      "Shift weight into the hands and hop or step both feet outside the hands at the same time.",
+      "Land in a low crouched \"ninja\" position, feet flat, knees bent, facing a new direction.",
+      "Keep the chest up and the hands hovering, ready to catch balance.",
+      "Reverse the same path to return to Beast, or keep rotating to link into a flow.",
+      "Move with control before adding speed."
+    ],
     "keyCues": [
       "hand_support",
       "controlled_rotation"
@@ -160,7 +181,10 @@
     "suggestedDose": null,
     "mediaReference": null,
     "recommendedSearchQuery": "animal flow ninja turn transition tutorial",
-    "coachNotes": []
+    "coachNotes": [
+      "AI-drafted execution steps — review before relying on this as coaching content.",
+      "the user's original description of this movement was cut off mid-sentence; these steps complete it from standard Animal Flow technique, not from the user's own notes"
+    ]
   },
   {
     "slug": "knee-forward-squat-tap",
@@ -173,7 +197,14 @@
       "quads",
       "balance"
     ],
-    "executionSteps": [],
+    "executionSteps": [
+      "Start standing with feet hip-width apart.",
+      "Shift weight onto one leg and bend that knee, driving it forward over the toes into a mini squat.",
+      "Tap the opposite knee or foot lightly forward for balance, keeping the torso upright.",
+      "Push back through the working leg to return to standing.",
+      "Keep the movement slow and controlled, tracking the knee in line with the foot.",
+      "Repeat on the other side."
+    ],
     "keyCues": [
       "smooth_knee_travel",
       "balance",
@@ -193,9 +224,16 @@
     ],
     "suggestedFrequency": null,
     "suggestedDose": null,
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Knee Tap Squats - hip mobility exercise",
+      "url": "https://www.youtube.com/watch?v=D5Mq3ysh7pA",
+      "source": null
+    },
     "recommendedSearchQuery": "knee forward squat tap mobility drill",
-    "coachNotes": []
+    "coachNotes": [
+      "AI-drafted execution steps — review before relying on this as coaching content.",
+      "linked video is the closest match found, not an exact match for this specific drill"
+    ]
   },
   {
     "slug": "scapular-push-up-technique",
@@ -207,7 +245,14 @@
       "serratus_control",
       "scapular_mobility"
     ],
-    "executionSteps": [],
+    "executionSteps": [
+      "Start in a high plank position: hands under shoulders, body in a straight line.",
+      "Keep the arms straight throughout — this is not a regular push-up.",
+      "Squeeze the shoulder blades together (retraction): the chest drops slightly between the arms.",
+      "Push the shoulder blades apart (protraction): the upper back rounds slightly.",
+      "Control both movements with a slow tempo, about 3 seconds each direction.",
+      "Breathe in on retraction, out on protraction."
+    ],
     "keyCues": [
       "locked_elbows",
       "neck_relaxed"
@@ -217,16 +262,20 @@
       "shrugging"
     ],
     "beginnerVersion": [
-      "Move only the shoulder blades, not the elbows."
+      "Do the movement from the knees instead of a full plank."
     ],
     "progressionVersion": [
-      "incline_version",
-      "floor_version",
-      "higher_reps"
+      "knee_version",
+      "full_plank_version",
+      "pause_at_full_protraction"
     ],
     "suggestedFrequency": null,
     "suggestedDose": null,
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Exercise With an Athletic Trainer: Scapular Pushups",
+      "url": "https://www.youtube.com/watch?v=LeMk15TN0No",
+      "source": null
+    },
     "recommendedSearchQuery": "scapular push up technique",
     "coachNotes": []
   },
@@ -240,7 +289,14 @@
       "wrist_tolerance",
       "prep_for_loading"
     ],
-    "executionSteps": [],
+    "executionSteps": [
+      "Start kneeling or standing with hands in a prayer position.",
+      "Roll the wrists in full circles: 10 reps each direction.",
+      "Spread the fingers wide, press the palms flat on the floor, and make small waves through the hands.",
+      "Place the hands on the floor with fingertips pointing back toward the knees and gently shift weight back.",
+      "Rotate the fingertips to point sideways, then forward, shifting weight through each position.",
+      "Finish with gentle fingertip push-ups: fingers on the ground, pulsing gently."
+    ],
     "keyCues": [
       "gradual_range",
       "no_sharp_pain"
@@ -258,8 +314,304 @@
     ],
     "suggestedFrequency": null,
     "suggestedDose": null,
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Animal Flow Tutorial: Wrist Mobilizations",
+      "url": "https://www.youtube.com/watch?v=I9bYCIfG-go",
+      "source": null
+    },
     "recommendedSearchQuery": "wrist warm up quadrupedal training",
+    "coachNotes": [
+      "total duration 2 to 3 minutes",
+      "beginner: gentle rolls only, avoid pain",
+      "advanced: full floor wrist-loading positions"
+    ]
+  },
+  {
+    "slug": "crab-reach",
+    "name": "Crab Reach",
+    "techniqueType": "extension_reach",
+    "parentSystem": "animal_flow",
+    "difficulty": "beginner_intermediate",
+    "whatItTrains": [
+      "shoulder_mobility",
+      "thoracic_rotation",
+      "glute_activation"
+    ],
+    "executionSteps": [
+      "Sit with knees bent, feet flat, hands behind the hips with fingers pointing back or sideways.",
+      "Press through the hands and feet to lift the hips off the floor into crab position.",
+      "From crab, bring one arm across the body with the elbow bent, thumb near the nose.",
+      "Drive the hips up high, squeezing the glutes, then reach that arm overhead toward the ground.",
+      "Turn the head to follow the reaching hand.",
+      "Return along the same path: the hand comes back first, then the hips lower."
+    ],
+    "keyCues": [
+      "drive hips up",
+      "squeeze glute at the top",
+      "head follows the hand",
+      "control the return"
+    ],
+    "commonMistakes": [
+      "letting the hips sag low",
+      "skipping the head turn",
+      "rushing the return path"
+    ],
+    "beginnerVersion": [
+      "Practice the three-point bridge first, without the reach."
+    ],
+    "progressionVersion": [
+      "three_point_bridge",
+      "single_reach",
+      "full_flowing_crab_reach_both_sides"
+    ],
+    "suggestedFrequency": null,
+    "suggestedDose": null,
+    "mediaReference": {
+      "title": "Animal Flow Crab Reach",
+      "url": "https://www.youtube.com/watch?v=GzeyBUJdWw0",
+      "source": null
+    },
+    "recommendedSearchQuery": "animal flow crab reach tutorial",
     "coachNotes": []
+  },
+  {
+    "slug": "underswitch",
+    "name": "Underswitch",
+    "techniqueType": "switch_transition",
+    "parentSystem": "animal_flow",
+    "difficulty": "beginner_intermediate",
+    "whatItTrains": [
+      "rotational_control",
+      "shoulder_stability",
+      "hip_mobility"
+    ],
+    "executionSteps": [
+      "Start in Beast position with the knees hovering low.",
+      "Lift one hand and reach it underneath the body toward the opposite side, rotating the torso.",
+      "As the hand plants on the far side, pivot the hips and let the body rotate into Crab position.",
+      "Keep the support leg stable and the movement continuous through the hips.",
+      "Reverse the same path to switch back from Crab to Beast.",
+      "Move slowly at first, keeping the shoulders and hips moving in sync."
+    ],
+    "keyCues": [
+      "continuous_hip_rotation",
+      "stable_support_leg",
+      "controlled_pivot"
+    ],
+    "commonMistakes": [
+      "rushed_pivot",
+      "hips_leading_late",
+      "collapsed_support_arm"
+    ],
+    "beginnerVersion": [
+      "Break the transition into two slow phases before linking it."
+    ],
+    "progressionVersion": [
+      "phased_reps",
+      "linked_reps",
+      "flowing_transition"
+    ],
+    "suggestedFrequency": null,
+    "suggestedDose": null,
+    "mediaReference": {
+      "title": "Animal Flow Movement Tutorial: Underswitch",
+      "url": "https://www.youtube.com/watch?v=JIKPCgIZh7E",
+      "source": null
+    },
+    "recommendedSearchQuery": "animal flow underswitch tutorial",
+    "coachNotes": [
+      "AI-drafted execution steps — review before relying on this as coaching content."
+    ]
+  },
+  {
+    "slug": "thoracic-rotation",
+    "name": "Thoracic Rotation",
+    "techniqueType": "mobility_drill",
+    "parentSystem": "lower_mobility",
+    "difficulty": "beginner",
+    "whatItTrains": [
+      "thoracic_mobility",
+      "rotational_control"
+    ],
+    "executionSteps": [
+      "Start on all fours: hands under shoulders, knees under hips.",
+      "Reach one arm underneath the body, rotating the torso and resting the shoulder and ear toward the floor.",
+      "Hold briefly, feeling the stretch through the upper back.",
+      "Reverse the motion, rotating the same arm up toward the ceiling, following it with your eyes.",
+      "Keep the hips square and stationary throughout — the rotation comes from the upper spine.",
+      "Repeat for reps, then switch sides."
+    ],
+    "keyCues": [
+      "hips_stay_square",
+      "eyes_follow_hand",
+      "slow_control"
+    ],
+    "commonMistakes": [
+      "rotating_from_hips",
+      "rushing_the_reps"
+    ],
+    "beginnerVersion": [
+      "Move slowly and keep the hips square throughout."
+    ],
+    "progressionVersion": [
+      "short_range",
+      "full_range",
+      "loaded_variation"
+    ],
+    "suggestedFrequency": null,
+    "suggestedDose": null,
+    "mediaReference": {
+      "title": "11 Thoracic Spine Rotation Mobility Exercises",
+      "url": "https://www.youtube.com/watch?v=h54us18qc20",
+      "source": null
+    },
+    "recommendedSearchQuery": "thoracic rotation mobility drill",
+    "coachNotes": [
+      "AI-drafted execution steps — review before relying on this as coaching content."
+    ]
+  },
+  {
+    "slug": "pigeon-pose",
+    "name": "Pigeon Pose",
+    "techniqueType": "mobility_drill",
+    "parentSystem": "lower_mobility",
+    "difficulty": "beginner",
+    "whatItTrains": [
+      "hip_mobility",
+      "hip_flexor_length"
+    ],
+    "executionSteps": [
+      "Start on all fours, then bring one knee forward and place it behind the same-side wrist, angling the shin across the body.",
+      "Extend the opposite leg straight back behind you, hips square to the front.",
+      "Walk the hands forward and lower the torso toward the floor as far as is comfortable.",
+      "Keep the hips level — avoid letting the front hip roll open.",
+      "Hold and breathe steadily, relaxing deeper into the stretch with each exhale.",
+      "Return to all fours and repeat on the other side."
+    ],
+    "keyCues": [
+      "hips_stay_level",
+      "steady_breathing",
+      "front_hip_stays_closed"
+    ],
+    "commonMistakes": [
+      "hips_rolling_open",
+      "forcing_depth",
+      "holding_breath"
+    ],
+    "beginnerVersion": [
+      "Only go as deep as feels comfortable, don't force range."
+    ],
+    "progressionVersion": [
+      "shallow_hold",
+      "deeper_hold",
+      "longer_duration"
+    ],
+    "suggestedFrequency": null,
+    "suggestedDose": null,
+    "mediaReference": {
+      "title": "How to do PIGEON Pose for beginners",
+      "url": "https://www.youtube.com/watch?v=46phRH_09yM",
+      "source": null
+    },
+    "recommendedSearchQuery": "pigeon pose hip flexor stretch",
+    "coachNotes": [
+      "AI-drafted execution steps — review before relying on this as coaching content."
+    ]
+  },
+  {
+    "slug": "deep-squat-hold",
+    "name": "Deep Squat Hold",
+    "techniqueType": "mobility_drill",
+    "parentSystem": "lower_mobility",
+    "difficulty": "beginner",
+    "whatItTrains": [
+      "hip_mobility",
+      "ankle_mobility",
+      "squat_capacity"
+    ],
+    "executionSteps": [
+      "Stand with feet slightly wider than shoulder-width, toes turned out slightly.",
+      "Lower into a full squat, hips dropping below knee height while keeping the heels on the floor.",
+      "Bring the elbows inside the knees and gently press the knees outward with the elbows.",
+      "Keep the chest lifted and the spine as tall as possible.",
+      "Hold the position, breathing steadily, and rock gently side to side to open the hips.",
+      "Use a wall or support in front of you if balance is difficult at first."
+    ],
+    "keyCues": [
+      "heels_stay_down",
+      "chest_lifted",
+      "knees_pressed_out"
+    ],
+    "commonMistakes": [
+      "heels_lifting",
+      "rounded_spine",
+      "forcing_the_hold"
+    ],
+    "beginnerVersion": [
+      "Use a wall or support in front of you if balance is difficult."
+    ],
+    "progressionVersion": [
+      "supported_hold",
+      "unsupported_hold",
+      "longer_duration"
+    ],
+    "suggestedFrequency": null,
+    "suggestedDose": null,
+    "mediaReference": {
+      "title": "How to Deep Squat Hold",
+      "url": "https://www.youtube.com/watch?v=0wzrgyAurT8",
+      "source": null
+    },
+    "recommendedSearchQuery": "deep squat hold mobility",
+    "coachNotes": [
+      "AI-drafted execution steps — review before relying on this as coaching content."
+    ]
+  },
+  {
+    "slug": "spinal-wave",
+    "name": "Spinal Wave",
+    "techniqueType": "flow_drill",
+    "parentSystem": "animal_flow",
+    "difficulty": "beginner_intermediate",
+    "whatItTrains": [
+      "spinal_mobility",
+      "segmental_control"
+    ],
+    "executionSteps": [
+      "Start in Beast position with the knees hovering low.",
+      "Begin the wave at the hips, tucking them under and rounding the lower back.",
+      "Let the wave travel up the spine, rounding through the mid and upper back in sequence.",
+      "Continue the motion into the neck and head, then reverse the wave from the head back down through the spine.",
+      "Keep the arms stable and let the movement flow through the spine, not the limbs.",
+      "Move slowly at first to feel each segment of the spine before increasing speed."
+    ],
+    "keyCues": [
+      "wave_starts_at_hips",
+      "arms_stay_stable",
+      "continuous_motion"
+    ],
+    "commonMistakes": [
+      "rushing_the_wave",
+      "moving_from_arms_not_spine"
+    ],
+    "beginnerVersion": [
+      "Move slowly at first to feel each segment of the spine."
+    ],
+    "progressionVersion": [
+      "segmented_wave",
+      "continuous_wave",
+      "flowing_wave"
+    ],
+    "suggestedFrequency": null,
+    "suggestedDose": null,
+    "mediaReference": {
+      "title": "Beast Wave Tutorial",
+      "url": "https://www.youtube.com/watch?v=JQUf-7NJ3KY",
+      "source": null
+    },
+    "recommendedSearchQuery": "spinal wave primal movement",
+    "coachNotes": [
+      "AI-drafted execution steps — review before relying on this as coaching content."
+    ]
   }
 ]

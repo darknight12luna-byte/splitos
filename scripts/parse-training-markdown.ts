@@ -219,8 +219,11 @@ function main() {
     coachNote: r.coach_note ? stripFootnote(r.coach_note) : null,
   }));
 
-  // 6. enrichment from sample records (richer detail for the few slugs that have it)
-  enrichFromSample(md, "Sample exercise record", (sample) => {
+  // 6. enrichment from sample records (richer detail for the slugs that have it).
+  // Multiple "### Sample ... record" blocks are supported — each is keyed by its
+  // own JSON `slug` field, so any catalog row can get a fully-detailed enrichment
+  // block without forcing every row's table cells to carry full sentences.
+  enrichFromAllSamples(md, "Sample exercise record", (sample) => {
     const ex = exerciseBySlug.get(sample.slug);
     if (!ex) return;
     ex.executionSteps = sample.execution_steps ?? [];
@@ -232,7 +235,7 @@ function main() {
     ex.beginnerInstructions = sample.beginner_instructions ?? [];
   });
 
-  enrichFromSample(md, "Sample movement-technique record", (sample) => {
+  enrichFromAllSamples(md, "Sample movement-technique record", (sample) => {
     const tech = techniqueBySlug.get(sample.slug);
     if (!tech) return;
     tech.executionSteps = sample.execution_steps ?? [];
@@ -252,7 +255,7 @@ function main() {
     }
   });
 
-  enrichFromSample(md, "Sample progression rule record", (sample) => {
+  enrichFromAllSamples(md, "Sample progression rule record", (sample) => {
     const rule = progressionRules.find((r) => r.slug === sample.slug);
     if (!rule) return;
     (rule as unknown as { coachNotes: string[] }).coachNotes = sample.coach_notes ?? [];
@@ -279,22 +282,26 @@ function main() {
   );
 }
 
-function enrichFromSample(
+function enrichFromAllSamples(
   md: string,
   headingText: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   apply: (sample: any) => void
 ) {
-  const headingIdx = md.indexOf(`### ${headingText}`);
-  if (headingIdx === -1) return;
-  const rest = md.slice(headingIdx);
-  const fenceStart = rest.indexOf("```json");
-  if (fenceStart === -1) return;
-  const afterFence = rest.slice(fenceStart + "```json".length);
-  const fenceEnd = afterFence.indexOf("```");
-  const jsonText = afterFence.slice(0, fenceEnd);
-  const sample = JSON.parse(jsonText);
-  apply(sample);
+  const heading = `### ${headingText}`;
+  let searchFrom = 0;
+  for (;;) {
+    const headingIdx = md.indexOf(heading, searchFrom);
+    if (headingIdx === -1) return;
+    const rest = md.slice(headingIdx);
+    const fenceStart = rest.indexOf("```json");
+    if (fenceStart === -1) return;
+    const afterFence = rest.slice(fenceStart + "```json".length);
+    const fenceEnd = afterFence.indexOf("```");
+    const jsonText = afterFence.slice(0, fenceEnd);
+    apply(JSON.parse(jsonText));
+    searchFrom = headingIdx + heading.length;
+  }
 }
 
 main();

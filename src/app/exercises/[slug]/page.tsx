@@ -4,10 +4,9 @@ import { getExerciseBySlug } from "@/lib/training/catalog";
 import { getItemHistory } from "@/lib/training/history";
 import { Card } from "@/components/ui/Card";
 import { ItemHistoryCard } from "@/components/library/ItemHistoryCard";
-
-function youtubeSearchUrl(query: string) {
-  return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
-}
+import { WatchAndLearn } from "@/components/WatchAndLearn";
+import { formatLabels } from "@/lib/formatLabel";
+import { extractYouTubeId } from "@/lib/youtube";
 
 function ListOrPlaceholder({ items }: { items: string[] }) {
   if (items.length === 0) {
@@ -73,15 +72,15 @@ export default async function ExerciseDetailPage({
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">Muscles</h2>
         <p className="text-sm">
           <span className="text-muted">Primary: </span>
-          {exercise.primaryMuscles.join(", ") || "—"}
+          {formatLabels(exercise.primaryMuscles).join(", ") || "—"}
         </p>
         <p className="text-sm">
           <span className="text-muted">Secondary: </span>
-          {exercise.secondaryMuscles.join(", ") || "—"}
+          {formatLabels(exercise.secondaryMuscles).join(", ") || "—"}
         </p>
         <p className="text-sm">
           <span className="text-muted">Equipment: </span>
-          {exercise.equipment.join(", ") || "—"}
+          {formatLabels(exercise.equipment).join(", ") || "—"}
         </p>
       </Card>
 
@@ -94,14 +93,14 @@ export default async function ExerciseDetailPage({
 
       <Card className="space-y-2">
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">Cues</h2>
-        <ListOrPlaceholder items={exercise.cues} />
+        <ListOrPlaceholder items={formatLabels(exercise.cues)} />
       </Card>
 
       <Card className="space-y-2">
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
           Common Mistakes
         </h2>
-        <ListOrPlaceholder items={exercise.mistakes} />
+        <ListOrPlaceholder items={formatLabels(exercise.mistakes)} />
       </Card>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -140,27 +139,11 @@ export default async function ExerciseDetailPage({
         </Card>
       )}
 
-      <Card>
-        {exercise.mediaReference?.url ? (
-          <a
-            href={exercise.mediaReference.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent-blue underline"
-          >
-            ▶ {exercise.mediaReference.title ?? "Watch reference"}
-          </a>
-        ) : (
-          <a
-            href={youtubeSearchUrl(exercise.recommendedSearchQuery)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent-blue underline"
-          >
-            🔍 Search &quot;{exercise.recommendedSearchQuery}&quot;
-          </a>
-        )}
-      </Card>
+      <WatchAndLearn
+        videoId={extractYouTubeId(exercise.mediaReference?.url)}
+        title={exercise.mediaReference?.title ?? exercise.name}
+        tiktokQuery={exercise.recommendedSearchQuery}
+      />
     </div>
   );
 }
