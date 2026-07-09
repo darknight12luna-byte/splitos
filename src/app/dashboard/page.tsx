@@ -8,6 +8,8 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import { WeeklySplitCard } from "@/components/WeeklySplitCard";
 import { SetsChart } from "@/components/SetsChart";
 
+export const dynamic = "force-dynamic";
+
 function sessionHref(id: string, status: string) {
   return status === "COMPLETED" || status === "SKIPPED" ? `/content?session=${id}` : `/session/${id}`;
 }

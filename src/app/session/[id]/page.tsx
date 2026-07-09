@@ -7,6 +7,8 @@ import { Card } from "@/components/ui/Card";
 import { SessionItemLogCard } from "@/components/SessionItemLogCard";
 import { SessionRunner } from "@/components/SessionRunner";
 
+export const dynamic = "force-dynamic";
+
 export default async function SessionPage({
   params,
 }: {

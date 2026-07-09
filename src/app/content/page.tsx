@@ -7,6 +7,8 @@ import { Card } from "@/components/ui/Card";
 import { CaptionBox } from "@/components/CaptionBox";
 import { SessionPicker } from "@/components/SessionPicker";
 
+export const dynamic = "force-dynamic";
+
 export default async function ContentPage({
   searchParams,
 }: {

@@ -6,6 +6,8 @@ import { Onboarding } from "@/components/Onboarding";
 import { prisma } from "@/lib/prisma";
 import "./globals.css";
 
+export const dynamic = "force-dynamic";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,19 +24,23 @@ export const metadata: Metadata = {
 };
 
 async function getTodaySessionHref(): Promise<string> {
-  const todayStart = new Date();
-  todayStart.setHours(0, 0, 0, 0);
+  try {
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
 
-  const session = await prisma.sessionLog.findFirst({
-    where: { date: { gte: todayStart } },
-    orderBy: { date: "desc" },
-    select: { id: true, status: true },
-  });
+    const session = await prisma.sessionLog.findFirst({
+      where: { date: { gte: todayStart } },
+      orderBy: { date: "desc" },
+      select: { id: true, status: true },
+    });
 
-  if (!session) return "/";
-  return session.status === "COMPLETED" || session.status === "SKIPPED"
-    ? `/content?session=${session.id}`
-    : `/session/${session.id}`;
+    if (!session) return "/";
+    return session.status === "COMPLETED" || session.status === "SKIPPED"
+      ? `/content?session=${session.id}`
+      : `/session/${session.id}`;
+  } catch {
+    return "/";
+  }
 }
 
 export default async function RootLayout({
