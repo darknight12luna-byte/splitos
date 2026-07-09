@@ -179,7 +179,11 @@
     ],
     "suggestedFrequency": null,
     "suggestedDose": null,
-    "mediaReference": null,
+    "mediaReference": {
+      "title": "Step by Step Tutorial to Master the Ninja Turn as a Beginner",
+      "url": "https://www.youtube.com/watch?v=i4ZYqyREtus",
+      "source": null
+    },
     "recommendedSearchQuery": "animal flow ninja turn transition tutorial",
     "coachNotes": [
       "AI-drafted execution steps — review before relying on this as coaching content.",
@@ -388,6 +392,7 @@
     "executionSteps": [
       "Start in Beast position with the knees hovering low.",
       "Lift one hand and reach it underneath the body toward the opposite side, rotating the torso.",
+      "Plant the reaching hand wide, outside the shoulder line, to protect the shoulder as it lands.",
       "As the hand plants on the far side, pivot the hips and let the body rotate into Crab position.",
       "Keep the support leg stable and the movement continuous through the hips.",
       "Reverse the same path to switch back from Crab to Beast.",
@@ -427,7 +432,7 @@
     "slug": "thoracic-rotation",
     "name": "Thoracic Rotation",
     "techniqueType": "mobility_drill",
-    "parentSystem": "lower_mobility",
+    "parentSystem": "upper_mobility",
     "difficulty": "beginner",
     "whatItTrains": [
       "thoracic_mobility",
@@ -581,18 +586,21 @@
       "Start in Beast position with the knees hovering low.",
       "Begin the wave at the hips, tucking them under and rounding the lower back.",
       "Let the wave travel up the spine, rounding through the mid and upper back in sequence.",
-      "Continue the motion into the neck and head, then reverse the wave from the head back down through the spine.",
+      "Continue the motion into the neck and head with a gentle nod — never force or crank the neck through the wave.",
+      "Reverse the wave from the head back down through the spine.",
       "Keep the arms stable and let the movement flow through the spine, not the limbs.",
       "Move slowly at first to feel each segment of the spine before increasing speed."
     ],
     "keyCues": [
       "wave_starts_at_hips",
       "arms_stay_stable",
-      "continuous_motion"
+      "continuous_motion",
+      "gentle_neck_never_force"
     ],
     "commonMistakes": [
       "rushing_the_wave",
-      "moving_from_arms_not_spine"
+      "moving_from_arms_not_spine",
+      "forcing_the_neck"
     ],
     "beginnerVersion": [
       "Move slowly at first to feel each segment of the spine."
@@ -611,7 +619,8 @@
     },
     "recommendedSearchQuery": "spinal wave primal movement",
     "coachNotes": [
-      "AI-drafted execution steps — review before relying on this as coaching content."
+      "AI-drafted execution steps — review before relying on this as coaching content.",
+      "keep neck movement gentle at all times — do not force range through the cervical spine"
     ]
   }
 ]

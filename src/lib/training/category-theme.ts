@@ -55,6 +55,7 @@ const PARENT_SYSTEM_THEME: Record<string, CategoryTheme> = {
   primal_movement: { color: "var(--accent-orange)", emoji: "🦍" },
   shoulder_prep: { color: "var(--accent-blue)", emoji: "🔧" },
   lower_mobility: { color: "var(--accent-green)", emoji: "🤸" },
+  upper_mobility: { color: "var(--accent-blue)", emoji: "🔄" },
 };
 
 export function getParentSystemTheme(parentSystem: string): CategoryTheme {
