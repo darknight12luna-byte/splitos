@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition, ReactNode } from "react";
 import Link from "next/link";
 import { completeSession } from "@/lib/actions";
+import { ExerciseDrawerProvider } from "@/lib/exercise-drawer-context";
 
 interface SessionSummary {
   sessionId: string;
@@ -98,24 +99,26 @@ export function SessionRunner({
   if (summary) return <CelebrationOverlay summary={summary} />;
 
   return (
-    <div className="space-y-6 pb-24">
-      {children}
-      <div className="fixed bottom-20 left-1/2 flex w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-2xl border border-border bg-surface/95 p-4 shadow-xl shadow-black/40 backdrop-blur md:bottom-4">
-        <div>
-          <p className="text-xs text-muted">Timer</p>
-          <p className="font-mono text-2xl font-bold">
-            {mm}:{ss}
-          </p>
+    <ExerciseDrawerProvider>
+      <div className="space-y-6 pb-24">
+        {children}
+        <div className="fixed bottom-20 left-1/2 flex w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-2xl border border-border bg-surface/95 p-4 shadow-xl shadow-black/40 backdrop-blur md:bottom-4">
+          <div>
+            <p className="text-xs text-muted">Timer</p>
+            <p className="font-mono text-2xl font-bold">
+              {mm}:{ss}
+            </p>
+          </div>
+          <button
+            type="button"
+            disabled={isPending}
+            onClick={finish}
+            className="rounded-xl bg-accent-blue px-6 py-3 font-bold text-background transition hover:brightness-110 disabled:opacity-50"
+          >
+            {isPending ? "Finishing…" : "Finish Session 🚀"}
+          </button>
         </div>
-        <button
-          type="button"
-          disabled={isPending}
-          onClick={finish}
-          className="rounded-xl bg-accent-blue px-6 py-3 font-bold text-background transition hover:brightness-110 disabled:opacity-50"
-        >
-          {isPending ? "Finishing…" : "Finish Session 🚀"}
-        </button>
       </div>
-    </div>
+    </ExerciseDrawerProvider>
   );
 }

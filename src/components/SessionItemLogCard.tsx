@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { logItemActual, toggleHighlight, type ActualValuesInput } from "@/lib/actions";
 import type { ResolvedItem } from "@/lib/training/catalog";
 import { formatLabels } from "@/lib/formatLabel";
+import { useExerciseDrawer } from "@/lib/exercise-drawer-context";
 
 const KIND_ICON: Record<string, string> = {
   exercise: "🏋️",
@@ -135,6 +136,7 @@ interface Props {
 
 export function SessionItemLogCard(props: Props) {
   const { itemId, resolved } = props;
+  const drawer = useExerciseDrawer();
   const [status, setStatus] = useState(props.completionStatus);
   const [isHighlight, setIsHighlight] = useState(props.isHighlight);
   const [expanded, setExpanded] = useState(false);
@@ -204,8 +206,19 @@ export function SessionItemLogCard(props: Props) {
       <div className="flex items-start gap-3">
         <span className="mt-1 text-lg">{KIND_ICON[resolved.kind]}</span>
         <div className="flex-1">
-          <button type="button" onClick={() => setExpanded((v) => !v)} className="text-left">
-            <p className="font-medium">{resolved.name}</p>
+          <button
+            type="button"
+            onClick={() =>
+              drawer.open({ slug: resolved.slug, kind: resolved.kind, name: resolved.name })
+            }
+            className="text-left"
+          >
+            <p className="flex items-center gap-1.5 font-medium">
+              {resolved.name}
+              <span className="text-xs text-muted" aria-hidden>
+                ℹ️
+              </span>
+            </p>
             {resolved.kind === "unresolved" && (
               <p className="text-xs text-muted">not yet in your catalog</p>
             )}
