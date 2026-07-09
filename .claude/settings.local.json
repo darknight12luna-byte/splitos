@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/princ/Claude/**)",
+      "Bash(npx --yes create-next-app@latest gymfit-tmp --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm --no-turbopack)",
+      "Bash(npm install *)",
+      "Bash(npx prisma *)",
+      "Bash(npm run *)",
+      "Bash(rmdir \"C:\\\\Users\\\\princ\\\\Claude\\\\gymfit-tmp\" 2>&1; echo done)",
+      "Bash(cp \"C:\\\\Users\\\\princ\\\\Downloads\\\\Now convert the extracted training history into a.md\" \"C:\\\\Users\\\\princ\\\\Claude\\\\Gymfit\\\\data-sources\\\\training-history.md\" && wc -l \"C:\\\\Users\\\\princ\\\\Claude\\\\Gymfit\\\\data-sources\\\\training-history.md\")",
+      "Bash(node -e ' *)"
+    ]
+  }
+}

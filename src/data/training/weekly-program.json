@@ -1,0 +1,42 @@
+[
+  {
+    "dayLabel": "Day 1",
+    "sessionType": "Upper Body",
+    "goal": "Muscle density, push/pull balance, shoulders/back emphasis",
+    "templateSlug": "upper-restart-template",
+    "frequency": "weekly",
+    "notes": "First main gym day."
+  },
+  {
+    "dayLabel": "Day 2",
+    "sessionType": "Lower Body",
+    "goal": "Lower strength, posterior chain, moderate fatigue",
+    "templateSlug": "lower-animal-template",
+    "frequency": "weekly",
+    "notes": "Keep hamstring volume controlled."
+  },
+  {
+    "dayLabel": "Day 3",
+    "sessionType": "Recovery / Conditioning",
+    "goal": "Walking, mobility, or Animal Flow",
+    "templateSlug": "recovery-conditioning-template",
+    "frequency": "weekly_optional",
+    "notes": "Good place for low-fatigue work."
+  },
+  {
+    "dayLabel": "Day 4",
+    "sessionType": "Upper Body",
+    "goal": "Repeat upper focus with progression",
+    "templateSlug": "upper-benchmark-template",
+    "frequency": "weekly",
+    "notes": "Use actual readiness."
+  },
+  {
+    "dayLabel": "Day 5",
+    "sessionType": "Lower Body / Mixed",
+    "goal": "Lower plus primal finisher",
+    "templateSlug": "lower-animal-template",
+    "frequency": "weekly",
+    "notes": "Can be lighter if fatigue is high."
+  }
+]

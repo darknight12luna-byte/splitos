@@ -1,0 +1,60 @@
+[
+  {
+    "slug": "restart-light",
+    "name": "Restart After Pause",
+    "appliesTo": [
+      "strength_templates"
+    ],
+    "logic": "Reduce volume/intensity after a break before returning to benchmark loads.",
+    "beginnerField": "start_with_2_to_3_work_sets",
+    "coachNote": "First workout back should not chase previous PR-level effort."
+  },
+  {
+    "slug": "progress-by-readiness",
+    "name": "Progress by Readiness",
+    "appliesTo": [
+      "strength_exercises"
+    ],
+    "logic": "Use previous successful loads as reference, but only progress when technique and recovery are good.",
+    "beginnerField": "repeat_same_load_before_adding_weight",
+    "coachNote": "Readiness beats ego."
+  },
+  {
+    "slug": "animal-flow-sequencing",
+    "name": "Animal Flow Sequencing",
+    "appliesTo": [
+      "movement_techniques"
+    ],
+    "logic": "Progress from wrist prep -> activation -> transitions -> linked flow.",
+    "beginnerField": "master_static_positions_first",
+    "coachNote": "Do not rush advanced flow transitions.",
+    "coachNotes": [
+      "master base positions before advanced transitions",
+      "tempo control is a progression tool"
+    ],
+    "beginnerInstructions": [
+      "own the Beast position first",
+      "use slow reps before chaining movements together"
+    ]
+  },
+  {
+    "slug": "quality-before-volume",
+    "name": "Quality Before Volume",
+    "appliesTo": [
+      "all_templates"
+    ],
+    "logic": "Stop adding exercises once useful work is done.",
+    "beginnerField": "end_session_when_form_drops",
+    "coachNote": "Extra chest or random volume is not automatically better."
+  },
+  {
+    "slug": "shoulder-protection",
+    "name": "Shoulder Protection",
+    "appliesTo": [
+      "pressing_and_kickthroughs"
+    ],
+    "logic": "Reduce load or range if shoulder pain appears.",
+    "beginnerField": "use_pain_free_range",
+    "coachNote": "Shoulder stacking matters in both pressing and kickthroughs."
+  }
+]

@@ -1,0 +1,265 @@
+[
+  {
+    "slug": "static-beast",
+    "name": "Static Beast",
+    "techniqueType": "activation",
+    "parentSystem": "animal_flow",
+    "difficulty": "beginner",
+    "whatItTrains": [
+      "deep_core",
+      "shoulder_stability",
+      "anti_rotation"
+    ],
+    "executionSteps": [],
+    "keyCues": [
+      "fingers_wide",
+      "shoulders_packed",
+      "knees_low"
+    ],
+    "commonMistakes": [
+      "hips_too_high",
+      "weight_shift",
+      "soft_shoulders"
+    ],
+    "beginnerVersion": [
+      "Hover knees one inch off floor and keep torso quiet."
+    ],
+    "progressionVersion": [
+      "beast_limb_lifts",
+      "beast_rock",
+      "transitions"
+    ],
+    "suggestedFrequency": null,
+    "suggestedDose": null,
+    "mediaReference": {
+      "title": "Animal Flow Beast Activation",
+      "url": "https://www.youtube.com/watch?v=7UgvqcNk-0Y",
+      "source": null
+    },
+    "recommendedSearchQuery": "animal flow beast activation tutorial",
+    "coachNotes": []
+  },
+  {
+    "slug": "beast-side-kickthrough",
+    "name": "Side Kickthrough",
+    "techniqueType": "switch_transition",
+    "parentSystem": "animal_flow",
+    "difficulty": "beginner_intermediate",
+    "whatItTrains": [
+      "rotational_power",
+      "shoulder_stability",
+      "hip_mobility"
+    ],
+    "executionSteps": [
+      "Start in Beast with knees hovering low.",
+      "Support the body on one hand and the opposite foot.",
+      "Pivot through the planted foot.",
+      "Rotate the torso as the free leg kicks through.",
+      "Keep the support arm straight and shoulder stacked over the wrist.",
+      "Return to Beast and repeat on the other side."
+    ],
+    "keyCues": [
+      "straight support arm",
+      "shoulder stack",
+      "heel pivot",
+      "long kicking leg",
+      "chest open"
+    ],
+    "commonMistakes": [
+      "no pivot",
+      "collapsed support shoulder",
+      "rushing the rotation",
+      "short weak kick"
+    ],
+    "beginnerVersion": [
+      "practice slow single reps from static Beast",
+      "pause between each side"
+    ],
+    "progressionVersion": [
+      "link multiple smooth reps together",
+      "progress toward faster but still controlled transitions",
+      "advanced: levitating side kickthrough"
+    ],
+    "suggestedFrequency": "1-4 times per week depending on program role",
+    "suggestedDose": "2 x 4/side",
+    "mediaReference": {
+      "title": "Animal Flow Side Kickthrough",
+      "url": "https://www.youtube.com/watch?v=kPHVAKZ0x90",
+      "source": "mentioned in space materials"
+    },
+    "recommendedSearchQuery": "animal flow side kickthrough tutorial",
+    "coachNotes": [
+      "do wrist prep first",
+      "quality matters more than speed"
+    ]
+  },
+  {
+    "slug": "table-hand-foot-tap-hip-slide",
+    "name": "Table Hand-Foot Tap + Hip Slide",
+    "techniqueType": "mobility_transition",
+    "parentSystem": "primal_movement",
+    "difficulty": "beginner",
+    "whatItTrains": [
+      "core",
+      "shoulders",
+      "hamstrings",
+      "coordination"
+    ],
+    "executionSteps": [],
+    "keyCues": [
+      "hips_active",
+      "opposite_hand_to_foot",
+      "move_slowly"
+    ],
+    "commonMistakes": [
+      "hips_drop",
+      "rushing"
+    ],
+    "beginnerVersion": [
+      "Start with taps only before adding the hip slide."
+    ],
+    "progressionVersion": [
+      "taps_only",
+      "taps_plus_slide",
+      "longer_intervals"
+    ],
+    "suggestedFrequency": null,
+    "suggestedDose": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "animal flow tabletop opposite hand foot tap hip slide",
+    "coachNotes": []
+  },
+  {
+    "slug": "ninja-turn",
+    "name": "Ninja Turn",
+    "techniqueType": "transition",
+    "parentSystem": "primal_movement",
+    "difficulty": "beginner_intermediate",
+    "whatItTrains": [
+      "coordination",
+      "trunk_control",
+      "shoulder_support"
+    ],
+    "executionSteps": [],
+    "keyCues": [
+      "hand_support",
+      "controlled_rotation"
+    ],
+    "commonMistakes": [
+      "momentum_only",
+      "unstable_hands"
+    ],
+    "beginnerVersion": [
+      "Break the move into phases instead of rushing the turn."
+    ],
+    "progressionVersion": [
+      "segmented_turn",
+      "continuous_transition"
+    ],
+    "suggestedFrequency": null,
+    "suggestedDose": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "animal flow ninja turn transition tutorial",
+    "coachNotes": []
+  },
+  {
+    "slug": "knee-forward-squat-tap",
+    "name": "Knee-Forward Squat Tap",
+    "techniqueType": "mobility_drill",
+    "parentSystem": "lower_mobility",
+    "difficulty": "beginner",
+    "whatItTrains": [
+      "knee_capacity",
+      "quads",
+      "balance"
+    ],
+    "executionSteps": [],
+    "keyCues": [
+      "smooth_knee_travel",
+      "balance",
+      "control"
+    ],
+    "commonMistakes": [
+      "knee_collapse",
+      "loss_of_balance"
+    ],
+    "beginnerVersion": [
+      "Use a small range first and keep control through the foot."
+    ],
+    "progressionVersion": [
+      "short_range",
+      "deeper_range",
+      "longer_sets"
+    ],
+    "suggestedFrequency": null,
+    "suggestedDose": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "knee forward squat tap mobility drill",
+    "coachNotes": []
+  },
+  {
+    "slug": "scapular-push-up-technique",
+    "name": "Scapular Push-up Technique",
+    "techniqueType": "prep_control",
+    "parentSystem": "shoulder_prep",
+    "difficulty": "beginner",
+    "whatItTrains": [
+      "serratus_control",
+      "scapular_mobility"
+    ],
+    "executionSteps": [],
+    "keyCues": [
+      "locked_elbows",
+      "neck_relaxed"
+    ],
+    "commonMistakes": [
+      "elbow_bending",
+      "shrugging"
+    ],
+    "beginnerVersion": [
+      "Move only the shoulder blades, not the elbows."
+    ],
+    "progressionVersion": [
+      "incline_version",
+      "floor_version",
+      "higher_reps"
+    ],
+    "suggestedFrequency": null,
+    "suggestedDose": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "scapular push up technique",
+    "coachNotes": []
+  },
+  {
+    "slug": "wrist-mobilization",
+    "name": "Wrist Mobilization",
+    "techniqueType": "mobility_prep",
+    "parentSystem": "animal_flow",
+    "difficulty": "beginner",
+    "whatItTrains": [
+      "wrist_tolerance",
+      "prep_for_loading"
+    ],
+    "executionSteps": [],
+    "keyCues": [
+      "gradual_range",
+      "no_sharp_pain"
+    ],
+    "commonMistakes": [
+      "skipping_prep",
+      "aggressive_loading"
+    ],
+    "beginnerVersion": [
+      "Start with gentle circles before loaded positions."
+    ],
+    "progressionVersion": [
+      "circles",
+      "loaded_beast_prep"
+    ],
+    "suggestedFrequency": null,
+    "suggestedDose": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "wrist warm up quadrupedal training",
+    "coachNotes": []
+  }
+]

@@ -1,0 +1,873 @@
+[
+  {
+    "slug": "flat-db-bench-press",
+    "name": "Flat DB Bench Press",
+    "category": "strength",
+    "movementPattern": "horizontal_push",
+    "equipment": [
+      "dumbbells",
+      "flat_bench"
+    ],
+    "difficulty": "beginner_intermediate",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "front_delts",
+      "triceps"
+    ],
+    "executionSteps": [
+      "Plant feet firmly on the floor.",
+      "Set upper back and keep chest lifted.",
+      "Lower dumbbells under control.",
+      "Press back up smoothly without banging the dumbbells together."
+    ],
+    "cues": [
+      "feet fixed",
+      "chest up",
+      "controlled lowering"
+    ],
+    "mistakes": [
+      "unstable feet",
+      "losing control on the descent",
+      "using too much load after a break"
+    ],
+    "regressions": [
+      "use 12.5 to 15 kg per hand",
+      "reduce to 2 to 3 working sets"
+    ],
+    "progressions": [
+      "return to 17.5 kg per hand for repeated work sets",
+      "add reps before load when form is inconsistent"
+    ],
+    "defaultSets": "3-4",
+    "defaultReps": "8-12",
+    "defaultRest": "90s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "flat dumbbell bench press form",
+    "coachNotes": [
+      "reduce load if shoulder discomfort appears",
+      "restart lighter after a pause"
+    ],
+    "beginnerInstructions": [
+      "focus on smooth reps before increasing load",
+      "keep both feet planted throughout the set"
+    ]
+  },
+  {
+    "slug": "seated-row",
+    "name": "Seated Row",
+    "category": "strength",
+    "movementPattern": "horizontal_pull",
+    "equipment": [
+      "row_machine_or_cable"
+    ],
+    "difficulty": "beginner_intermediate",
+    "primaryMuscles": [
+      "mid_back",
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "rear_delts",
+      "biceps"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "3-4",
+    "defaultReps": "8-10",
+    "defaultRest": "75-90s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "seated row machine proper form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "lat-pulldown",
+    "name": "Lat Pulldown",
+    "category": "strength",
+    "movementPattern": "vertical_pull",
+    "equipment": [
+      "lat_pulldown_machine"
+    ],
+    "difficulty": "beginner_intermediate",
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "upper_back",
+      "biceps"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "3-4",
+    "defaultReps": "8-10",
+    "defaultRest": "75-90s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "lat pulldown chest up form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "db-shoulder-press",
+    "name": "DB Shoulder Press",
+    "category": "strength",
+    "movementPattern": "vertical_push",
+    "equipment": [
+      "dumbbells",
+      "bench"
+    ],
+    "difficulty": "beginner_intermediate",
+    "primaryMuscles": [
+      "delts"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "upper_chest"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2-4",
+    "defaultReps": "8-10",
+    "defaultRest": "75-90s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "seated dumbbell shoulder press form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "cable-lateral-raise",
+    "name": "Cable Lateral Raise",
+    "category": "accessory",
+    "movementPattern": "shoulder_abduction",
+    "equipment": [
+      "cable_machine"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "lateral_delts"
+    ],
+    "secondaryMuscles": [
+      "upper_traps"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2-3",
+    "defaultReps": "10-15",
+    "defaultRest": "60s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "cable lateral raise form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "cable-triceps-pressdown",
+    "name": "Cable Triceps Pressdown",
+    "category": "accessory",
+    "movementPattern": "elbow_extension",
+    "equipment": [
+      "cable_machine"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "shoulders_stabilizers"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2-3",
+    "defaultReps": "10-12",
+    "defaultRest": "60s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "cable triceps pressdown form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "db-hammer-curl",
+    "name": "DB Hammer Curl",
+    "category": "accessory",
+    "movementPattern": "elbow_flexion",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "brachialis",
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2-3",
+    "defaultReps": "10-12",
+    "defaultRest": "60s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "hammer curl dumbbell form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "panatta-chest-press",
+    "name": "Panatta Chest Press",
+    "category": "machine_strength",
+    "movementPattern": "horizontal_push",
+    "equipment": [
+      "panatta_machine"
+    ],
+    "difficulty": "beginner_intermediate",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "front_delts"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2-4",
+    "defaultReps": "10",
+    "defaultRest": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "panatta chest press form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "pectoral-machine",
+    "name": "Pectoral Machine",
+    "category": "machine_strength",
+    "movementPattern": "chest_isolation_or_press",
+    "equipment": [
+      "machine"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "front_delts"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2-3",
+    "defaultReps": "10-20",
+    "defaultRest": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "pectoral machine exercise form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "hanging-knee-raise",
+    "name": "Hanging Knee Raise",
+    "category": "core",
+    "movementPattern": "trunk_flexion",
+    "equipment": [
+      "hanging_station"
+    ],
+    "difficulty": "beginner_intermediate",
+    "primaryMuscles": [
+      "abs"
+    ],
+    "secondaryMuscles": [
+      "hip_flexors",
+      "grip"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2",
+    "defaultReps": "10",
+    "defaultRest": "45-60s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "hanging knee raise form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "rowing-machine",
+    "name": "Rowing Machine",
+    "category": "conditioning",
+    "movementPattern": "cyclical_full_body_pull",
+    "equipment": [
+      "rower"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "posterior_chain",
+      "back"
+    ],
+    "secondaryMuscles": [
+      "legs",
+      "arms",
+      "cardio_system"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": null,
+    "defaultReps": "time_or_strokes",
+    "defaultRest": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "indoor rowing machine technique",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "leg-press",
+    "name": "Leg Press",
+    "category": "strength",
+    "movementPattern": "squat_pattern",
+    "equipment": [
+      "leg_press_machine"
+    ],
+    "difficulty": "beginner_intermediate",
+    "primaryMuscles": [
+      "quads",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "adductors"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "4",
+    "defaultReps": "10",
+    "defaultRest": "90s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "leg press knees over toes form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "leg-curl",
+    "name": "Seated or Lying Leg Curl",
+    "category": "accessory",
+    "movementPattern": "knee_flexion",
+    "equipment": [
+      "leg_curl_machine"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "calves"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "3",
+    "defaultReps": "10-12",
+    "defaultRest": "60-75s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "leg curl machine proper form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "db-romanian-deadlift",
+    "name": "DB Romanian Deadlift",
+    "category": "strength",
+    "movementPattern": "hip_hinge",
+    "equipment": [
+      "dumbbells"
+    ],
+    "difficulty": "beginner_intermediate",
+    "primaryMuscles": [
+      "hamstrings",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "spinal_erectors",
+      "grip"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "3",
+    "defaultReps": "10",
+    "defaultRest": "90s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "dumbbell romanian deadlift form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "standing-calf-raise",
+    "name": "Standing Calf Raise",
+    "category": "accessory",
+    "movementPattern": "ankle_plantarflexion",
+    "equipment": [
+      "calf_raise_machine"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [
+      "foot_stabilizers"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "3",
+    "defaultReps": "12-15",
+    "defaultRest": "60s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "standing calf raise form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "glute-bridge",
+    "name": "Glute Bridge",
+    "category": "accessory",
+    "movementPattern": "hip_extension",
+    "equipment": [
+      "floor"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings",
+      "core"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2",
+    "defaultReps": "12",
+    "defaultRest": "45-60s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "glute bridge form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "cable-crunch",
+    "name": "Cable Crunch",
+    "category": "core",
+    "movementPattern": "trunk_flexion",
+    "equipment": [
+      "cable_machine"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "abs"
+    ],
+    "secondaryMuscles": [
+      "obliques"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2-3",
+    "defaultReps": "12",
+    "defaultRest": "45-60s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "cable crunch form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "dead-bug",
+    "name": "Dead Bug",
+    "category": "core",
+    "movementPattern": "anti_extension",
+    "equipment": [
+      "floor"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "deep_core",
+      "abs"
+    ],
+    "secondaryMuscles": [
+      "hip_flexors",
+      "shoulder_stabilizers"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2",
+    "defaultReps": "8_side",
+    "defaultRest": "30s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "dead bug exercise tutorial",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "scapular-push-up",
+    "name": "Scapular Push-up",
+    "category": "warmup",
+    "movementPattern": "scapular_control",
+    "equipment": [
+      "floor"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "serratus_anterior"
+    ],
+    "secondaryMuscles": [
+      "chest",
+      "shoulders"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2",
+    "defaultReps": "10",
+    "defaultRest": "30-45s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "scapular push up form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "band-pull-apart",
+    "name": "Band Pull-Apart",
+    "category": "warmup",
+    "movementPattern": "scapular_retraction",
+    "equipment": [
+      "resistance_band"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "rear_delts",
+      "upper_back"
+    ],
+    "secondaryMuscles": [
+      "rotator_cuff"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2",
+    "defaultReps": "15",
+    "defaultRest": "30-45s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "band pull apart form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "arm-circles",
+    "name": "Arm Circles",
+    "category": "warmup",
+    "movementPattern": "shoulder_mobility",
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "upper_back"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "1-2",
+    "defaultReps": "15_each",
+    "defaultRest": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "arm circles shoulder warm up",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "wrist-circles-finger-pumps",
+    "name": "Wrist Circles + Finger Pumps",
+    "category": "mobility",
+    "movementPattern": "wrist_mobility",
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "wrists",
+      "forearms"
+    ],
+    "secondaryMuscles": [
+      "hands"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "1",
+    "defaultReps": "1-2_min",
+    "defaultRest": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "wrist warm up for animal flow",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "beast-rock",
+    "name": "Beast Rock",
+    "category": "animal_flow_prep",
+    "movementPattern": "quadrupedal_activation",
+    "equipment": [
+      "floor"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "core",
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "wrists",
+      "hips"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "2",
+    "defaultReps": "20s",
+    "defaultRest": "30s",
+    "mediaReference": null,
+    "recommendedSearchQuery": "beast rock animal flow",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "treadmill-walk",
+    "name": "Treadmill Walk",
+    "category": "conditioning",
+    "movementPattern": "steady_state_gait",
+    "equipment": [
+      "treadmill"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "legs",
+      "cardio_system"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "core"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": null,
+    "defaultReps": "time_or_distance",
+    "defaultRest": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "treadmill walking warm up pace",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "cooldown-walk",
+    "name": "Cooldown Walk",
+    "category": "conditioning",
+    "movementPattern": "steady_state_gait",
+    "equipment": [
+      "treadmill_or_floor"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "legs",
+      "cardio_system"
+    ],
+    "secondaryMuscles": [
+      "calves"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": null,
+    "defaultReps": "time",
+    "defaultRest": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "post workout cooldown walk pace",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "leg-swings",
+    "name": "Leg Swings",
+    "category": "warmup",
+    "movementPattern": "hip_mobility",
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "hip_flexors",
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "adductors"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "1-2",
+    "defaultReps": "10-15_each",
+    "defaultRest": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "leg swings dynamic warm up",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "bodyweight-squat",
+    "name": "Bodyweight Squat",
+    "category": "warmup",
+    "movementPattern": "squat_pattern",
+    "equipment": [
+      "bodyweight"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "quads",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings",
+      "core"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": "1-2",
+    "defaultReps": "10-15",
+    "defaultRest": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "bodyweight squat warm up form",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "walking",
+    "name": "Walking",
+    "category": "recovery",
+    "movementPattern": "steady_state_gait",
+    "equipment": [
+      "outdoor_or_treadmill"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "legs",
+      "cardio_system"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "core"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": null,
+    "defaultReps": "time",
+    "defaultRest": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "easy pace recovery walk",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  },
+  {
+    "slug": "light-jogging",
+    "name": "Light Jogging",
+    "category": "conditioning",
+    "movementPattern": "steady_state_gait",
+    "equipment": [
+      "outdoor_or_treadmill"
+    ],
+    "difficulty": "beginner",
+    "primaryMuscles": [
+      "legs",
+      "cardio_system"
+    ],
+    "secondaryMuscles": [
+      "calves"
+    ],
+    "executionSteps": [],
+    "cues": [],
+    "mistakes": [],
+    "regressions": [],
+    "progressions": [],
+    "defaultSets": null,
+    "defaultReps": "time",
+    "defaultRest": null,
+    "mediaReference": null,
+    "recommendedSearchQuery": "light jogging technique beginner",
+    "coachNotes": [],
+    "beginnerInstructions": []
+  }
+]

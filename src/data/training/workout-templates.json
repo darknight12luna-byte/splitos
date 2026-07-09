@@ -1,0 +1,234 @@
+[
+  {
+    "slug": "upper-restart-template",
+    "name": "Upper Restart Template",
+    "category": "upper_body",
+    "itemOrder": [
+      {
+        "slug": "treadmill-walk",
+        "kind": "exercise"
+      },
+      {
+        "slug": "arm-circles",
+        "kind": "exercise"
+      },
+      {
+        "slug": "band-pull-apart",
+        "kind": "exercise"
+      },
+      {
+        "slug": "scapular-push-up",
+        "kind": "exercise"
+      },
+      {
+        "slug": "wrist-circles-finger-pumps",
+        "kind": "exercise"
+      },
+      {
+        "slug": "beast-rock",
+        "kind": "exercise"
+      },
+      {
+        "slug": "flat-db-bench-press",
+        "kind": "exercise"
+      },
+      {
+        "slug": "seated-row",
+        "kind": "exercise"
+      },
+      {
+        "slug": "lat-pulldown",
+        "kind": "exercise"
+      },
+      {
+        "slug": "db-shoulder-press",
+        "kind": "exercise"
+      },
+      {
+        "slug": "cable-lateral-raise",
+        "kind": "exercise"
+      },
+      {
+        "slug": "cable-triceps-pressdown",
+        "kind": "exercise"
+      },
+      {
+        "slug": "db-hammer-curl",
+        "kind": "exercise"
+      },
+      {
+        "slug": "beast-side-kickthrough",
+        "kind": "technique"
+      },
+      {
+        "slug": "dead-bug",
+        "kind": "exercise"
+      }
+    ],
+    "beginnerInstructions": [
+      "Start lighter after a break and stop before junk volume."
+    ],
+    "coachNotes": [
+      "Reduce load/volume 10–20% after pauses."
+    ]
+  },
+  {
+    "slug": "upper-benchmark-template",
+    "name": "Upper Benchmark Template",
+    "category": "upper_body",
+    "itemOrder": [
+      {
+        "slug": "flat-db-bench-press",
+        "kind": "exercise"
+      },
+      {
+        "slug": "panatta-chest-press",
+        "kind": "exercise"
+      },
+      {
+        "slug": "seated-row",
+        "kind": "exercise"
+      },
+      {
+        "slug": "lat-pulldown",
+        "kind": "exercise"
+      },
+      {
+        "slug": "db-shoulder-press",
+        "kind": "exercise"
+      },
+      {
+        "slug": "cable-lateral-raise",
+        "kind": "exercise"
+      },
+      {
+        "slug": "cable-triceps-pressdown",
+        "kind": "exercise"
+      },
+      {
+        "slug": "db-hammer-curl",
+        "kind": "exercise"
+      },
+      {
+        "slug": "pectoral-machine",
+        "kind": "exercise"
+      }
+    ],
+    "beginnerInstructions": [
+      "Use benchmark loads only when recovery is good."
+    ],
+    "coachNotes": [
+      "Stronger full upper session, but avoid adding extra random pressing."
+    ]
+  },
+  {
+    "slug": "lower-animal-template",
+    "name": "Lower + Animal Flow Template",
+    "category": "mixed",
+    "itemOrder": [
+      {
+        "slug": "treadmill-walk",
+        "kind": "exercise"
+      },
+      {
+        "slug": "leg-swings",
+        "kind": "exercise"
+      },
+      {
+        "slug": "bodyweight-squat",
+        "kind": "exercise"
+      },
+      {
+        "slug": "wrist-circles-finger-pumps",
+        "kind": "exercise"
+      },
+      {
+        "slug": "beast-rock",
+        "kind": "exercise"
+      },
+      {
+        "slug": "leg-press",
+        "kind": "exercise"
+      },
+      {
+        "slug": "leg-curl",
+        "kind": "exercise"
+      },
+      {
+        "slug": "db-romanian-deadlift",
+        "kind": "exercise"
+      },
+      {
+        "slug": "standing-calf-raise",
+        "kind": "exercise"
+      },
+      {
+        "slug": "glute-bridge",
+        "kind": "exercise"
+      },
+      {
+        "slug": "cable-crunch-or-dead-bug",
+        "kind": "unresolved"
+      },
+      {
+        "slug": "beast-side-kickthrough",
+        "kind": "technique"
+      },
+      {
+        "slug": "knee-forward-squat-tap",
+        "kind": "technique"
+      },
+      {
+        "slug": "cooldown-walk",
+        "kind": "exercise"
+      }
+    ],
+    "beginnerInstructions": [
+      "Focus on control, not exhaustion."
+    ],
+    "coachNotes": [
+      "Avoid excessive hamstring fatigue and keep quality high."
+    ]
+  },
+  {
+    "slug": "recovery-conditioning-template",
+    "name": "Recovery / Conditioning Template",
+    "category": "recovery",
+    "itemOrder": [
+      {
+        "slug": "walking",
+        "kind": "exercise"
+      },
+      {
+        "slug": "light-jogging",
+        "kind": "exercise"
+      },
+      {
+        "slug": "rowing-machine",
+        "kind": "exercise"
+      },
+      {
+        "slug": "wrist-mobilization",
+        "kind": "technique"
+      },
+      {
+        "slug": "static-beast",
+        "kind": "technique"
+      },
+      {
+        "slug": "table-hand-foot-tap-hip-slide",
+        "kind": "technique"
+      },
+      {
+        "slug": "dead-bug",
+        "kind": "exercise"
+      }
+    ],
+    "beginnerInstructions": [
+      "Keep this day easy enough to recover."
+    ],
+    "coachNotes": [
+      "Use as active recovery, not as another hard gym day."
+    ]
+  }
+]

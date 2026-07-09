@@ -1,0 +1,161 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Mood {
+  TIRED
+  NORMAL
+  ENERGIZED
+  STRONG
+}
+
+/// The active weekly split. Only one WeeklyProgram is "active" at a time; future UI could let
+/// the user reconfigure this (add/reorder TrainingDayTemplates) without touching code.
+model WeeklyProgram {
+  id           String   @id @default(cuid())
+  name         String
+  daysPerWeek  Int      @default(4)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  trainingDays TrainingDayTemplate[]
+}
+
+/// One named day in the rotation, e.g. "Day 1 — Upper Body".
+model TrainingDayTemplate {
+  id              String        @id @default(cuid())
+  weeklyProgram   WeeklyProgram @relation(fields: [weeklyProgramId], references: [id], onDelete: Cascade)
+  weeklyProgramId String
+  dayNumber       Int
+  label           String
+  category        String
+  goal            String
+  notes           String?
+
+  planItems  SessionPlanItem[]
+  sessionLogs SessionLog[]
+}
+
+/// The prescription for one exercise/technique within a TrainingDayTemplate.
+/// Unifies "ExercisePlan"/"MovementPlan" via the `kind` discriminator — the fields are
+/// identical in shape, and splitting them into two tables would just duplicate this model.
+model SessionPlanItem {
+  id                    String   @id @default(cuid())
+  trainingDayTemplate   TrainingDayTemplate @relation(fields: [trainingDayTemplateId], references: [id], onDelete: Cascade)
+  trainingDayTemplateId String
+  itemSlug              String
+  kind                  String   // exercise | technique
+  order                 Int      @default(0)
+
+  plannedSets        Int?
+  plannedReps        String?
+  plannedWeightKg    Float?
+  plannedDurationSec Int?
+  plannedSpeed       String?
+  plannedRestSec     Int?
+  plannedTempo       String?
+  plannedNotes       String?
+}
+
+model CheckInEntry {
+  id             String   @id @default(cuid())
+  date           DateTime @default(now())
+  mood           Mood
+  energyLevel    Int
+  muscleSoreness Int
+  sleepQuality   Int
+  focus          String? // strength | mobility | flow | recovery
+  note           String?
+
+  sessionLog SessionLog?
+
+  createdAt DateTime @default(now())
+}
+
+/// One performed (or skipped) instance of a TrainingDayTemplate.
+model SessionLog {
+  id                    String   @id @default(cuid())
+  date                  DateTime @default(now())
+  trainingDayTemplate   TrainingDayTemplate? @relation(fields: [trainingDayTemplateId], references: [id])
+  trainingDayTemplateId String?
+  dayLabel              String
+  title                 String
+  tags                  String
+  status                String   @default("NOT_STARTED") // NOT_STARTED | IN_PROGRESS | COMPLETED | PARTIAL | SKIPPED
+  durationSec           Int?
+  caption               String?
+
+  checkIn   CheckInEntry? @relation(fields: [checkInId], references: [id])
+  checkInId String?       @unique
+
+  itemLogs SessionItemLog[]
+
+  createdAt DateTime @default(now())
+}
+
+/// The actual-performance record for one item within a SessionLog. Carries a snapshot of the
+/// plan at generation time (so later edits to SessionPlanItem don't rewrite past history)
+/// alongside the actual values logged during/after the session.
+model SessionItemLog {
+  id            String     @id @default(cuid())
+  sessionLog    SessionLog @relation(fields: [sessionLogId], references: [id], onDelete: Cascade)
+  sessionLogId  String
+  planItemId    String?
+  itemSlug      String
+  kind          String     // exercise | technique | unresolved
+  order         Int        @default(0)
+
+  plannedSets        Int?
+  plannedReps        String?
+  plannedWeightKg    Float?
+  plannedDurationSec Int?
+  plannedSpeed       String?
+  plannedRestSec     Int?
+  plannedTempo       String?
+  plannedNotes       String?
+
+  actualSets        Int?
+  actualReps        String?
+  actualWeightKg    Float?
+  actualDurationSec Int?
+  actualSpeed       String?
+  actualRestSec     Int?
+  actualNotes       String?
+
+  completionStatus String  @default("PENDING") // PENDING | COMPLETED | PARTIAL | SKIPPED
+  isHighlight      Boolean @default(false)
+}
+
+model BodyMetric {
+  id         String   @id @default(cuid())
+  date       DateTime @default(now())
+  weightKg   Float?
+  bodyFatPct Float?
+
+  createdAt DateTime @default(now())
+}
+
+model MediaEntry {
+  id        String   @id @default(cuid())
+  date      DateTime @default(now())
+  filePath  String
+  mediaType String
+  caption   String?
+
+  createdAt DateTime @default(now())
+}
+
+model Challenge {
+  id           String   @id @default(cuid())
+  name         String
+  startDate    DateTime @default(now())
+  durationDays Int      @default(30)
+  active       Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+}
