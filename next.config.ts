@@ -1,11 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    outputFileTracingIncludes: {
-      "/api/**": ["./prisma/"],
-      "/": ["./prisma/"],
-    },
+  outputFileTracingIncludes: {
+    "/api/**": ["./prisma/"],
+    "/": ["./prisma/"],
   },
 };
 
