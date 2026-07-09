@@ -34,7 +34,7 @@ function StartChallengeForm({ title }: { title: string }) {
         </label>
         <button
           type="submit"
-          className="w-full rounded-xl bg-accent-green py-3 font-bold text-background transition hover:brightness-110"
+          className="w-full rounded-xl bg-accent-lime py-3 font-bold text-background transition hover:brightness-110"
         >
           Start Challenge
         </button>
@@ -77,7 +77,7 @@ export default async function ChallengePage() {
               </div>
               <div className="flex items-center gap-3">
                 {challenge.isComplete && (
-                  <span className="rounded-full bg-accent-green/20 px-3 py-1 text-xs font-semibold text-accent-green">
+                  <span className="rounded-full bg-accent-lime/20 px-3 py-1 text-xs font-semibold text-accent-lime">
                     Complete 🎉
                   </span>
                 )}
@@ -85,7 +85,7 @@ export default async function ChallengePage() {
                   pct={(challenge.completedDays / challenge.durationDays) * 100}
                   value={`${Math.round((challenge.completedDays / challenge.durationDays) * 100)}%`}
                   label="Progress"
-                  color="var(--accent-green)"
+                  color="var(--accent-lime)"
                 />
               </div>
             </div>
@@ -98,7 +98,7 @@ export default async function ChallengePage() {
                   className={clsx(
                     "flex aspect-square items-center justify-center rounded-md border text-[10px]",
                     d.completed
-                      ? "border-accent-green bg-accent-green text-background"
+                      ? "border-accent-lime bg-accent-lime text-background"
                       : d.isToday
                       ? "border-accent-blue text-accent-blue"
                       : d.isFuture
@@ -118,7 +118,7 @@ export default async function ChallengePage() {
             {!challenge.isComplete && (
               <Link
                 href="/"
-                className="block w-full rounded-xl bg-accent-green py-3 text-center font-bold text-background transition hover:brightness-110"
+                className="block w-full rounded-xl bg-accent-lime py-3 text-center font-bold text-background transition hover:brightness-110"
               >
                 {challenge.days.find((d) => d.isToday)?.completed
                   ? "✓ Checked in today"

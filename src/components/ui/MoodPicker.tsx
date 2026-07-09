@@ -25,7 +25,7 @@ export function MoodPicker({ name }: { name: string }) {
             className={clsx(
               "flex flex-col items-center gap-1 rounded-xl border px-2 py-3 text-xs transition",
               selected === m.value
-                ? "border-accent-green bg-surface-2 text-accent-green"
+                ? "border-accent-lime bg-surface-2 text-accent-lime"
                 : "border-border bg-surface text-muted hover:border-white/20"
             )}
           >

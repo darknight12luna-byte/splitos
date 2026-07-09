@@ -5,6 +5,8 @@ import { getItemHistory } from "@/lib/training/history";
 import { Card } from "@/components/ui/Card";
 import { ItemHistoryCard } from "@/components/library/ItemHistoryCard";
 import { WatchAndLearn } from "@/components/WatchAndLearn";
+import { NumberedSteps } from "@/components/library/NumberedSteps";
+import { BeginnerAdvancedToggle } from "@/components/library/BeginnerAdvancedToggle";
 import { formatLabels } from "@/lib/formatLabel";
 import { extractYouTubeId } from "@/lib/youtube";
 
@@ -33,13 +35,19 @@ export default async function MovementDetailPage({
 
   return (
     <div className="space-y-6 pb-10">
-      <div>
+      <div
+        className="-mx-4 -mt-6 px-4 pb-6 pt-8 sm:-mx-6 sm:px-6"
+        style={{
+          background:
+            "linear-gradient(180deg, color-mix(in oklab, var(--accent-purple) 20%, var(--background)), var(--background) 85%)",
+        }}
+      >
         <Link href="/movements" className="text-xs text-muted hover:text-foreground">
           ← Movement Library
         </Link>
         <h1 className="mt-1 text-2xl font-bold">{technique.name}</h1>
         <div className="mt-2 flex flex-wrap gap-2">
-          <span className="rounded-full border border-border px-2.5 py-1 text-xs capitalize text-accent-blue">
+          <span className="rounded-full bg-accent-purple/15 px-2.5 py-1 text-xs font-medium capitalize text-accent-purple">
             {technique.parentSystem.replace(/_/g, " ")}
           </span>
           <span className="rounded-full border border-border px-2.5 py-1 text-xs capitalize text-muted">
@@ -50,6 +58,15 @@ export default async function MovementDetailPage({
           </span>
         </div>
       </div>
+
+      <WatchAndLearn
+        videoId={extractYouTubeId(technique.mediaReference?.url)}
+        title={technique.mediaReference?.title ?? technique.name}
+        tiktokQuery={technique.recommendedSearchQuery}
+      />
+      {technique.mediaReference?.source && (
+        <p className="-mt-3 px-1 text-xs text-muted">Source: {technique.mediaReference.source}</p>
+      )}
 
       <ItemHistoryCard history={history} />
 
@@ -77,7 +94,7 @@ export default async function MovementDetailPage({
         <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
           Execution Steps
         </h2>
-        <ListOrPlaceholder items={technique.executionSteps} />
+        <NumberedSteps steps={technique.executionSteps} />
       </Card>
 
       <Card className="space-y-2">
@@ -92,20 +109,10 @@ export default async function MovementDetailPage({
         <ListOrPlaceholder items={formatLabels(technique.commonMistakes)} />
       </Card>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <Card className="space-y-2">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
-            Beginner Version
-          </h2>
-          <ListOrPlaceholder items={technique.beginnerVersion} />
-        </Card>
-        <Card className="space-y-2">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
-            Progression Path
-          </h2>
-          <ListOrPlaceholder items={formatLabels(technique.progressionVersion)} />
-        </Card>
-      </div>
+      <BeginnerAdvancedToggle
+        beginner={technique.beginnerVersion}
+        advanced={formatLabels(technique.progressionVersion)}
+      />
 
       {technique.coachNotes.length > 0 && (
         <Card className="space-y-2">
@@ -114,15 +121,6 @@ export default async function MovementDetailPage({
           </h2>
           <ListOrPlaceholder items={technique.coachNotes} />
         </Card>
-      )}
-
-      <WatchAndLearn
-        videoId={extractYouTubeId(technique.mediaReference?.url)}
-        title={technique.mediaReference?.title ?? technique.name}
-        tiktokQuery={technique.recommendedSearchQuery}
-      />
-      {technique.mediaReference?.source && (
-        <p className="-mt-3 px-1 text-xs text-muted">Source: {technique.mediaReference.source}</p>
       )}
     </div>
   );

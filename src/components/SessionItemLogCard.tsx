@@ -27,7 +27,7 @@ const STATUS_OPTIONS: { value: ActualValuesInput["completionStatus"]; icon: stri
 
 const STATUS_COLOR: Record<string, string> = {
   PENDING: "border-border text-muted",
-  COMPLETED: "border-accent-green bg-accent-green/20 text-accent-green",
+  COMPLETED: "border-accent-lime bg-accent-lime/20 text-accent-lime",
   PARTIAL: "border-accent-orange bg-accent-orange/20 text-accent-orange",
   SKIPPED: "border-accent-red bg-accent-red/20 text-accent-red",
 };
@@ -49,6 +49,51 @@ function numDelta(actual: number | null, planned: number | null) {
   return delta;
 }
 
+function Stepper({
+  value,
+  onChange,
+  step,
+  className,
+}: {
+  value: string;
+  onChange: (next: string) => void;
+  step: number;
+  className?: string;
+}) {
+  const bump = (dir: 1 | -1) => {
+    const current = Number(value) || 0;
+    const next = Math.max(0, Math.round((current + dir * step) * 100) / 100);
+    onChange(String(next));
+  };
+  return (
+    <div className={clsx("flex items-center gap-1", className)}>
+      <button
+        type="button"
+        onClick={() => bump(-1)}
+        className="flex h-6 w-6 shrink-0 items-center justify-center rounded border border-border text-xs text-muted transition hover:text-foreground"
+        aria-label="Decrease"
+      >
+        −
+      </button>
+      <input
+        type="number"
+        step={step}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-12 rounded border border-border bg-surface-2 px-1 py-1 text-center text-sm outline-none focus:border-accent-blue"
+      />
+      <button
+        type="button"
+        onClick={() => bump(1)}
+        className="flex h-6 w-6 shrink-0 items-center justify-center rounded border border-border text-xs text-muted transition hover:text-foreground"
+        aria-label="Increase"
+      >
+        +
+      </button>
+    </div>
+  );
+}
+
 function DeltaBadge({ delta, unit }: { delta: number | null; unit: string }) {
   if (delta == null || delta === 0) return null;
   const positive = delta > 0;
@@ -56,7 +101,7 @@ function DeltaBadge({ delta, unit }: { delta: number | null; unit: string }) {
     <span
       className={clsx(
         "ml-1.5 text-xs font-semibold",
-        positive ? "text-accent-green" : "text-accent-red"
+        positive ? "text-accent-lime" : "text-accent-red"
       )}
     >
       {positive ? "+" : ""}
@@ -148,7 +193,7 @@ export function SessionItemLogCard(props: Props) {
       className={clsx(
         "rounded-xl border p-3 transition",
         status === "COMPLETED"
-          ? "border-accent-green/40 bg-surface-2"
+          ? "border-accent-lime/40 bg-surface-2"
           : status === "PARTIAL"
           ? "border-accent-orange/40 bg-surface-2"
           : status === "SKIPPED"
@@ -172,15 +217,14 @@ export function SessionItemLogCard(props: Props) {
                 <span className="text-muted">
                   Sets {props.plannedSets != null && <>· planned {props.plannedSets}</>}
                 </span>
-                <div className="flex items-center">
-                  <input
-                    type="number"
+                <div className="mt-0.5 flex items-center">
+                  <Stepper
                     value={actualSets}
-                    onChange={(e) => {
-                      setActualSets(e.target.value);
+                    step={1}
+                    onChange={(v) => {
+                      setActualSets(v);
                       markDirty();
                     }}
-                    className="mt-0.5 w-16 rounded border border-border bg-surface-2 px-2 py-1 text-sm outline-none focus:border-accent-blue"
                   />
                   <DeltaBadge
                     delta={numDelta(actualSets ? Number(actualSets) : null, props.plannedSets)}
@@ -210,16 +254,14 @@ export function SessionItemLogCard(props: Props) {
                 <span className="text-muted">
                   Weight (kg) {props.plannedWeightKg != null && <>· planned {props.plannedWeightKg}</>}
                 </span>
-                <div className="flex items-center">
-                  <input
-                    type="number"
-                    step="0.5"
+                <div className="mt-0.5 flex items-center">
+                  <Stepper
                     value={actualWeightKg}
-                    onChange={(e) => {
-                      setActualWeightKg(e.target.value);
+                    step={2.5}
+                    onChange={(v) => {
+                      setActualWeightKg(v);
                       markDirty();
                     }}
-                    className="mt-0.5 w-16 rounded border border-border bg-surface-2 px-2 py-1 text-sm outline-none focus:border-accent-blue"
                   />
                   <DeltaBadge
                     delta={numDelta(

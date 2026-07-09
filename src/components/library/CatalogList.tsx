@@ -3,13 +3,16 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
-import { Card } from "@/components/ui/Card";
 
 export interface CatalogListItem {
   slug: string;
   name: string;
   category: string;
   subtitle: string;
+  color: string;
+  icon: string;
+  difficulty?: string;
+  hasVideo?: boolean;
 }
 
 export function CatalogList({
@@ -50,7 +53,7 @@ export function CatalogList({
           className={clsx(
             "rounded-full border px-3 py-1 text-xs transition",
             category === null
-              ? "border-accent-green bg-accent-green/10 text-accent-green"
+              ? "border-accent-lime bg-accent-lime/10 text-accent-lime"
               : "border-border text-muted hover:text-foreground"
           )}
         >
@@ -64,7 +67,7 @@ export function CatalogList({
             className={clsx(
               "rounded-full border px-3 py-1 text-xs capitalize transition",
               category === c
-                ? "border-accent-green bg-accent-green/10 text-accent-green"
+                ? "border-accent-lime bg-accent-lime/10 text-accent-lime"
                 : "border-border text-muted hover:text-foreground"
             )}
           >
@@ -73,21 +76,44 @@ export function CatalogList({
         ))}
       </div>
 
-      <div className="space-y-2">
-        {filtered.length === 0 && (
-          <p className="text-sm text-muted">No matches.</p>
-        )}
+      {filtered.length === 0 && <p className="text-sm text-muted">No matches.</p>}
+
+      <div className="grid grid-cols-2 gap-3">
         {filtered.map((item) => (
           <Link key={item.slug} href={`${basePath}/${item.slug}`}>
-            <Card className="flex items-center justify-between transition hover:border-accent-blue/40">
-              <div>
-                <p className="font-medium">{item.name}</p>
-                <p className="text-xs text-muted">{item.subtitle}</p>
-              </div>
-              <span className="rounded-full border border-border px-2.5 py-1 text-xs capitalize text-muted">
-                {item.category.replace(/_/g, " ")}
+            <div
+              className="flex h-full flex-col gap-2 rounded-2xl border p-3.5 transition hover:brightness-110"
+              style={{
+                background: `linear-gradient(135deg, color-mix(in oklab, ${item.color} 18%, var(--surface)), var(--surface) 70%)`,
+                borderColor: `color-mix(in oklab, ${item.color} 30%, var(--border))`,
+              }}
+            >
+              <span className="text-2xl leading-none" aria-hidden>
+                {item.icon}
               </span>
-            </Card>
+              <div className="flex-1">
+                <p className="text-sm font-semibold leading-tight">{item.name}</p>
+                <p className="mt-0.5 text-xs text-muted">{item.subtitle}</p>
+              </div>
+              <div className="flex flex-wrap items-center gap-1.5">
+                {item.difficulty && (
+                  <span
+                    className="rounded-full px-2 py-0.5 text-[10px] font-medium capitalize"
+                    style={{
+                      color: item.color,
+                      background: `color-mix(in oklab, ${item.color} 15%, transparent)`,
+                    }}
+                  >
+                    {item.difficulty.replace(/_/g, " ")}
+                  </span>
+                )}
+                {item.hasVideo && (
+                  <span className="rounded-full border border-border px-2 py-0.5 text-[10px] text-muted">
+                    ▶ Watch
+                  </span>
+                )}
+              </div>
+            </div>
           </Link>
         ))}
       </div>

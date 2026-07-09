@@ -163,10 +163,17 @@ derives the session status, generates a caption, redirects to `/content?session=
 - **`src/lib/caption-generator.ts`** — pure templated function, two variants per `Mood`, no
   AI/LLM call. Called from `completeSession` and `regenerateCaption`.
 
-**UI:** dark neon theme as CSS variables in `src/app/globals.css` (`--accent-blue/green/orange/
-purple` map to the 4 split categories throughout — Upper/Lower/AnimalFlow/Mixed), exposed to
-Tailwind via `@theme inline`. Shared primitives in `src/components/ui/` (`Card`, `RadialGauge`,
-`Badge`, `StatusBadge`, `MoodPicker`, `RatingPicker`, `SessionFocusPicker`).
+**UI:** dark neon theme as CSS variables in `src/app/globals.css`. `--accent-blue/green/purple/
+orange` map to the 4 split categories throughout — Upper/Lower/AnimalFlow/Mixed (`src/lib/
+training/category-theme.ts` centralizes that mapping plus per-exercise-category and per-
+parent-system variants used on the library grids). `--accent-lime` is the separate primary brand
+accent (CTAs, selection, positive states) — kept distinct from `--accent-green` (Lower Body) so
+"the lime button" and "a Lower Body badge" never collide. Exposed to Tailwind via `@theme inline`.
+Shared primitives in `src/components/ui/` (`Card`, `RadialGauge`, `Badge`, `StatusBadge`,
+`MoodPicker`, `RatingPicker`, `SessionFocusPicker`). Responsive nav: `TopNav` (desktop, icons +
+labels) / `BottomNav` (mobile, 5 items) in `src/components/`, both driven by the same route list.
+`Onboarding` (`src/components/Onboarding.tsx`) shows a 3-screen intro once, gated on a
+`localStorage` flag — no account/login, matching the single-user architecture.
 `src/components/WeeklySplitCard.tsx` is shared between Check-In and Dashboard — same status/%/
 CTA rendering in both places by construction, not by convention. `src/components/library/
 CatalogList.tsx` and `ItemHistoryCard.tsx` are shared between `/exercises` and `/movements`.

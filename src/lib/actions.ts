@@ -143,7 +143,7 @@ export async function completeSession(sessionId: string, durationSec: number) {
   });
 
   const caption = await buildCaptionForSession(sessionId);
-  await prisma.sessionLog.update({
+  const session = await prisma.sessionLog.update({
     where: { id: sessionId },
     data: { caption },
   });
@@ -152,7 +152,16 @@ export async function completeSession(sessionId: string, durationSec: number) {
   revalidatePath("/dashboard");
   revalidatePath("/calendar");
   revalidatePath("/content");
-  redirect(`/content?session=${sessionId}`);
+
+  return {
+    sessionId,
+    title: session.title,
+    status,
+    itemsCompleted: itemLogs.filter((i) => i.completionStatus === "COMPLETED").length,
+    itemsTotal: itemLogs.length,
+    highlights: itemLogs.filter((i) => i.isHighlight).length,
+    durationSec,
+  };
 }
 
 export async function regenerateCaption(sessionId: string) {

@@ -1,4 +1,5 @@
 import { exercises } from "@/lib/training/catalog";
+import { getExerciseCategoryColor, getExerciseCategoryIcon } from "@/lib/training/category-theme";
 import { CatalogList } from "@/components/library/CatalogList";
 
 export default function ExerciseLibraryPage() {
@@ -7,6 +8,10 @@ export default function ExerciseLibraryPage() {
     name: e.name,
     category: e.category,
     subtitle: [e.defaultSets, e.defaultReps].filter(Boolean).join(" x ") || e.movementPattern,
+    color: getExerciseCategoryColor(e.category),
+    icon: getExerciseCategoryIcon(e.category),
+    difficulty: e.difficulty,
+    hasVideo: Boolean(e.mediaReference?.url),
   }));
 
   return (

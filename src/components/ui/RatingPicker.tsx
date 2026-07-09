@@ -19,7 +19,7 @@ export function RatingPicker({
     accent === "red"
       ? "border-accent-red bg-accent-red/20 text-accent-red"
       : accent === "green"
-      ? "border-accent-green bg-accent-green/20 text-accent-green"
+      ? "border-accent-lime bg-accent-lime/20 text-accent-lime"
       : "border-accent-blue bg-accent-blue/20 text-accent-blue";
 
   return (

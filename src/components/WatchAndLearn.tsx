@@ -47,7 +47,7 @@ export function WatchAndLearn({
               onClick={() => setLoaded(true)}
               className="flex h-full w-full flex-col items-center justify-center gap-2 text-sm text-muted transition hover:text-foreground"
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-accent-green text-background">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-accent-lime text-background">
                 ▶
               </span>
               Load video

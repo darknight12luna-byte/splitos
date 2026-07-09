@@ -14,6 +14,7 @@ export interface CheckInDay {
   id: string;
   dayNumber: number;
   label: string;
+  category: string;
   goal: string;
   todaySession: { id: string; status: string; completionPct: number } | null;
   lastPerformed: string | null; // ISO date string
@@ -61,6 +62,7 @@ export function CheckInFlow({
               key={day.id}
               dayNumber={day.dayNumber}
               label={day.label}
+              category={day.category}
               status={day.todaySession?.status ?? "NOT_STARTED"}
               completionPct={day.todaySession?.completionPct ?? null}
               lastPerformed={day.lastPerformed ? new Date(day.lastPerformed) : null}
@@ -77,7 +79,7 @@ export function CheckInFlow({
                   <button
                     type="button"
                     onClick={() => selectDay(day.id)}
-                    className="w-full rounded-lg border border-accent-green/40 px-3 py-1.5 text-xs font-semibold text-accent-green transition hover:bg-accent-green/10"
+                    className="w-full rounded-lg border border-accent-lime/40 px-3 py-1.5 text-xs font-semibold text-accent-lime transition hover:bg-accent-lime/10"
                   >
                     Start
                   </button>
@@ -113,7 +115,7 @@ export function CheckInFlow({
                 <button
                   type="button"
                   onClick={() => selectDay(day.id)}
-                  className="rounded-md bg-accent-green px-3 py-1 text-xs font-semibold text-background transition hover:brightness-110"
+                  className="rounded-md bg-accent-lime px-3 py-1 text-xs font-semibold text-background transition hover:brightness-110"
                 >
                   Start
                 </button>
@@ -174,7 +176,7 @@ export function CheckInFlow({
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="flex-1 rounded-xl bg-accent-green py-3.5 text-center font-bold text-background transition hover:brightness-110"
+                className="flex-1 rounded-xl bg-accent-lime py-3.5 text-center font-bold text-background transition hover:brightness-110"
               >
                 Start Planned Session ⚡
               </button>

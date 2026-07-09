@@ -3,7 +3,7 @@ import clsx from "clsx";
 const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
   NOT_STARTED: { label: "Not Started", className: "border-border text-muted" },
   IN_PROGRESS: { label: "In Progress", className: "border-accent-blue text-accent-blue" },
-  COMPLETED: { label: "Completed", className: "border-accent-green text-accent-green" },
+  COMPLETED: { label: "Completed", className: "border-accent-lime text-accent-lime" },
   PARTIAL: { label: "Partial", className: "border-accent-orange text-accent-orange" },
   SKIPPED: { label: "Skipped", className: "border-accent-red text-accent-red" },
 };

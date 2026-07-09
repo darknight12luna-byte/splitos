@@ -14,7 +14,7 @@ export function Badge({
       className={clsx(
         "flex flex-col items-center gap-1 rounded-xl border p-3 text-center",
         achieved
-          ? "border-accent-green/40 bg-surface-2"
+          ? "border-accent-lime/40 bg-surface-2"
           : "border-border bg-surface opacity-40"
       )}
     >

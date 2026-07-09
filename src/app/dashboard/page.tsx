@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { getDashboardStats, getMonthlySnapshot } from "@/lib/stats";
 import { getWeeklySplitStatus, actionLabel } from "@/lib/training/split-status";
+import { getCategoryTheme } from "@/lib/training/category-theme";
 import { logBodyMetric, addMediaEntry } from "@/lib/actions";
 import { getActiveChallenge } from "@/lib/challenge";
 import { Card } from "@/components/ui/Card";
@@ -11,6 +12,13 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import { WeeklySplitCard } from "@/components/WeeklySplitCard";
 import { SetsChart } from "@/components/SetsChart";
 
+const CATEGORY_LABELS: Record<string, string> = {
+  upper_body: "Upper",
+  lower_body: "Lower",
+  animal_flow: "Animal Flow",
+  mixed: "Mixed",
+};
+
 function sessionHref(id: string, status: string) {
   return status === "COMPLETED" || status === "SKIPPED" ? `/content?session=${id}` : `/session/${id}`;
 }
@@ -19,14 +27,26 @@ export default async function DashboardPage() {
   const todayStart = new Date();
   todayStart.setHours(0, 0, 0, 0);
 
-  const [stats, days, monthly, todaysSession, media, challenge] = await Promise.all([
+  const [stats, days, monthly, todaysSession, recentSessions, media, challenge] = await Promise.all([
     getDashboardStats(),
     getWeeklySplitStatus(),
     getMonthlySnapshot(),
-    prisma.sessionLog.findFirst({ where: { date: { gte: todayStart } }, orderBy: { date: "desc" } }),
+    prisma.sessionLog.findFirst({
+      where: { date: { gte: todayStart } },
+      orderBy: { date: "desc" },
+      include: { trainingDayTemplate: true },
+    }),
+    prisma.sessionLog.findMany({
+      where: { status: { not: "NOT_STARTED" } },
+      orderBy: { date: "desc" },
+      take: 6,
+      include: { trainingDayTemplate: true },
+    }),
     prisma.mediaEntry.findMany({ orderBy: { date: "desc" }, take: 8 }),
     getActiveChallenge(),
   ]);
+
+  const todayTheme = getCategoryTheme(todaysSession?.trainingDayTemplate?.category ?? "");
 
   return (
     <div className="space-y-6 pb-10">
@@ -35,32 +55,80 @@ export default async function DashboardPage() {
         <p className="text-sm text-muted">Your training operating system.</p>
       </div>
 
-      <Card className="flex items-center justify-between">
-        <div>
-          <p className="text-xs text-muted">Today</p>
-          <p className="font-semibold">
-            {todaysSession ? `${todaysSession.dayLabel} · ${todaysSession.title}` : "Not checked in yet"}
-          </p>
-        </div>
-        {todaysSession ? (
-          <div className="flex items-center gap-2">
-            <StatusBadge status={todaysSession.status} />
-            <Link
-              href={sessionHref(todaysSession.id, todaysSession.status)}
-              className="rounded-lg bg-accent-blue px-3 py-1.5 text-xs font-semibold text-background transition hover:brightness-110"
-            >
-              Open
-            </Link>
+      <Card
+        className="space-y-3"
+        style={{
+          background: todaysSession
+            ? `linear-gradient(135deg, color-mix(in oklab, ${todayTheme.color} 22%, var(--surface)), var(--surface) 70%)`
+            : undefined,
+          borderColor: todaysSession
+            ? `color-mix(in oklab, ${todayTheme.color} 35%, var(--border))`
+            : undefined,
+        }}
+      >
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            {todaysSession && (
+              <span className="text-3xl leading-none" aria-hidden>
+                {todayTheme.emoji}
+              </span>
+            )}
+            <div>
+              <p className="text-xs text-muted">Today</p>
+              <p className="text-lg font-bold">
+                {todaysSession ? `${todaysSession.dayLabel} · ${todaysSession.title}` : "Not checked in yet"}
+              </p>
+            </div>
           </div>
-        ) : (
+          {todaysSession ? (
+            <div className="flex shrink-0 items-center gap-2">
+              <StatusBadge status={todaysSession.status} />
+              <Link
+                href={sessionHref(todaysSession.id, todaysSession.status)}
+                className="rounded-lg px-3 py-1.5 text-xs font-semibold text-background transition hover:brightness-110"
+                style={{ background: todayTheme.color }}
+              >
+                Open
+              </Link>
+            </div>
+          ) : (
+            <Link
+              href="/"
+              className="shrink-0 rounded-lg bg-accent-lime px-3 py-1.5 text-xs font-semibold text-background transition hover:brightness-110"
+            >
+              Check In
+            </Link>
+          )}
+        </div>
+
+        {todaysSession?.status === "PARTIAL" && (
           <Link
-            href="/"
-            className="rounded-lg bg-accent-green px-3 py-1.5 text-xs font-semibold text-background transition hover:brightness-110"
+            href={sessionHref(todaysSession.id, todaysSession.status)}
+            className="block rounded-xl border border-accent-orange/40 bg-accent-orange/10 px-3 py-2 text-sm font-medium text-accent-orange transition hover:bg-accent-orange/20"
           >
-            Check In
+            ⚡ Continue where you left off →
           </Link>
         )}
       </Card>
+
+      <div className="flex flex-wrap gap-2">
+        {Object.entries(CATEGORY_LABELS).map(([cat, label]) => {
+          const theme = getCategoryTheme(cat);
+          return (
+            <span
+              key={cat}
+              className="rounded-full border px-3 py-1 text-xs font-medium"
+              style={{
+                borderColor: `color-mix(in oklab, ${theme.color} 40%, transparent)`,
+                color: theme.color,
+                background: `color-mix(in oklab, ${theme.color} 12%, transparent)`,
+              }}
+            >
+              {theme.emoji} {label}
+            </span>
+          );
+        })}
+      </div>
 
       <div>
         <div className="mb-3 flex items-center justify-between">
@@ -77,6 +145,7 @@ export default async function DashboardPage() {
               key={day.id}
               dayNumber={day.dayNumber}
               label={day.label}
+              category={day.category}
               status={day.todaySession?.status ?? "NOT_STARTED"}
               completionPct={day.todaySession?.completionPct ?? null}
               lastPerformed={day.lastPerformed?.date ?? null}
@@ -91,7 +160,7 @@ export default async function DashboardPage() {
                 ) : (
                   <Link
                     href={`/?day=${day.id}`}
-                    className="block rounded-lg border border-accent-green/40 px-3 py-1.5 text-center text-xs font-semibold text-accent-green transition hover:bg-accent-green/10"
+                    className="block rounded-lg border border-accent-lime/40 px-3 py-1.5 text-center text-xs font-semibold text-accent-lime transition hover:bg-accent-lime/10"
                   >
                     Start
                   </Link>
@@ -115,7 +184,7 @@ export default async function DashboardPage() {
             pct={stats.consistencyPct}
             value={`${stats.consistencyPct}%`}
             label="Consistency"
-            color="var(--accent-green)"
+            color="var(--accent-lime)"
           />
           <RadialGauge
             pct={stats.complianceThisWeekPct ?? 0}
@@ -124,9 +193,9 @@ export default async function DashboardPage() {
             color="var(--accent-blue)"
           />
           <RadialGauge
-            pct={Math.min(100, stats.highlightsThisWeek * 20)}
-            value={`${stats.highlightsThisWeek}`}
-            label="Highlights"
+            pct={Math.min(100, (stats.streakDays / 30) * 100)}
+            value={`${stats.streakDays}d`}
+            label="Streak"
             color="var(--accent-orange)"
           />
         </div>
@@ -134,8 +203,8 @@ export default async function DashboardPage() {
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         <Card className="text-center">
-          <p className="text-xs text-muted">Streak</p>
-          <p className="text-xl font-bold">🔥 {stats.streakDays}d</p>
+          <p className="text-xs text-muted">Highlights</p>
+          <p className="text-xl font-bold">✨ {stats.highlightsThisWeek}</p>
         </Card>
         <Card className="text-center">
           <p className="text-xs text-muted">Sessions</p>
@@ -153,6 +222,39 @@ export default async function DashboardPage() {
           </p>
         </Card>
       </div>
+
+      {recentSessions.length > 0 && (
+        <div className="space-y-3">
+          <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
+            Recent Sessions
+          </h2>
+          <div className="space-y-2">
+            {recentSessions.map((s) => {
+              const theme = getCategoryTheme(s.trainingDayTemplate?.category ?? "");
+              return (
+                <Link key={s.id} href={sessionHref(s.id, s.status)}>
+                  <Card className="flex items-center gap-3 py-3 transition hover:border-accent-blue/40">
+                    <div
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-lg"
+                      style={{ background: `color-mix(in oklab, ${theme.color} 22%, transparent)` }}
+                    >
+                      {theme.emoji}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-medium">{s.title}</p>
+                      <p className="text-xs text-muted">
+                        {s.date.toLocaleDateString("en-US", { month: "short", day: "numeric" })} ·{" "}
+                        {s.dayLabel}
+                      </p>
+                    </div>
+                    <StatusBadge status={s.status} />
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <Card className="flex items-center justify-between">
         <div>
@@ -174,10 +276,10 @@ export default async function DashboardPage() {
 
       {challenge && (
         <Link href="/challenge">
-          <Card className="flex items-center gap-3 border-accent-green/40 bg-surface-2 transition hover:border-accent-green/70">
+          <Card className="flex items-center gap-3 border-accent-lime/40 bg-surface-2 transition hover:border-accent-lime/70">
             <span className="text-xl">🔥</span>
             <p className="text-sm">
-              Day <span className="font-bold text-accent-green">{challenge.dayNumber}</span>/
+              Day <span className="font-bold text-accent-lime">{challenge.dayNumber}</span>/
               {challenge.durationDays} of{" "}
               <span className="font-semibold">{challenge.name}</span>
             </p>
@@ -194,7 +296,7 @@ export default async function DashboardPage() {
               <span
                 className={
                   stats.weightDeltaKg <= 0
-                    ? "ml-2 text-sm text-accent-green"
+                    ? "ml-2 text-sm text-accent-lime"
                     : "ml-2 text-sm text-accent-red"
                 }
               >
@@ -211,7 +313,7 @@ export default async function DashboardPage() {
               <span
                 className={
                   stats.bodyFatDeltaPct <= 0
-                    ? "ml-2 text-sm text-accent-green"
+                    ? "ml-2 text-sm text-accent-lime"
                     : "ml-2 text-sm text-accent-red"
                 }
               >
@@ -288,7 +390,7 @@ export default async function DashboardPage() {
           />
           <button
             type="submit"
-            className="rounded-lg bg-accent-green px-4 py-2 text-sm font-semibold text-background transition hover:brightness-110"
+            className="rounded-lg bg-accent-lime px-4 py-2 text-sm font-semibold text-background transition hover:brightness-110"
           >
             Add
           </button>

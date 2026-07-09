@@ -1,12 +1,14 @@
-import { ReactNode } from "react";
+import { ReactNode, CSSProperties } from "react";
 import clsx from "clsx";
 
 export function Card({
   children,
   className,
+  style,
 }: {
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
 }) {
   return (
     <div
@@ -14,6 +16,7 @@ export function Card({
         "rounded-2xl border border-border bg-surface p-5 shadow-lg shadow-black/20",
         className
       )}
+      style={style}
     >
       {children}
     </div>

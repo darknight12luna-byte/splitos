@@ -1,13 +1,21 @@
 import { movementTechniques } from "@/lib/training/catalog";
+import { getParentSystemTheme } from "@/lib/training/category-theme";
 import { CatalogList } from "@/components/library/CatalogList";
 
 export default function MovementLibraryPage() {
-  const items = movementTechniques.map((t) => ({
-    slug: t.slug,
-    name: t.name,
-    category: t.parentSystem,
-    subtitle: t.techniqueType.replace(/_/g, " "),
-  }));
+  const items = movementTechniques.map((t) => {
+    const theme = getParentSystemTheme(t.parentSystem);
+    return {
+      slug: t.slug,
+      name: t.name,
+      category: t.parentSystem,
+      subtitle: t.techniqueType.replace(/_/g, " "),
+      color: theme.color,
+      icon: theme.emoji,
+      difficulty: t.difficulty,
+      hasVideo: Boolean(t.mediaReference?.url),
+    };
+  });
 
   return (
     <div className="space-y-6">
