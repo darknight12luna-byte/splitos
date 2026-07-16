@@ -96,8 +96,8 @@ export function SessionRunner({
     startTransition(async () => {
       const result = await completeSession(sessionId, seconds);
       if (!result.success) {
-        setError(result.error);
-      } else {
+        setError(result.error || "Failed to complete session");
+      } else if (result.data) {
         setSummary(result.data);
       }
     });
