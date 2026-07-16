@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
 import { submitCheckIn, skipDay } from "@/lib/actions";
@@ -37,8 +38,10 @@ export function CheckInFlow({
   days: CheckInDay[];
   initialSelectedDayId: string | null;
 }) {
+  const router = useRouter();
   const [selectedDayId, setSelectedDayId] = useState<string | null>(initialSelectedDayId);
   const [isPending, startTransition] = useTransition();
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
 
   const doneToday = days.filter((d) => d.todaySession);
@@ -47,7 +50,36 @@ export function CheckInFlow({
 
   const selectDay = (id: string) => {
     setSelectedDayId(id);
+    setErrorMsg(null);
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleSubmitCheckIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setErrorMsg(null);
+
+    const formData = new FormData(e.currentTarget);
+    startTransition(async () => {
+      const result = await submitCheckIn(formData);
+      if (!result.success) {
+        setErrorMsg(result.error);
+      } else {
+        router.push(`/session/${result.sessionId}`);
+      }
+    });
+  };
+
+  const handleSkipDay = () => {
+    if (!selectedDay) return;
+    setErrorMsg(null);
+    startTransition(async () => {
+      const result = await skipDay(selectedDay.id);
+      if (!result.success) {
+        setErrorMsg(result.error);
+      } else {
+        router.push("/");
+      }
+    });
   };
 
   return (
@@ -127,7 +159,7 @@ export function CheckInFlow({
 
       <div ref={formRef}>
         {selectedDay ? (
-          <form action={submitCheckIn} className="space-y-6">
+          <form onSubmit={handleSubmitCheckIn} className="space-y-6">
             <input type="hidden" name="trainingDayTemplateId" value={selectedDay.id} />
 
             <Card className="space-y-1">
@@ -137,6 +169,12 @@ export function CheckInFlow({
               <p className="text-lg font-bold">{selectedDay.label}</p>
               <p className="text-sm text-muted">{selectedDay.goal}</p>
             </Card>
+
+            {errorMsg && (
+              <Card className="border border-accent-red/50 bg-accent-red/10 p-4">
+                <p className="text-sm text-accent-red">{errorMsg}</p>
+              </Card>
+            )}
 
             <Card className="space-y-3">
               <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
@@ -176,16 +214,17 @@ export function CheckInFlow({
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="flex-1 rounded-xl bg-accent-lime py-3.5 text-center font-bold text-background transition hover:brightness-110"
+                disabled={isPending}
+                className="flex-1 rounded-xl bg-accent-lime py-3.5 text-center font-bold text-background transition hover:brightness-110 disabled:opacity-50"
               >
-                Start Planned Session ⚡
+                {isPending ? "Starting…" : "Start Planned Session ⚡"}
               </button>
             </div>
 
             <button
               type="button"
               disabled={isPending}
-              onClick={() => startTransition(() => skipDay(selectedDay.id))}
+              onClick={handleSkipDay}
               className="w-full text-center text-sm text-muted transition hover:text-accent-red disabled:opacity-50"
             >
               {isPending ? "Skipping…" : `Skip Day ${selectedDay.dayNumber} today`}

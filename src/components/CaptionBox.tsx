@@ -5,10 +5,26 @@ import { regenerateCaption } from "@/lib/actions";
 
 export function CaptionBox({ sessionId, caption }: { sessionId: string; caption: string }) {
   const [copied, setCopied] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+
+  const handleRegenerate = () => {
+    setErrorMsg(null);
+    startTransition(async () => {
+      const result = await regenerateCaption(sessionId);
+      if (!result.success) {
+        setErrorMsg(result.error);
+      }
+    });
+  };
 
   return (
     <div className="space-y-3">
+      {errorMsg && (
+        <div className="rounded-lg border border-accent-red/50 bg-accent-red/10 p-2 text-xs text-accent-red">
+          {errorMsg}
+        </div>
+      )}
       <textarea
         readOnly
         value={caption}
@@ -30,7 +46,7 @@ export function CaptionBox({ sessionId, caption }: { sessionId: string; caption:
         <button
           type="button"
           disabled={isPending}
-          onClick={() => startTransition(() => regenerateCaption(sessionId))}
+          onClick={handleRegenerate}
           className="rounded-lg border border-border px-4 py-2 text-sm text-muted transition hover:text-foreground disabled:opacity-50"
         >
           {isPending ? "Regenerating…" : "Regenerate"}

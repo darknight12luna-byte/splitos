@@ -141,6 +141,7 @@ export function SessionItemLogCard(props: Props) {
   const [isHighlight, setIsHighlight] = useState(props.isHighlight);
   const [expanded, setExpanded] = useState(false);
   const [saved, setSaved] = useState(true);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const [actualSets, setActualSets] = useState(props.actualSets?.toString() ?? "");
@@ -164,10 +165,16 @@ export function SessionItemLogCard(props: Props) {
       actualNotes: actualNotes || null,
       completionStatus: nextStatus ?? (status as ActualValuesInput["completionStatus"]),
     };
-    startTransition(() => {
-      logItemActual(itemId, values);
+    setErrorMsg(null);
+    startTransition(async () => {
+      const result = await logItemActual(itemId, values);
+      if (!result.success) {
+        setErrorMsg(result.error);
+        setSaved(false);
+      } else {
+        setSaved(true);
+      }
     });
-    setSaved(true);
   };
 
   const ex = resolved.exercise;
@@ -203,6 +210,11 @@ export function SessionItemLogCard(props: Props) {
           : "border-border bg-surface"
       )}
     >
+      {errorMsg && (
+        <div className="mb-3 rounded-lg border border-accent-red/50 bg-accent-red/10 p-2 text-xs text-accent-red">
+          {errorMsg}
+        </div>
+      )}
       <div className="flex items-start gap-3">
         <span className="mt-1 text-lg">{KIND_ICON[resolved.kind]}</span>
         <div className="flex-1">
@@ -363,7 +375,14 @@ export function SessionItemLogCard(props: Props) {
           onClick={() => {
             const next = !isHighlight;
             setIsHighlight(next);
-            startTransition(() => toggleHighlight(itemId, next));
+            setErrorMsg(null);
+            startTransition(async () => {
+              const result = await toggleHighlight(itemId, next);
+              if (!result.success) {
+                setErrorMsg(result.error);
+                setIsHighlight(!next);
+              }
+            });
           }}
           title={HIGHLIGHT_LABEL[resolved.kind]}
           className={clsx(

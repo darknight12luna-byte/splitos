@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition, ReactNode } from "react";
 import Link from "next/link";
 import { completeSession } from "@/lib/actions";
 import { ExerciseDrawerProvider } from "@/lib/exercise-drawer-context";
+import { Card } from "@/components/ui/Card";
 
 interface SessionSummary {
   sessionId: string;
@@ -80,6 +81,7 @@ export function SessionRunner({
   const [seconds, setSeconds] = useState(0);
   const [isPending, startTransition] = useTransition();
   const [summary, setSummary] = useState<SessionSummary | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => setSeconds((s) => s + 1), 1000);
@@ -90,9 +92,14 @@ export function SessionRunner({
   const ss = String(seconds % 60).padStart(2, "0");
 
   const finish = () => {
+    setError(null);
     startTransition(async () => {
       const result = await completeSession(sessionId, seconds);
-      setSummary(result);
+      if (!result.success) {
+        setError(result.error);
+      } else {
+        setSummary(result.data);
+      }
     });
   };
 
@@ -102,6 +109,11 @@ export function SessionRunner({
     <ExerciseDrawerProvider>
       <div className="space-y-6 pb-24">
         {children}
+        {error && (
+          <Card className="fixed bottom-32 left-1/2 w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 border border-accent-red/50 bg-accent-red/10 p-4">
+            <p className="text-sm text-accent-red">{error}</p>
+          </Card>
+        )}
         <div className="fixed bottom-20 left-1/2 flex w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-2xl border border-border bg-surface/95 p-4 shadow-xl shadow-black/40 backdrop-blur md:bottom-4">
           <div>
             <p className="text-xs text-muted">Timer</p>
