@@ -12,7 +12,7 @@ duration, speed, rest, tempo) → a logging page where you record what you *actu
 what was planned, with delta/compliance tracking → dashboard, calendar, and per-exercise history
 all built from that logged data. On top sits a content layer (auto-drafted captions, a named
 challenge tracker, a "ready to post" export view) for a solo calisthenics/Animal Flow TikTok
-journey. Single-user, no auth — data stays local in a SQLite file.
+journey. Single-user, no auth — data is stored in PostgreSQL (Supabase).
 
 There is deliberately no TikTok API integration (no auto-posting) — that requires business-account
 approval and is a poor fit for a personal account. The content layer only prepares
@@ -36,22 +36,31 @@ npm run lint             # eslint
 
 npm run db:migrate       # create/apply a Prisma migration (edits to prisma/schema.prisma)
 npm run db:seed          # seed the active WeeklyProgram (prisma/seed.ts)
-npm run db:studio        # open Prisma Studio to browse dev.db
+npm run db:studio        # open Prisma Studio to browse the database
 
 npm run parse:training   # re-parse data-sources/training-history.md into src/data/training/*.json
 ```
 
 There is no test suite yet.
 
-The SQLite file lives at `prisma/dev.db` (gitignored). `DATABASE_URL` is set in `.env`
-(also gitignored) as `file:./dev.db`. Deleting `prisma/dev.db` + `prisma/migrations`, then
-`npm run db:migrate` + `npm run db:seed`, gives a clean slate with the default 4-day program.
+**Database Setup:**
+- `DATABASE_URL` (Supabase pooler connection, port 6543 with pgbouncer=true) — used by app at runtime
+- `DIRECT_URL` (Supabase direct connection, port 5432) — used only for migrations
+- Both are set in `.env` (gitignored; see `.env.example` for format)
 
-**Prisma is pinned to v6**, not v7 — v7 moved SQLite datasource config to a driver-adapter model
-that needs native bindings and is more setup than this project needs.
+To reset the database during local development:
+1. Drop and recreate the database in Supabase (via project settings)
+2. Run `npx prisma migrate deploy`
+3. Run `npm run db:seed` to populate the default 4-day program
 
-**Windows note:** stop the dev server before running `prisma migrate`/`generate` — the query
-engine `.dll` gets locked by the running process and migration fails with `EPERM`.
+**Prisma is pinned to v6**, not v7. All pages that query the database must have `export const dynamic = 'force-dynamic'` to prevent stale data on Vercel's serverless platform (see `src/app/(main)/dashboard/page.tsx` and others for examples).
+
+**Windows note:** stop the dev server before running `prisma migrate`/`generate` — the query engine `.dll` gets locked by the running process and migration fails with `EPERM`.
+
+**Production notes:**
+- Do NOT run `prisma migrate dev` in production — always use `npx prisma migrate deploy`
+- Environment variables (`DATABASE_URL`, `DIRECT_URL`) must be set in Vercel project settings
+- All Prisma-querying pages must have `export const dynamic = 'force-dynamic'` to avoid stale caches
 
 ## Architecture
 

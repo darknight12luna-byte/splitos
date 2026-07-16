@@ -17,8 +17,8 @@ Animal Flow and mobility work are treated as first-class training content alongs
 traditional strength work, each with real execution steps, coaching cues, and video
 references, not an afterthought bolted onto a lifting app.
 
-It's single-user and local-first: no accounts, no multi-tenant cloud backend — your training
-history lives in a SQLite file you control.
+It's single-user and cloud-hosted: no accounts, no multi-tenant backend — your training
+history lives in PostgreSQL (Supabase) and is synced to Vercel.
 
 ## Feature Overview
 
@@ -56,7 +56,8 @@ history lives in a SQLite file you control.
 
 - **Framework:** Next.js 16 (App Router, Turbopack, Server Actions — no separate API layer)
 - **Language:** TypeScript, React 19
-- **Database:** SQLite via Prisma ORM (v6)
+- **Database:** PostgreSQL (Supabase) via Prisma ORM (v6)
+- **Hosting:** Vercel (serverless deployment)
 - **Styling:** Tailwind CSS v4, custom dark design system (`globals.css`)
 - **Charts:** Recharts
 - **Data ingestion:** a real markdown → JSON parsing pipeline (`scripts/parse-training-markdown.ts`) for the exercise/movement catalog
@@ -69,10 +70,10 @@ cd gymfit
 npm install
 
 # environment
-cp .env.example .env   # then fill in DATABASE_URL, see below
+cp .env.example .env   # fill in DATABASE_URL and DIRECT_URL from Supabase
 
-# database
-npm run db:migrate
+# database (only needed once or after database reset)
+npx prisma migrate deploy
 npm run db:seed
 
 npm run dev             # http://localhost:3000
@@ -83,57 +84,63 @@ Other useful scripts:
 ```bash
 npm run build            # production build
 npm run lint              # eslint
-npm run db:studio        # browse the SQLite DB in Prisma Studio
+npm run db:studio        # browse the database in Prisma Studio
 npm run parse:training   # re-parse data-sources/training-history.md into the catalog JSON
 ```
 
-**Windows:** stop the dev server before running `prisma migrate`/`generate` — the query engine
-`.dll` gets locked by the running process.
+**Windows:** stop the dev server before running `prisma migrate deploy` or `prisma generate` — the query engine
+`.dll` gets locked by the running process and the migration will fail with `EPERM`.
 
 ## Environment Variables
 
 | Variable | Required | Description |
 |---|---|---|
-| `DATABASE_URL` | Yes | Prisma connection string. Local dev: `file:./dev.db`. See [Production Deployment](#production-deployment) for why this needs to change for Vercel. |
+| `DATABASE_URL` | Yes | Supabase pooler connection string (port 6543, pgbouncer=true) — used by the app at runtime on Vercel |
+| `DIRECT_URL` | Yes | Supabase direct connection string (port 5432) — used only for running migrations locally |
+
+Get both from your Supabase project: **Project Settings → Database → Connection Strings**.
 
 There is currently no auth, no third-party API keys, and no analytics — this is intentionally
 a minimal-config, single-user app.
 
-## Production Deployment
+## Deployment
 
-**Honest caveat first:** local dev uses a SQLite file (`prisma/dev.db`). Vercel's serverless
-functions run on an ephemeral, per-invocation filesystem — a file-based SQLite database will
-not reliably persist writes across requests in that environment. Deploying this as-is to
-Vercel will work for browsing a *seeded, read-mostly* demo, but session logging will not
-durably persist.
+### Setup: Supabase + Vercel
 
-To deploy for real, production use:
+1. **Create a Supabase project** — free tier is sufficient
+   - Copy the connection strings from **Project Settings → Database → Connection Strings**
+   - `DATABASE_URL` → pooler connection (for serverless/Vercel)
+   - `DIRECT_URL` → direct connection (for migrations only)
 
-1. Swap `DATABASE_URL` to a hosted database Prisma supports over the network — e.g.
-   [Neon](https://neon.tech) or [Vercel Postgres](https://vercel.com/storage/postgres)
-   (requires a small schema/provider change in `prisma/schema.prisma`), or a
-   SQLite-compatible edge DB like [Turso](https://turso.tech) (`libsql` Prisma driver) if you
-   want to keep the SQLite data model as-is.
-2. Run `prisma migrate deploy` against that database (via a build step or manually).
-3. Set `DATABASE_URL` as an encrypted environment variable in the Vercel project settings —
-   never commit it.
+2. **Create a Vercel project** — import this GitHub repo
+   - Vercel auto-detects Next.js, no special config needed
+   - Set these environment variables in **Project Settings → Environment Variables**:
+     - `DATABASE_URL` (pooler string from Supabase)
+     - `DIRECT_URL` (direct string from Supabase)
+   - Do NOT commit `.env` — these stay in Vercel's encrypted settings only
 
-Until that swap happens, treat any Vercel deployment as a **preview/demo environment**, not
-the system of record for real training data.
+3. **Run migrations** — after the first deploy, run migrations locally
+   ```bash
+   npx prisma migrate deploy
+   npm run db:seed
+   ```
+   (The build step on Vercel will fail until migrations are run — this is expected.)
 
-## GitHub → Vercel Workflow
+### Deployment Workflow
 
 1. Push `main` to GitHub.
-2. Import the repo in Vercel → it auto-detects Next.js, no config needed beyond
-   `DATABASE_URL`.
-3. Every push to `main` deploys to production; every other branch/PR gets its own preview
-   URL (`<project>-git-<branch>-<team>.vercel.app`).
-4. Recommended branch convention for clean preview URLs: `feature/<short-name>`,
-   `fix/<short-name>`.
+2. Vercel auto-deploys to production; every other branch/PR gets a preview URL.
+3. **Important:** all pages that query the database must have `export const dynamic = 'force-dynamic'` to prevent stale serverless caches. See `src/app/(main)/dashboard/page.tsx` for examples.
+
+### Database Resets
+
+To reset the database during development:
+1. Go to Supabase project → **SQL Editor** → drop and recreate the database
+2. Run `npx prisma migrate deploy` locally
+3. Run `npm run db:seed` to repopulate the default program
 
 ## Future Improvements
 
-- Hosted-database migration path for real production persistence (see above)
 - Profile page (body metrics history, badges — currently removed from the main Dashboard to
   keep it focused, logic still intact)
 - In-app program editor (currently the weekly program is edited via `prisma/seed.ts`)
