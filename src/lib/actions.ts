@@ -7,7 +7,6 @@ import type { ItemKind } from "@/lib/training/types";
 import { generateCaption, Mood } from "@/lib/caption-generator";
 import { getStreakDays } from "@/lib/stats";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { writeFile } from "fs/promises";
 import path from "path";
 
