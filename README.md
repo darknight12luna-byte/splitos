@@ -2,7 +2,7 @@
 
 **A personal training operating system for structured splits, planned-vs-actual tracking, and Animal Flow practice.**
 
-> Status: actively evolving personal product / structured prototype — not a finished commercial app. See [Project Status](#project-status).
+> Status: actively maintained, post-prototype stabilization phase — not a finished commercial app. See [Project Status](#project-status).
 
 ## What it is
 

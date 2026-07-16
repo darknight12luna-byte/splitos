@@ -43,6 +43,27 @@ npm run parse:training   # re-parse data-sources/training-history.md into src/da
 
 There is no test suite yet.
 
+## Validation & Error Handling
+
+All server actions in `src/lib/actions.ts` validate input and return structured responses:
+- Success: `{ success: true, data?: T }` or `{ success: true, sessionId?: string }`
+- Failure: `{ success: false, error: string }`
+
+Validations include:
+- **Check-in:** mood enum, ratings 1–5, required fields
+- **Item logging:** numeric bounds (sets, weight, duration)
+- **Challenges:** name ≤100 chars, duration 1–365 days
+- **Body metrics:** weight 20–500 kg, body fat 0–100%
+- **Media:** file size <100 MB, type (image/video only)
+
+Client components (`CheckInFlow.tsx`, `SessionRunner.tsx`, `SessionItemLogCard.tsx`, 
+`challenge-forms.tsx`, `CaptionBox.tsx`) handle errors with inline error cards or messages.
+
+**Global error pages:**
+- `src/app/error.tsx` — catches unhandled runtime errors, offers "Try again" button (calls `reset()`)
+- `src/app/not-found.tsx` — 404 page for undefined routes
+- `src/app/loading.tsx` — fallback UI during page transitions (pulsing dot + "Loading…")
+
 **Database Setup:**
 - `DATABASE_URL` (Supabase pooler connection, port 6543 with pgbouncer=true) — used by app at runtime
 - `DIRECT_URL` (Supabase direct connection, port 5432) — used only for migrations
@@ -58,9 +79,11 @@ To reset the database during local development:
 **Windows note:** stop the dev server before running `prisma migrate`/`generate` — the query engine `.dll` gets locked by the running process and migration fails with `EPERM`.
 
 **Production notes:**
-- Do NOT run `prisma migrate dev` in production — always use `npx prisma migrate deploy`
-- Environment variables (`DATABASE_URL`, `DIRECT_URL`) must be set in Vercel project settings
-- All Prisma-querying pages must have `export const dynamic = 'force-dynamic'` to avoid stale caches
+- **Vercel deployment:** auto-deploys on push to `main`; environment variables (`DATABASE_URL`, `DIRECT_URL`) must be set in Vercel project settings
+- **Migrations:** Do NOT run `prisma migrate dev` in production — always use `npx prisma migrate deploy`
+- **Serverless caching:** All pages querying Prisma must have `export const dynamic = 'force-dynamic'` to prevent stale data across invocations
+- **Build requirement:** TypeScript must pass (`npm run lint`) before Vercel deployment succeeds
+- **Error boundaries:** Global error pages (`error.tsx`, `not-found.tsx`, `loading.tsx`) handle graceful degradation in serverless environment
 
 ## Architecture
 
