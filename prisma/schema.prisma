@@ -128,6 +128,11 @@ model SessionItemLog {
   actualRestSec     Int?
   actualNotes       String?
 
+  // Optional per-set detail: [{ reps: string|null, weightKg: number|null, done: boolean }]
+  // Aggregates above (actualSets/Reps/WeightKg) are derived from this when present,
+  // so stats/history keep reading the aggregate columns unchanged.
+  setDetails Json?
+
   completionStatus String  @default("PENDING") // PENDING | COMPLETED | PARTIAL | SKIPPED
   isHighlight      Boolean @default(false)
 }

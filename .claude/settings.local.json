@@ -17,7 +17,8 @@
       "Bash(git push *)",
       "Bash(git commit *)",
       "Bash(grep -v \"// any\")",
-      "Bash(xargs wc -l)"
+      "Bash(xargs wc -l)",
+      "Bash(printf -- '- [Gym Field-Test Feedback]\\(project_gym_field_test_feedback.md\\) — 5 feature requests from real gym session Jul 18 2026: rest timer, skip reasons, library add mid-session, freestyle machine session, per-set tracking\\\\n' >> \"/c/Users/princ/.claude/projects/C--Users-princ-Claude-Gymfit/memory/MEMORY.md\")"
     ]
   }
 }

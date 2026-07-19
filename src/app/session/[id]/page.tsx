@@ -102,6 +102,7 @@ export default async function SessionPage({
             actualSpeed={item.actualSpeed}
             actualRestSec={item.actualRestSec}
             actualNotes={item.actualNotes}
+            setDetails={item.setDetails}
             completionStatus={item.completionStatus}
             isHighlight={item.isHighlight}
           />

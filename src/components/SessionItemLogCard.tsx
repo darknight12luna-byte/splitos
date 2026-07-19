@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import clsx from "clsx";
-import { logItemActual, toggleHighlight, type ActualValuesInput } from "@/lib/actions";
+import { logItemActual, toggleHighlight, type ActualValuesInput, type SetDetailInput } from "@/lib/actions";
 import type { ResolvedItem } from "@/lib/training/catalog";
 import { formatLabels } from "@/lib/formatLabel";
 import { useExerciseDrawer } from "@/lib/exercise-drawer-context";
@@ -35,6 +35,32 @@ const STATUS_COLOR: Record<string, string> = {
 };
 
 const SKIP_REASONS = ["Machine busy", "No time", "Pain / discomfort", "Too tired"];
+
+interface SetRow {
+  reps: string;
+  weightKg: string;
+  done: boolean;
+}
+
+function parseSetDetails(raw: unknown): SetRow[] | null {
+  if (!Array.isArray(raw) || raw.length === 0) return null;
+  return raw.map((r) => {
+    const o = r as { reps?: unknown; weightKg?: unknown; done?: unknown };
+    return {
+      reps: typeof o?.reps === "string" ? o.reps : "",
+      weightKg: typeof o?.weightKg === "number" ? String(o.weightKg) : "",
+      done: o?.done === true,
+    };
+  });
+}
+
+function toSetPayload(rows: SetRow[]): SetDetailInput[] {
+  return rows.map((r) => ({
+    reps: r.reps.trim() || null,
+    weightKg: r.weightKg !== "" && !Number.isNaN(Number(r.weightKg)) ? Number(r.weightKg) : null,
+    done: r.done,
+  }));
+}
 
 function secToMin(sec: number | null): string {
   if (sec == null) return "";
@@ -133,6 +159,7 @@ interface Props {
   actualSpeed: string | null;
   actualRestSec: number | null;
   actualNotes: string | null;
+  setDetails: unknown;
   completionStatus: string;
   isHighlight: boolean;
 }
@@ -155,10 +182,22 @@ export function SessionItemLogCard(props: Props) {
   const [actualSpeed, setActualSpeed] = useState(props.actualSpeed ?? "");
   const [actualRestSec, setActualRestSec] = useState(props.actualRestSec?.toString() ?? "");
   const [actualNotes, setActualNotes] = useState(props.actualNotes ?? "");
+  const [setRows, setSetRows] = useState<SetRow[] | null>(() => parseSetDetails(props.setDetails));
 
   const markDirty = () => setSaved(false);
 
-  const save = (nextStatus?: ActualValuesInput["completionStatus"], noteOverride?: string) => {
+  const save = (
+    nextStatus?: ActualValuesInput["completionStatus"],
+    noteOverride?: string,
+    rowsOverride?: SetRow[] | null
+  ) => {
+    const rows = rowsOverride !== undefined ? rowsOverride : setRows;
+    const payload = rows ? toSetPayload(rows) : null;
+    const doneCount = payload ? payload.filter((r) => r.done).length : 0;
+    const weights = payload
+      ? payload.map((r) => r.weightKg).filter((w): w is number => w !== null)
+      : [];
+
     const values: ActualValuesInput = {
       actualSets: actualSets ? Number(actualSets) : null,
       actualReps: actualReps || null,
@@ -167,8 +206,19 @@ export function SessionItemLogCard(props: Props) {
       actualSpeed: actualSpeed || null,
       actualRestSec: actualRestSec ? Number(actualRestSec) : null,
       actualNotes: (noteOverride ?? actualNotes) || null,
+      setDetails: payload,
       completionStatus: nextStatus ?? (status as ActualValuesInput["completionStatus"]),
     };
+
+    // Per-set mode owns the aggregates: derive them from the rows so
+    // dashboard/history/compliance keep reading the same columns.
+    if (payload) {
+      values.actualSets = doneCount > 0 ? doneCount : null;
+      values.actualReps = payload.some((r) => r.reps)
+        ? payload.map((r) => r.reps ?? "–").join("/")
+        : null;
+      values.actualWeightKg = weights.length > 0 ? Math.max(...weights) : null;
+    }
     setErrorMsg(null);
     startTransition(async () => {
       const result = await logItemActual(itemId, values);
@@ -190,6 +240,50 @@ export function SessionItemLogCard(props: Props) {
   const startRest = () => {
     const seconds = Number(actualRestSec) || props.plannedRestSec || 0;
     restTimer.start(seconds, resolved.name);
+  };
+
+  const enablePerSet = () => {
+    const count = props.plannedSets ?? (actualSets ? Number(actualSets) : 3);
+    const n = Math.min(Math.max(count || 3, 1), 20);
+    const prefillWeight =
+      actualWeightKg || (props.plannedWeightKg != null ? String(props.plannedWeightKg) : "");
+    setSetRows(Array.from({ length: n }, () => ({ reps: "", weightKg: prefillWeight, done: false })));
+    markDirty();
+  };
+
+  const disablePerSet = () => {
+    setSetRows(null);
+    save(undefined, undefined, null);
+  };
+
+  const updateSetRow = (idx: number, field: "reps" | "weightKg", value: string) => {
+    setSetRows((rows) => rows?.map((r, i) => (i === idx ? { ...r, [field]: value } : r)) ?? rows);
+    markDirty();
+  };
+
+  const toggleSetDone = (idx: number) => {
+    if (!setRows) return;
+    const next = setRows.map((r, i) => (i === idx ? { ...r, done: !r.done } : r));
+    setSetRows(next);
+    save(undefined, undefined, next);
+    const restSec = Number(actualRestSec) || props.plannedRestSec || 0;
+    if (next[idx].done && restSec > 0 && next.some((r) => !r.done)) {
+      restTimer.start(restSec, `${resolved.name} · Set ${idx + 1} done`);
+    }
+  };
+
+  const addSetRow = () => {
+    setSetRows((rows) => {
+      if (!rows || rows.length >= 20) return rows;
+      const last = rows[rows.length - 1];
+      return [...rows, { reps: "", weightKg: last?.weightKg ?? "", done: false }];
+    });
+    markDirty();
+  };
+
+  const removeSetRow = (idx: number) => {
+    setSetRows((rows) => (rows && rows.length > 1 ? rows.filter((_, i) => i !== idx) : rows));
+    markDirty();
   };
 
   const ex = resolved.exercise;
@@ -252,7 +346,7 @@ export function SessionItemLogCard(props: Props) {
           </button>
 
           <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3">
-            {showSets && (
+            {!setRows && showSets && (
               <label className="text-xs">
                 <span className="text-muted">
                   Sets {props.plannedSets != null && <>· planned {props.plannedSets}</>}
@@ -273,7 +367,7 @@ export function SessionItemLogCard(props: Props) {
                 </div>
               </label>
             )}
-            {showReps && (
+            {!setRows && showReps && (
               <label className="text-xs">
                 <span className="text-muted">
                   Reps {props.plannedReps != null && <>· planned {props.plannedReps}</>}
@@ -289,7 +383,7 @@ export function SessionItemLogCard(props: Props) {
                 />
               </label>
             )}
-            {showWeight && (
+            {!setRows && showWeight && (
               <label className="text-xs">
                 <span className="text-muted">
                   Weight (kg) {props.plannedWeightKg != null && <>· planned {props.plannedWeightKg}</>}
@@ -381,6 +475,94 @@ export function SessionItemLogCard(props: Props) {
           )}
           {props.plannedNotes && (
             <p className="mt-1 text-xs text-muted">Coach note: {props.plannedNotes}</p>
+          )}
+
+          {(props.plannedSets != null || setRows) && (
+            <div className="mt-2">
+              {setRows ? (
+                <div className="space-y-1.5 rounded-lg border border-border bg-surface-2/50 p-2">
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs font-semibold text-muted">
+                      Per-set log
+                      {props.plannedReps != null && (
+                        <span className="font-normal"> · planned {props.plannedReps} reps</span>
+                      )}
+                      {props.plannedWeightKg != null && (
+                        <span className="font-normal"> × {props.plannedWeightKg}kg</span>
+                      )}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={disablePerSet}
+                      className="text-[11px] text-muted transition hover:text-foreground"
+                    >
+                      Simple mode
+                    </button>
+                  </div>
+                  {setRows.map((row, i) => (
+                    <div key={i} className="flex items-center gap-1.5">
+                      <span className="w-9 shrink-0 text-xs text-muted">Set {i + 1}</span>
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        placeholder="reps"
+                        value={row.reps}
+                        onChange={(e) => updateSetRow(i, "reps", e.target.value)}
+                        className="w-14 rounded border border-border bg-surface-2 px-2 py-1 text-sm outline-none focus:border-accent-blue"
+                      />
+                      <input
+                        type="number"
+                        step={2.5}
+                        placeholder="kg"
+                        value={row.weightKg}
+                        onChange={(e) => updateSetRow(i, "weightKg", e.target.value)}
+                        className="w-16 rounded border border-border bg-surface-2 px-2 py-1 text-sm outline-none focus:border-accent-blue"
+                      />
+                      <span className="text-[10px] text-muted">kg</span>
+                      <button
+                        type="button"
+                        disabled={isPending}
+                        onClick={() => toggleSetDone(i)}
+                        title={row.done ? "Set done — tap to undo" : "Mark set done (starts rest timer)"}
+                        className={clsx(
+                          "ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-md border text-sm font-semibold transition disabled:opacity-50",
+                          row.done
+                            ? "border-accent-lime bg-accent-lime/20 text-accent-lime"
+                            : "border-border text-muted hover:text-foreground"
+                        )}
+                      >
+                        ✓
+                      </button>
+                      {setRows.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => removeSetRow(i)}
+                          aria-label={`Remove set ${i + 1}`}
+                          className="shrink-0 text-xs text-muted/60 transition hover:text-accent-red"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={addSetRow}
+                    className="text-xs text-accent-lime transition hover:brightness-110"
+                  >
+                    + Add set
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={enablePerSet}
+                  className="text-xs text-accent-lime transition hover:brightness-110"
+                >
+                  ⊞ Log per set
+                </button>
+              )}
+            </div>
           )}
 
           <input

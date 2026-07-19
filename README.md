@@ -73,7 +73,7 @@ npm install
 cp .env.example .env   # fill in DATABASE_URL and DIRECT_URL from Supabase
 
 # database (only needed once or after database reset)
-npx prisma migrate deploy
+npm run db:push
 npm run db:seed
 
 npm run dev             # http://localhost:3000
@@ -88,8 +88,11 @@ npm run db:studio        # browse the database in Prisma Studio
 npm run parse:training   # re-parse data-sources/training-history.md into the catalog JSON
 ```
 
-**Windows:** stop the dev server before running `prisma migrate deploy` or `prisma generate` — the query engine
-`.dll` gets locked by the running process and the migration will fail with `EPERM`.
+**Schema workflow:** this project uses `prisma db push` (no migration history). Do NOT run
+`prisma migrate dev` — with no migrations folder it will propose a data-wiping schema reset.
+
+**Windows:** stop the dev server before running `prisma db push` or `prisma generate` — the query engine
+`.dll` gets locked by the running process and the command fails with `EPERM`.
 
 ## Environment Variables
 
@@ -119,12 +122,11 @@ a minimal-config, single-user app.
      - `DIRECT_URL` (direct string from Supabase)
    - Do NOT commit `.env` — these stay in Vercel's encrypted settings only
 
-3. **Run migrations** — after the first deploy, run migrations locally
+3. **Apply the schema** — after creating the database, sync the schema locally
    ```bash
-   npx prisma migrate deploy
+   npm run db:push
    npm run db:seed
    ```
-   (The build step on Vercel will fail until migrations are run — this is expected.)
 
 ### Deployment Workflow
 
@@ -136,7 +138,7 @@ a minimal-config, single-user app.
 
 To reset the database during development:
 1. Go to Supabase project → **SQL Editor** → drop and recreate the database
-2. Run `npx prisma migrate deploy` locally
+2. Run `npm run db:push` locally
 3. Run `npm run db:seed` to repopulate the default program
 
 ## Future Improvements

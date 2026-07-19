@@ -34,7 +34,7 @@ npm run dev             # start dev server (Turbopack) on :3000
 npm run build            # production build
 npm run lint             # eslint
 
-npm run db:migrate       # create/apply a Prisma migration (edits to prisma/schema.prisma)
+npm run db:push          # sync prisma/schema.prisma to the database (this project uses db push, NOT migrations)
 npm run db:seed          # seed the active WeeklyProgram (prisma/seed.ts)
 npm run db:studio        # open Prisma Studio to browse the database
 
@@ -69,9 +69,16 @@ Client components (`CheckInFlow.tsx`, `SessionRunner.tsx`, `SessionItemLogCard.t
 - `DIRECT_URL` (Supabase direct connection, port 5432) — used only for migrations
 - Both are set in `.env` (gitignored; see `.env.example` for format)
 
+**Schema changes use `prisma db push`, NOT migrations.** There is no `prisma/migrations`
+folder — the Postgres schema was built entirely with `db push`. **Never run
+`prisma migrate dev` here**: with no migration history it will always propose a schema
+reset that wipes all data (this nearly happened once). To change the schema: edit
+`prisma/schema.prisma`, then `npm run db:push` (additive changes only against the live
+data; anything destructive needs a manual plan first).
+
 To reset the database during local development:
 1. Drop and recreate the database in Supabase (via project settings)
-2. Run `npx prisma migrate deploy`
+2. Run `npm run db:push`
 3. Run `npm run db:seed` to populate the default 4-day program
 
 **Prisma is pinned to v6**, not v7. All pages that query the database must have `export const dynamic = 'force-dynamic'` to prevent stale data on Vercel's serverless platform (see `src/app/(main)/dashboard/page.tsx` and others for examples).
@@ -80,7 +87,7 @@ To reset the database during local development:
 
 **Production notes:**
 - **Vercel deployment:** auto-deploys on push to `main`; environment variables (`DATABASE_URL`, `DIRECT_URL`) must be set in Vercel project settings
-- **Migrations:** Do NOT run `prisma migrate dev` in production — always use `npx prisma migrate deploy`
+- **Schema changes:** apply with `npm run db:push` (there is no migration history; `prisma migrate dev`/`migrate deploy` do not work here — see Database Setup above)
 - **Serverless caching:** All pages querying Prisma must have `export const dynamic = 'force-dynamic'` to prevent stale data across invocations
 - **Build requirement:** TypeScript must pass (`npm run lint`) before Vercel deployment succeeds
 - **Error boundaries:** Global error pages (`error.tsx`, `not-found.tsx`, `loading.tsx`) handle graceful degradation in serverless environment

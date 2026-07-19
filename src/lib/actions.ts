@@ -1,5 +1,6 @@
 "use server";
 
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { buildItemLogSeeds } from "@/lib/training/program-v2";
 import { resolveItem } from "@/lib/training/catalog";
@@ -106,6 +107,12 @@ export async function skipDay(
   }
 }
 
+export interface SetDetailInput {
+  reps: string | null;
+  weightKg: number | null;
+  done: boolean;
+}
+
 export interface ActualValuesInput {
   actualSets?: number | null;
   actualReps?: string | null;
@@ -114,6 +121,7 @@ export interface ActualValuesInput {
   actualSpeed?: string | null;
   actualRestSec?: number | null;
   actualNotes?: string | null;
+  setDetails?: SetDetailInput[] | null;
   completionStatus: "PENDING" | "COMPLETED" | "PARTIAL" | "SKIPPED";
 }
 
@@ -155,6 +163,23 @@ export async function logItemActual(
       }
     }
 
+    if (values.setDetails !== null && values.setDetails !== undefined) {
+      if (!Array.isArray(values.setDetails) || values.setDetails.length > 20) {
+        return { success: false, error: "Set details must be a list of at most 20 sets." };
+      }
+      for (const set of values.setDetails) {
+        if (set.reps !== null && (typeof set.reps !== "string" || set.reps.length > 30)) {
+          return { success: false, error: "Set reps must be text of 30 characters or less." };
+        }
+        if (set.weightKg !== null && (typeof set.weightKg !== "number" || set.weightKg < 0 || set.weightKg > 500)) {
+          return { success: false, error: "Set weight must be between 0 and 500 kg." };
+        }
+        if (typeof set.done !== "boolean") {
+          return { success: false, error: "Invalid set completion value." };
+        }
+      }
+    }
+
     await prisma.sessionItemLog.update({
       where: { id: itemLogId },
       data: {
@@ -165,6 +190,10 @@ export async function logItemActual(
         actualSpeed: values.actualSpeed ?? null,
         actualRestSec: values.actualRestSec ?? null,
         actualNotes: values.actualNotes ?? null,
+        setDetails:
+          values.setDetails == null
+            ? Prisma.DbNull
+            : (values.setDetails as unknown as Prisma.InputJsonValue),
         completionStatus: values.completionStatus,
       },
     });
