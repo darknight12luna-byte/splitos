@@ -209,8 +209,10 @@ parent-system variants used on the library grids). `--accent-lime` is the separa
 accent (CTAs, selection, positive states) — kept distinct from `--accent-green` (Lower Body) so
 "the lime button" and "a Lower Body badge" never collide. Exposed to Tailwind via `@theme inline`.
 Shared primitives in `src/components/ui/` (`Card`, `RadialGauge`, `Badge`, `StatusBadge`,
-`MoodPicker`, `RatingPicker`, `SessionFocusPicker`). Responsive nav: `TopNav` (desktop, icons +
-labels) / `BottomNav` (mobile, 5 items) in `src/components/`, both driven by the same route list.
+`MoodPicker`, `RatingPicker`, `SessionFocusPicker`). Nav: `TopBar` (`src/components/TopBar.tsx`)
+— a single sticky top bar on all screen sizes with the brand, a ⚡ Today quick-link, and a
+Chrome-style ⋮ dropdown holding every route (closes on navigate/outside-click/Escape). There is
+no bottom nav; the session timer bar and rest pill sit at `bottom-4`/`bottom-24`.
 `Onboarding` (`src/components/Onboarding.tsx`) shows a 3-screen intro once, gated on a
 `localStorage` flag — no account/login, matching the single-user architecture.
 `src/components/WeeklySplitCard.tsx` is shared between Check-In and Dashboard — same status/%/

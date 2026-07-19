@@ -131,11 +131,14 @@ export function SessionRunner({
       <div className="space-y-6 pb-24">
         {children}
         {error && (
-          <Card className="fixed bottom-32 left-1/2 w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 border border-accent-red/50 bg-accent-red/10 p-4">
+          <Card className="fixed bottom-28 left-1/2 w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 border border-accent-red/50 bg-accent-red/10 p-4">
             <p className="text-sm text-accent-red">{error}</p>
           </Card>
         )}
-        <div className="fixed bottom-20 left-1/2 flex w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-2xl border border-border bg-surface/95 p-4 shadow-xl shadow-black/40 backdrop-blur md:bottom-4">
+        <div
+          className="fixed bottom-4 left-1/2 flex w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-2xl border border-border bg-surface/95 p-4 shadow-xl shadow-black/40 backdrop-blur"
+          style={{ marginBottom: "env(safe-area-inset-bottom)" }}
+        >
           <div>
             <p className="text-xs text-muted">Timer</p>
             <p className="font-mono text-2xl font-bold">{display}</p>

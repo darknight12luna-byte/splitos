@@ -64,7 +64,7 @@ export function RestTimerProvider({ children }: { children: ReactNode }) {
       {children}
 
       {active && (
-        <div className="fixed bottom-40 left-1/2 z-40 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 rounded-2xl border border-accent-lime/40 bg-surface/95 p-3 shadow-xl shadow-black/40 backdrop-blur md:bottom-24">
+        <div className="fixed bottom-24 left-1/2 z-40 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 rounded-2xl border border-accent-lime/40 bg-surface/95 p-3 shadow-xl shadow-black/40 backdrop-blur">
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
               <p className="truncate text-xs text-muted">Rest · {label}</p>
@@ -103,7 +103,7 @@ export function RestTimerProvider({ children }: { children: ReactNode }) {
       )}
 
       {finished && (
-        <div className="fixed bottom-40 left-1/2 z-40 -translate-x-1/2 rounded-2xl border border-accent-lime bg-accent-lime px-5 py-3 text-sm font-bold text-background shadow-xl shadow-black/40 md:bottom-24">
+        <div className="fixed bottom-24 left-1/2 z-40 -translate-x-1/2 rounded-2xl border border-accent-lime bg-accent-lime px-5 py-3 text-sm font-bold text-background shadow-xl shadow-black/40">
           Rest done — next set 💪
         </div>
       )}

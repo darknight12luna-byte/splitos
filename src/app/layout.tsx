@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { TopNav } from "@/components/TopNav";
-import { BottomNav } from "@/components/BottomNav";
+import { TopBar } from "@/components/TopBar";
 import { Onboarding } from "@/components/Onboarding";
 import { prisma } from "@/lib/prisma";
 import "./globals.css";
@@ -57,11 +56,10 @@ export default async function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <Onboarding />
-        <TopNav todaySessionHref={todaySessionHref} />
-        <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-6 pb-24 md:pb-6">
+        <TopBar todaySessionHref={todaySessionHref} />
+        <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-6">
           {children}
         </main>
-        <BottomNav todaySessionHref={todaySessionHref} />
       </body>
     </html>
   );
