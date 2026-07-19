@@ -31,7 +31,12 @@ export default async function SessionPage({
   const theme = getCategoryTheme(tags[0] ?? "");
 
   return (
-    <SessionRunner sessionId={session.id}>
+    <SessionRunner
+      sessionId={session.id}
+      startedAt={session.date.toISOString()}
+      initialStatus={session.status}
+      savedDurationSec={session.durationSec}
+    >
       <div
         className="-mx-4 -mt-6 px-4 pb-6 pt-8 sm:-mx-6 sm:px-6"
         style={{

@@ -18,7 +18,8 @@ interface SessionSummary {
 }
 
 function CelebrationOverlay({ summary }: { summary: SessionSummary }) {
-  const mm = String(Math.floor(summary.durationSec / 60)).padStart(2, "0");
+  const hh = Math.floor(summary.durationSec / 3600);
+  const mm = String(Math.floor((summary.durationSec % 3600) / 60)).padStart(2, "0");
   const ss = String(summary.durationSec % 60).padStart(2, "0");
 
   return (
@@ -45,7 +46,7 @@ function CelebrationOverlay({ summary }: { summary: SessionSummary }) {
         </div>
         <div className="rounded-2xl border border-border bg-surface p-3">
           <p className="font-mono text-xl font-bold text-accent-blue">
-            {mm}:{ss}
+            {hh > 0 ? `${hh}:${mm}:${ss}` : `${mm}:${ss}`}
           </p>
           <p className="text-[11px] text-muted">Duration</p>
         </div>
@@ -72,25 +73,43 @@ function CelebrationOverlay({ summary }: { summary: SessionSummary }) {
   );
 }
 
+const FINISHED_STATUSES = ["COMPLETED", "PARTIAL", "SKIPPED"];
+
 export function SessionRunner({
   sessionId,
+  startedAt,
+  initialStatus,
+  savedDurationSec,
   children,
 }: {
   sessionId: string;
+  startedAt: string;
+  initialStatus: string;
+  savedDurationSec: number | null;
   children: ReactNode;
 }) {
-  const [seconds, setSeconds] = useState(0);
+  const isFinished = FINISHED_STATUSES.includes(initialStatus);
+  const [seconds, setSeconds] = useState(isFinished ? savedDurationSec ?? 0 : 0);
   const [isPending, startTransition] = useTransition();
   const [summary, setSummary] = useState<SessionSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Anchor the timer to the session's DB creation time (wall clock), not a
+  // client-side counter — a page refresh must not reset the tracked gym time.
   useEffect(() => {
-    const interval = setInterval(() => setSeconds((s) => s + 1), 1000);
+    if (isFinished) return;
+    const startMs = new Date(startedAt).getTime();
+    const tick = () =>
+      setSeconds(Math.max(0, Math.floor((Date.now() - startMs) / 1000)));
+    tick();
+    const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [startedAt, isFinished]);
 
-  const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const hh = Math.floor(seconds / 3600);
+  const mm = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
   const ss = String(seconds % 60).padStart(2, "0");
+  const display = hh > 0 ? `${hh}:${mm}:${ss}` : `${mm}:${ss}`;
 
   const finish = () => {
     setError(null);
@@ -119,9 +138,7 @@ export function SessionRunner({
         <div className="fixed bottom-20 left-1/2 flex w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-2xl border border-border bg-surface/95 p-4 shadow-xl shadow-black/40 backdrop-blur md:bottom-4">
           <div>
             <p className="text-xs text-muted">Timer</p>
-            <p className="font-mono text-2xl font-bold">
-              {mm}:{ss}
-            </p>
+            <p className="font-mono text-2xl font-bold">{display}</p>
           </div>
           <button
             type="button"
