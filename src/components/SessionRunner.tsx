@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition, ReactNode } from "react";
 import Link from "next/link";
 import { completeSession } from "@/lib/actions";
 import { ExerciseDrawerProvider } from "@/lib/exercise-drawer-context";
+import { RestTimerProvider } from "@/lib/rest-timer-context";
 import { Card } from "@/components/ui/Card";
 
 interface SessionSummary {
@@ -107,6 +108,7 @@ export function SessionRunner({
 
   return (
     <ExerciseDrawerProvider>
+      <RestTimerProvider>
       <div className="space-y-6 pb-24">
         {children}
         {error && (
@@ -131,6 +133,7 @@ export function SessionRunner({
           </button>
         </div>
       </div>
+      </RestTimerProvider>
     </ExerciseDrawerProvider>
   );
 }

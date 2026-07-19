@@ -6,6 +6,7 @@ import { logItemActual, toggleHighlight, type ActualValuesInput } from "@/lib/ac
 import type { ResolvedItem } from "@/lib/training/catalog";
 import { formatLabels } from "@/lib/formatLabel";
 import { useExerciseDrawer } from "@/lib/exercise-drawer-context";
+import { useRestTimer } from "@/lib/rest-timer-context";
 
 const KIND_ICON: Record<string, string> = {
   exercise: "🏋️",
@@ -32,6 +33,8 @@ const STATUS_COLOR: Record<string, string> = {
   PARTIAL: "border-accent-orange bg-accent-orange/20 text-accent-orange",
   SKIPPED: "border-accent-red bg-accent-red/20 text-accent-red",
 };
+
+const SKIP_REASONS = ["Machine busy", "No time", "Pain / discomfort", "Too tired"];
 
 function secToMin(sec: number | null): string {
   if (sec == null) return "";
@@ -137,6 +140,7 @@ interface Props {
 export function SessionItemLogCard(props: Props) {
   const { itemId, resolved } = props;
   const drawer = useExerciseDrawer();
+  const restTimer = useRestTimer();
   const [status, setStatus] = useState(props.completionStatus);
   const [isHighlight, setIsHighlight] = useState(props.isHighlight);
   const [expanded, setExpanded] = useState(false);
@@ -154,7 +158,7 @@ export function SessionItemLogCard(props: Props) {
 
   const markDirty = () => setSaved(false);
 
-  const save = (nextStatus?: ActualValuesInput["completionStatus"]) => {
+  const save = (nextStatus?: ActualValuesInput["completionStatus"], noteOverride?: string) => {
     const values: ActualValuesInput = {
       actualSets: actualSets ? Number(actualSets) : null,
       actualReps: actualReps || null,
@@ -162,7 +166,7 @@ export function SessionItemLogCard(props: Props) {
       actualDurationSec: minToSec(actualDurationMin),
       actualSpeed: actualSpeed || null,
       actualRestSec: actualRestSec ? Number(actualRestSec) : null,
-      actualNotes: actualNotes || null,
+      actualNotes: (noteOverride ?? actualNotes) || null,
       completionStatus: nextStatus ?? (status as ActualValuesInput["completionStatus"]),
     };
     setErrorMsg(null);
@@ -175,6 +179,17 @@ export function SessionItemLogCard(props: Props) {
         setSaved(true);
       }
     });
+  };
+
+  const applySkipReason = (reason: string) => {
+    const note = `Skipped: ${reason}`;
+    setActualNotes(note);
+    save("SKIPPED", note);
+  };
+
+  const startRest = () => {
+    const seconds = Number(actualRestSec) || props.plannedRestSec || 0;
+    restTimer.start(seconds, resolved.name);
   };
 
   const ex = resolved.exercise;
@@ -338,15 +353,25 @@ export function SessionItemLogCard(props: Props) {
                 <span className="text-muted">
                   Rest (s) {props.plannedRestSec != null && <>· planned {props.plannedRestSec}</>}
                 </span>
-                <input
-                  type="number"
-                  value={actualRestSec}
-                  onChange={(e) => {
-                    setActualRestSec(e.target.value);
-                    markDirty();
-                  }}
-                  className="mt-0.5 block w-16 rounded border border-border bg-surface-2 px-2 py-1 text-sm outline-none focus:border-accent-blue"
-                />
+                <div className="mt-0.5 flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    value={actualRestSec}
+                    onChange={(e) => {
+                      setActualRestSec(e.target.value);
+                      markDirty();
+                    }}
+                    className="block w-16 rounded border border-border bg-surface-2 px-2 py-1 text-sm outline-none focus:border-accent-blue"
+                  />
+                  <button
+                    type="button"
+                    onClick={startRest}
+                    title="Start rest countdown"
+                    className="rounded border border-accent-lime/40 px-2 py-1 text-xs font-semibold text-accent-lime transition hover:bg-accent-lime/10"
+                  >
+                    ⏱ Rest
+                  </button>
+                </div>
               </label>
             )}
           </div>
@@ -436,6 +461,33 @@ export function SessionItemLogCard(props: Props) {
           )}
         </div>
       </div>
+
+      {status === "SKIPPED" && (
+        <div className="mt-2 space-y-1.5">
+          <p className="text-xs text-muted">Why skipped?</p>
+          <div className="flex flex-wrap gap-1.5">
+            {SKIP_REASONS.map((reason) => (
+              <button
+                key={reason}
+                type="button"
+                disabled={isPending}
+                onClick={() => applySkipReason(reason)}
+                className={clsx(
+                  "rounded-full border px-2.5 py-1 text-xs transition disabled:opacity-50",
+                  actualNotes === `Skipped: ${reason}`
+                    ? "border-accent-red bg-accent-red/20 text-accent-red"
+                    : "border-border text-muted hover:text-foreground"
+                )}
+              >
+                {reason}
+              </button>
+            ))}
+          </div>
+          <p className="text-[11px] text-muted/70">
+            Or type your own reason in the notes field above, then Save.
+          </p>
+        </div>
+      )}
 
       {expanded && (
         <div className="mt-3 space-y-3 border-t border-border pt-3 text-sm">
