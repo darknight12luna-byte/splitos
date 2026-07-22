@@ -62,7 +62,7 @@ export default async function ChallengePage() {
                   className={clsx(
                     "flex aspect-square items-center justify-center rounded-md border text-[10px]",
                     d.completed
-                      ? "border-accent-lime bg-accent-lime text-background"
+                      ? "border-accent-lime bg-accent-lime text-on-accent"
                       : d.isToday
                       ? "border-accent-blue text-accent-blue"
                       : d.isFuture
@@ -81,8 +81,8 @@ export default async function ChallengePage() {
 
             {!challenge.isComplete && (
               <Link
-                href="/"
-                className="block w-full rounded-xl bg-accent-lime py-3 text-center font-bold text-background transition hover:brightness-110"
+                href="/checkin"
+                className="block w-full rounded-xl bg-accent-lime py-3 text-center font-bold text-on-accent transition hover:brightness-110"
               >
                 {challenge.days.find((d) => d.isToday)?.completed
                   ? "✓ Checked in today"

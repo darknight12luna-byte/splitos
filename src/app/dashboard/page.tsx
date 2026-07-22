@@ -77,7 +77,7 @@ export default async function DashboardPage() {
               <StatusBadge status={todaysSession.status} />
               <Link
                 href={sessionHref(todaysSession.id, todaysSession.status)}
-                className="rounded-lg px-3 py-1.5 text-xs font-semibold text-background transition hover:brightness-110"
+                className="rounded-lg px-3 py-1.5 text-xs font-semibold text-on-accent transition hover:brightness-110"
                 style={{ background: todayTheme.color }}
               >
                 Open Session
@@ -85,8 +85,8 @@ export default async function DashboardPage() {
             </div>
           ) : (
             <Link
-              href="/"
-              className="shrink-0 rounded-lg bg-accent-lime px-3 py-1.5 text-xs font-semibold text-background transition hover:brightness-110"
+              href="/checkin"
+              className="shrink-0 rounded-lg bg-accent-lime px-3 py-1.5 text-xs font-semibold text-on-accent transition hover:brightness-110"
             >
               Check In
             </Link>
@@ -145,13 +145,13 @@ export default async function DashboardPage() {
                 day.todaySession ? (
                   <Link
                     href={sessionHref(day.todaySession.id, day.todaySession.status)}
-                    className="block rounded-lg bg-accent-blue px-3 py-1.5 text-center text-xs font-semibold text-background transition hover:brightness-110"
+                    className="block rounded-lg bg-accent-blue px-3 py-1.5 text-center text-xs font-semibold text-on-accent transition hover:brightness-110"
                   >
                     {actionLabel(day.todaySession.status, "Open")}
                   </Link>
                 ) : (
                   <Link
-                    href={`/?day=${day.id}`}
+                    href={`/checkin?day=${day.id}`}
                     className="block rounded-lg border border-accent-lime/40 px-3 py-1.5 text-center text-xs font-semibold text-accent-lime transition hover:bg-accent-lime/10"
                   >
                     Start

@@ -627,7 +627,7 @@ export function SessionItemLogCard(props: Props) {
               type="button"
               disabled={isPending}
               onClick={() => save()}
-              className="rounded-md bg-accent-blue px-3 py-1 text-xs font-semibold text-background transition hover:brightness-110 disabled:opacity-50"
+              className="rounded-md bg-accent-blue px-3 py-1 text-xs font-semibold text-on-accent transition hover:brightness-110 disabled:opacity-50"
             >
               {isPending ? "Saving…" : "Save"}
             </button>

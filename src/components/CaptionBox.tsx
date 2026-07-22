@@ -39,7 +39,7 @@ export function CaptionBox({ sessionId, caption }: { sessionId: string; caption:
             setCopied(true);
             setTimeout(() => setCopied(false), 1500);
           }}
-          className="rounded-lg bg-accent-lime px-4 py-2 text-sm font-semibold text-background transition hover:brightness-110"
+          className="rounded-lg bg-accent-lime px-4 py-2 text-sm font-semibold text-on-accent transition hover:brightness-110"
         >
           {copied ? "Copied ✓" : "Copy Caption"}
         </button>

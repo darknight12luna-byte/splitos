@@ -56,7 +56,7 @@ export function StartChallengeForm({ title }: { title: string }) {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full rounded-xl bg-accent-lime py-3 font-bold text-background transition hover:brightness-110 disabled:opacity-50"
+          className="w-full rounded-xl bg-accent-lime py-3 font-bold text-on-accent transition hover:brightness-110 disabled:opacity-50"
         >
           {isPending ? "Starting…" : "Start Challenge"}
         </button>

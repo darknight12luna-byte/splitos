@@ -22,7 +22,7 @@ export function BeginnerAdvancedToggle({
           onClick={() => setMode("beginner")}
           className={clsx(
             "flex-1 rounded-lg py-1.5 text-sm font-medium transition",
-            mode === "beginner" ? "bg-accent-lime text-background" : "text-muted hover:text-foreground"
+            mode === "beginner" ? "bg-accent-lime text-on-accent" : "text-muted hover:text-foreground"
           )}
         >
           Beginner
@@ -32,7 +32,7 @@ export function BeginnerAdvancedToggle({
           onClick={() => setMode("advanced")}
           className={clsx(
             "flex-1 rounded-lg py-1.5 text-sm font-medium transition",
-            mode === "advanced" ? "bg-accent-lime text-background" : "text-muted hover:text-foreground"
+            mode === "advanced" ? "bg-accent-lime text-on-accent" : "text-muted hover:text-foreground"
           )}
         >
           Advanced

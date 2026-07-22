@@ -58,7 +58,7 @@ function CelebrationOverlay({ summary }: { summary: SessionSummary }) {
       >
         <Link
           href={`/content?session=${summary.sessionId}`}
-          className="block w-full rounded-xl bg-accent-lime py-3.5 text-center font-bold text-background transition hover:brightness-110"
+          className="block w-full rounded-xl bg-accent-lime py-3.5 text-center font-bold text-on-accent transition hover:brightness-110"
         >
           📤 Share Your Progress
         </Link>
@@ -131,13 +131,12 @@ export function SessionRunner({
       <div className="space-y-6 pb-24">
         {children}
         {error && (
-          <Card className="fixed bottom-28 left-1/2 w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 border border-accent-red/50 bg-accent-red/10 p-4">
+          <Card className="fixed bottom-48 left-1/2 w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 border border-accent-red/50 bg-accent-red/10 p-4">
             <p className="text-sm text-accent-red">{error}</p>
           </Card>
         )}
         <div
-          className="fixed bottom-4 left-1/2 flex w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-2xl border border-border bg-surface/95 p-4 shadow-xl shadow-black/40 backdrop-blur"
-          style={{ marginBottom: "env(safe-area-inset-bottom)" }}
+          className="fixed bottom-24 left-1/2 flex w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-2xl border border-border bg-surface/95 p-4 shadow-xl shadow-black/10 backdrop-blur"
         >
           <div>
             <p className="text-xs text-muted">Timer</p>
@@ -147,7 +146,7 @@ export function SessionRunner({
             type="button"
             disabled={isPending}
             onClick={finish}
-            className="rounded-xl bg-accent-blue px-6 py-3 font-bold text-background transition hover:brightness-110 disabled:opacity-50"
+            className="rounded-xl bg-accent-blue px-6 py-3 font-bold text-on-accent transition hover:brightness-110 disabled:opacity-50"
           >
             {isPending ? "Finishing…" : "Finish Session 🚀"}
           </button>

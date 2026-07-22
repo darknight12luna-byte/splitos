@@ -16,7 +16,7 @@ export function DetailTabs({ tabs }: { tabs: { label: string; content: ReactNode
             onClick={() => setActive(i)}
             className={clsx(
               "flex-1 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition",
-              active === i ? "bg-accent-lime text-background" : "text-muted hover:text-foreground"
+              active === i ? "bg-accent-lime text-on-accent" : "text-muted hover:text-foreground"
             )}
           >
             {tab.label}

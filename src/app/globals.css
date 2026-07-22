@@ -1,20 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0f;
-  --surface: #161620;
-  --surface-2: #1d1d2b;
-  --border: #29293c;
-  --foreground: #ffffff;
-  --muted: #8888aa;
-  /* Primary brand accent (CTAs, selection, positive states) */
-  --accent-lime: #aaff00;
-  /* Session colors — map 1:1 to the 4 split categories (Upper/Lower/AnimalFlow/Mixed) everywhere */
-  --accent-blue: #3b82f6;
-  --accent-green: #22c55e;
-  --accent-purple: #a855f7;
-  --accent-orange: #f97316;
-  --accent-red: #ff5470;
+  --background: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #fff4d9;
+  --border: #e5e0d3;
+  --foreground: #212121;
+  --muted: #6b6b6b;
+  /* Dark text for use on top of bright accent-colored surfaces (buttons, badges, toggles) —
+     kept separate from --background because that token is now light, not dark. */
+  --on-accent: #1a1a1a;
+  /* Primary brand accent (CTAs, selection, positive states) — golden yellow */
+  --accent-lime: #ffc107;
+  /* Session colors — map 1:1 to the 4 split categories (Upper/Lower/AnimalFlow/Mixed) everywhere.
+     Deepened from the dark-theme values so each stays legible on a white background. */
+  --accent-blue: #1565c0;
+  --accent-green: #2e7d32;
+  --accent-purple: #7b1fa2;
+  --accent-orange: #ef6c00;
+  --accent-red: #d32f2f;
 }
 
 @theme inline {
@@ -24,6 +28,7 @@
   --color-border: var(--border);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+  --color-on-accent: var(--on-accent);
   --color-accent-lime: var(--accent-lime);
   --color-accent-green: var(--accent-green);
   --color-accent-blue: var(--accent-blue);
@@ -36,11 +41,11 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
-  background: radial-gradient(circle at 15% 0%, #17172a 0%, var(--background) 45%),
+  background: radial-gradient(circle at 15% 0%, #fff8e7 0%, var(--background) 45%),
     var(--background);
   color: var(--foreground);
   min-height: 100dvh;
@@ -48,7 +53,7 @@ body {
 
 ::selection {
   background: var(--accent-lime);
-  color: #0a0a0f;
+  color: var(--on-accent);
 }
 
 @keyframes glow-pulse {

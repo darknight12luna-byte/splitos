@@ -103,7 +103,7 @@ export function CheckInFlow({
                 day.todaySession ? (
                   <Link
                     href={sessionHref(day.todaySession.id, day.todaySession.status)}
-                    className="block rounded-lg bg-accent-blue px-3 py-1.5 text-center text-xs font-semibold text-background transition hover:brightness-110"
+                    className="block rounded-lg bg-accent-blue px-3 py-1.5 text-center text-xs font-semibold text-on-accent transition hover:brightness-110"
                   >
                     {actionLabel(day.todaySession.status)}
                   </Link>
@@ -147,7 +147,7 @@ export function CheckInFlow({
                 <button
                   type="button"
                   onClick={() => selectDay(day.id)}
-                  className="rounded-md bg-accent-lime px-3 py-1 text-xs font-semibold text-background transition hover:brightness-110"
+                  className="rounded-md bg-accent-lime px-3 py-1 text-xs font-semibold text-on-accent transition hover:brightness-110"
                 >
                   Start
                 </button>
@@ -215,7 +215,7 @@ export function CheckInFlow({
               <button
                 type="submit"
                 disabled={isPending}
-                className="flex-1 rounded-xl bg-accent-lime py-3.5 text-center font-bold text-background transition hover:brightness-110 disabled:opacity-50"
+                className="flex-1 rounded-xl bg-accent-lime py-3.5 text-center font-bold text-on-accent transition hover:brightness-110 disabled:opacity-50"
               >
                 {isPending ? "Starting…" : "Start Planned Session ⚡"}
               </button>

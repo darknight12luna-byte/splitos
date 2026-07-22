@@ -129,7 +129,7 @@ export function Onboarding() {
         <button
           type="button"
           onClick={() => (isLast ? finish() : setStep((s) => s + 1))}
-          className="w-full rounded-xl bg-accent-lime py-3.5 text-center font-bold text-background transition hover:brightness-110"
+          className="w-full rounded-xl bg-accent-lime py-3.5 text-center font-bold text-on-accent transition hover:brightness-110"
         >
           {isLast ? "Get Started" : "Next"}
         </button>
