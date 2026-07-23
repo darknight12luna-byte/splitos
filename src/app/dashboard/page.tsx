@@ -222,6 +222,7 @@ export default async function DashboardPage() {
           <div className="space-y-2">
             {recentSessions.map((s) => {
               const theme = getCategoryTheme(s.trainingDayTemplate?.category ?? "");
+              const sessionSeconds = liveElapsedSec(s.status, s.durationSec, s.date);
               return (
                 <Card key={s.id} className="space-y-2.5 py-3">
                   <div className="flex items-center gap-3">
@@ -236,6 +237,7 @@ export default async function DashboardPage() {
                       <p className="text-xs text-muted">
                         {s.date.toLocaleDateString("en-US", { month: "short", day: "numeric" })} ·{" "}
                         {s.dayLabel}
+                        {sessionSeconds > 0 && <> · ⏱ {formatDuration(sessionSeconds)}</>}
                       </p>
                     </div>
                     <StatusBadge status={s.status} />
