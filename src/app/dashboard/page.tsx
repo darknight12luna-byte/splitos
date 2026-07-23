@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/Card";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { SetsChart } from "@/components/SetsChart";
 import { ActivityRings } from "@/components/ui/ActivityRings";
+import { DeleteSessionButton } from "@/components/DeleteSessionButton";
 
 function formatDuration(totalSeconds: number): string {
   const h = Math.floor(totalSeconds / 3600);
@@ -243,6 +244,7 @@ export default async function DashboardPage() {
                     >
                       View / Edit Content
                     </Link>
+                    <DeleteSessionButton sessionId={s.id} />
                   </div>
                 </Card>
               );
