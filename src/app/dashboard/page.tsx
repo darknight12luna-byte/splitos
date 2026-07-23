@@ -1,12 +1,27 @@
 import Link from "next/link";
+import { startOfWeek } from "date-fns";
 import { prisma } from "@/lib/prisma";
 import { getDashboardStats, getMonthlySnapshot } from "@/lib/stats";
-import { getWeeklySplitStatus, actionLabel } from "@/lib/training/split-status";
 import { getCategoryTheme } from "@/lib/training/category-theme";
 import { Card } from "@/components/ui/Card";
 import { StatusBadge } from "@/components/ui/StatusBadge";
-import { WeeklySplitCard } from "@/components/WeeklySplitCard";
 import { SetsChart } from "@/components/SetsChart";
+import { ActivityRings } from "@/components/ui/ActivityRings";
+
+function formatDuration(totalSeconds: number): string {
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  if (h > 0) return `${h}h${String(m).padStart(2, "0")}`;
+  return `${m}m`;
+}
+
+// Elapsed time for a still-running session (no durationSec saved yet) — a snapshot at
+// render time, same logic SessionRunner uses live, just computed once server-side here.
+function liveElapsedSec(status: string, durationSec: number | null, date: Date): number {
+  if (durationSec != null) return durationSec;
+  if (status === "IN_PROGRESS") return Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+  return 0;
+}
 
 export const dynamic = "force-dynamic";
 
@@ -17,27 +32,56 @@ function sessionHref(id: string, status: string) {
 export default async function DashboardPage() {
   const todayStart = new Date();
   todayStart.setHours(0, 0, 0, 0);
+  const weekStart = startOfWeek(todayStart, { weekStartsOn: 1 });
 
-  const [stats, days, monthly, todaysSession, recentSessions] = await Promise.all([
-    getDashboardStats(),
-    getWeeklySplitStatus(),
-    getMonthlySnapshot(),
-    prisma.sessionLog.findFirst({
-      where: { date: { gte: todayStart } },
-      orderBy: { date: "desc" },
-      include: { trainingDayTemplate: true, itemLogs: true },
-    }),
-    prisma.sessionLog.findMany({
-      where: { status: { not: "NOT_STARTED" } },
-      orderBy: { date: "desc" },
-      take: 5,
-      include: { trainingDayTemplate: true },
-    }),
-  ]);
+  const [stats, monthly, todaysSession, recentSessions, todaysSessions, weekSessions] =
+    await Promise.all([
+      getDashboardStats(),
+      getMonthlySnapshot(),
+      prisma.sessionLog.findFirst({
+        where: { date: { gte: todayStart } },
+        orderBy: { date: "desc" },
+        include: { trainingDayTemplate: true, itemLogs: true },
+      }),
+      prisma.sessionLog.findMany({
+        where: { status: { not: "NOT_STARTED" } },
+        orderBy: { date: "desc" },
+        take: 5,
+        include: { trainingDayTemplate: true },
+      }),
+      // All of today's sessions (not just the latest) — the app allows more than one
+      // SessionLog per day, so "today's" totals need to sum across every one of them.
+      prisma.sessionLog.findMany({
+        where: { date: { gte: todayStart } },
+        select: { date: true, status: true, durationSec: true, itemLogs: { select: { completionStatus: true } } },
+      }),
+      prisma.sessionLog.findMany({
+        where: { date: { gte: weekStart }, status: { not: "NOT_STARTED" } },
+        select: { date: true, status: true, durationSec: true },
+      }),
+    ]);
 
   const todayTheme = getCategoryTheme(todaysSession?.trainingDayTemplate?.category ?? "");
   const todayCompletedItems = todaysSession?.itemLogs.filter((i) => i.completionStatus === "COMPLETED").length ?? 0;
   const todayTotalItems = todaysSession?.itemLogs.length ?? 0;
+
+  const itemsDoneToday = todaysSessions.reduce(
+    (sum, s) => sum + s.itemLogs.filter((i) => i.completionStatus === "COMPLETED").length,
+    0
+  );
+  const itemsPlannedToday = todaysSessions.reduce((sum, s) => sum + s.itemLogs.length, 0);
+  const secondsToday = todaysSessions.reduce(
+    (sum, s) => sum + liveElapsedSec(s.status, s.durationSec, s.date),
+    0
+  );
+  const secondsThisWeek = weekSessions.reduce(
+    (sum, s) => sum + liveElapsedSec(s.status, s.durationSec, s.date),
+    0
+  );
+  // Neutral visual scales for the time rings (not claimed personal goals) — a session
+  // rarely runs past an hour, and the split is a 4-day/week program.
+  const todayTimePct = Math.min(100, (secondsToday / (60 * 60)) * 100);
+  const weekTimePct = Math.min(100, (secondsThisWeek / (4 * 60 * 60)) * 100);
 
   return (
     <div className="space-y-6 pb-10">
@@ -121,47 +165,34 @@ export default async function DashboardPage() {
         )}
       </Card>
 
-      {/* Section B — Weekly Split (2x2) */}
-      <div>
-        <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
-            Weekly Split
-          </h2>
-          <Link href="/program" className="text-xs text-accent-blue hover:underline">
-            View program →
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          {days.map((day) => (
-            <WeeklySplitCard
-              key={day.id}
-              dayNumber={day.dayNumber}
-              label={day.label}
-              category={day.category}
-              status={day.todaySession?.status ?? "NOT_STARTED"}
-              completionPct={day.todaySession?.completionPct ?? null}
-              lastPerformed={day.lastPerformed?.date ?? null}
-              action={
-                day.todaySession ? (
-                  <Link
-                    href={sessionHref(day.todaySession.id, day.todaySession.status)}
-                    className="block rounded-lg bg-accent-blue px-3 py-1.5 text-center text-xs font-semibold text-on-accent transition hover:brightness-110"
-                  >
-                    {actionLabel(day.todaySession.status, "Open")}
-                  </Link>
-                ) : (
-                  <Link
-                    href={`/checkin?day=${day.id}`}
-                    className="block rounded-lg border border-accent-lime/40 px-3 py-1.5 text-center text-xs font-semibold text-accent-lime transition hover:bg-accent-lime/10"
-                  >
-                    Start
-                  </Link>
-                )
-              }
-            />
-          ))}
-        </div>
-      </div>
+      {/* Section A.5 — Activity Rings: exercises done vs planned, time today, time this week */}
+      <Card>
+        <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted">
+          Activity
+        </h2>
+        <ActivityRings
+          rings={[
+            {
+              pct: itemsPlannedToday > 0 ? (itemsDoneToday / itemsPlannedToday) * 100 : 0,
+              value: `${itemsDoneToday}/${itemsPlannedToday}`,
+              label: "Exercises Today",
+              color: "var(--accent-lime)",
+            },
+            {
+              pct: todayTimePct,
+              value: formatDuration(secondsToday),
+              label: "Time Today",
+              color: "var(--accent-blue)",
+            },
+            {
+              pct: weekTimePct,
+              value: formatDuration(secondsThisWeek),
+              label: "Time This Week",
+              color: "var(--accent-orange)",
+            },
+          ]}
+        />
+      </Card>
 
       {/* Section C — Items Completed (7-day bar chart) */}
       <Card>
@@ -223,6 +254,19 @@ export default async function DashboardPage() {
           View Calendar →
         </Link>
       </Card>
+
+      {/* Section F — Compliance Report link */}
+      <Link href="/report">
+        <Card className="flex items-center justify-between transition hover:border-accent-blue/40">
+          <div>
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
+              Full Report
+            </h2>
+            <p className="mt-1 text-sm text-muted">Every session, planned vs. what you actually did</p>
+          </div>
+          <span className="text-accent-blue">→</span>
+        </Card>
+      </Link>
     </div>
   );
 }

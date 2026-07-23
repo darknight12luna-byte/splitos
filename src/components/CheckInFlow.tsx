@@ -6,6 +6,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { submitCheckIn, skipDay } from "@/lib/actions";
 import { WeeklySplitCard } from "@/components/WeeklySplitCard";
+import { Carousel } from "@/components/ui/Carousel";
 import { Card } from "@/components/ui/Card";
 import { MoodPicker } from "@/components/ui/MoodPicker";
 import { RatingPicker } from "@/components/ui/RatingPicker";
@@ -88,38 +89,39 @@ export function CheckInFlow({
         <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted">
           Your 4-Day Split
         </h2>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <Carousel initialIndex={days.findIndex((d) => d.id === selectedDayId)}>
           {days.map((day) => (
-            <WeeklySplitCard
-              key={day.id}
-              dayNumber={day.dayNumber}
-              label={day.label}
-              category={day.category}
-              status={day.todaySession?.status ?? "NOT_STARTED"}
-              completionPct={day.todaySession?.completionPct ?? null}
-              lastPerformed={day.lastPerformed ? new Date(day.lastPerformed) : null}
-              selected={!day.todaySession && day.id === selectedDayId}
-              action={
-                day.todaySession ? (
-                  <Link
-                    href={sessionHref(day.todaySession.id, day.todaySession.status)}
-                    className="block rounded-lg bg-accent-blue px-3 py-1.5 text-center text-xs font-semibold text-on-accent transition hover:brightness-110"
-                  >
-                    {actionLabel(day.todaySession.status)}
-                  </Link>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => selectDay(day.id)}
-                    className="w-full rounded-lg border border-accent-lime/40 px-3 py-1.5 text-xs font-semibold text-accent-lime transition hover:bg-accent-lime/10"
-                  >
-                    Start
-                  </button>
-                )
-              }
-            />
+            <div key={day.id} className="px-1 pb-1">
+              <WeeklySplitCard
+                dayNumber={day.dayNumber}
+                label={day.label}
+                category={day.category}
+                status={day.todaySession?.status ?? "NOT_STARTED"}
+                completionPct={day.todaySession?.completionPct ?? null}
+                lastPerformed={day.lastPerformed ? new Date(day.lastPerformed) : null}
+                selected={!day.todaySession && day.id === selectedDayId}
+                action={
+                  day.todaySession ? (
+                    <Link
+                      href={sessionHref(day.todaySession.id, day.todaySession.status)}
+                      className="block rounded-lg bg-accent-blue px-3 py-1.5 text-center text-xs font-semibold text-on-accent transition hover:brightness-110"
+                    >
+                      {actionLabel(day.todaySession.status)}
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => selectDay(day.id)}
+                      className="w-full rounded-lg border border-accent-lime/40 px-3 py-1.5 text-xs font-semibold text-accent-lime transition hover:bg-accent-lime/10"
+                    >
+                      Start
+                    </button>
+                  )
+                }
+              />
+            </div>
           ))}
-        </div>
+        </Carousel>
       </div>
 
       {doneToday.length > 0 && remaining.length > 0 && (

@@ -143,6 +143,43 @@ export async function getDashboardStats(): Promise<DashboardStats> {
   };
 }
 
+export interface SessionComplianceRow {
+  id: string;
+  label: string;
+  date: string; // ISO
+  planned: number;
+  completed: number;
+  partial: number;
+  missed: number; // SKIPPED + never-touched (PENDING) items — both mean "didn't do it"
+}
+
+/** Planned vs. actual, per session, across the whole training history. */
+export async function getSessionComplianceReport(): Promise<SessionComplianceRow[]> {
+  const sessions = await prisma.sessionLog.findMany({
+    where: { status: { not: "NOT_STARTED" } },
+    orderBy: { date: "asc" },
+    include: { itemLogs: { select: { completionStatus: true } } },
+  });
+
+  return sessions.map((s) => {
+    const completed = s.itemLogs.filter((i) => i.completionStatus === "COMPLETED").length;
+    const partial = s.itemLogs.filter((i) => i.completionStatus === "PARTIAL").length;
+    const missed = s.itemLogs.filter(
+      (i) => i.completionStatus === "SKIPPED" || i.completionStatus === "PENDING"
+    ).length;
+
+    return {
+      id: s.id,
+      label: `${format(s.date, "MMM d")} · ${s.title}`,
+      date: s.date.toISOString(),
+      planned: s.itemLogs.length,
+      completed,
+      partial,
+      missed,
+    };
+  });
+}
+
 export interface MonthlySnapshot {
   sessionsCompleted: number;
   sessionsPartial: number;
