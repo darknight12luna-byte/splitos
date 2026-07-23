@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { startOfWeek } from "date-fns";
+import { startOfWeek, startOfMonth, differenceInCalendarWeeks } from "date-fns";
 import { prisma } from "@/lib/prisma";
 import { getDashboardStats, getMonthlySnapshot } from "@/lib/stats";
 import { getCategoryTheme } from "@/lib/training/category-theme";
@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/Card";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { SetsChart } from "@/components/SetsChart";
 import { ActivityRings } from "@/components/ui/ActivityRings";
+import { SemiDonutGauge } from "@/components/ui/SemiDonutGauge";
 import { DeleteSessionButton } from "@/components/DeleteSessionButton";
 
 function formatDuration(totalSeconds: number): string {
@@ -35,7 +36,7 @@ export default async function DashboardPage() {
   todayStart.setHours(0, 0, 0, 0);
   const weekStart = startOfWeek(todayStart, { weekStartsOn: 1 });
 
-  const [stats, monthly, todaysSession, recentSessions, todaysSessions, weekSessions] =
+  const [stats, monthly, todaysSession, recentSessions, todaysSessions, weekSessions, activeProgram] =
     await Promise.all([
       getDashboardStats(),
       getMonthlySnapshot(),
@@ -60,6 +61,7 @@ export default async function DashboardPage() {
         where: { date: { gte: weekStart }, status: { not: "NOT_STARTED" } },
         select: { date: true, status: true, durationSec: true },
       }),
+      prisma.weeklyProgram.findFirst({ where: { active: true }, select: { daysPerWeek: true } }),
     ]);
 
   const todayTheme = getCategoryTheme(todaysSession?.trainingDayTemplate?.category ?? "");
@@ -83,6 +85,14 @@ export default async function DashboardPage() {
   // rarely runs past an hour, and the split is a 4-day/week program.
   const todayTimePct = Math.min(100, (secondsToday / (60 * 60)) * 100);
   const weekTimePct = Math.min(100, (secondsThisWeek / (4 * 60 * 60)) * 100);
+
+  // This month's real goal, derived from the program's own cadence — not a fabricated
+  // target: daysPerWeek sessions x however many weeks have started so far this month.
+  const monthStart = startOfMonth(todayStart);
+  const weeksElapsedThisMonth = differenceInCalendarWeeks(todayStart, monthStart, { weekStartsOn: 1 }) + 1;
+  const monthlyGoal = (activeProgram?.daysPerWeek ?? 4) * weeksElapsedThisMonth;
+  const monthlyActual = monthly.sessionsCompleted + monthly.sessionsPartial;
+  const monthlyPct = monthlyGoal > 0 ? (monthlyActual / monthlyGoal) * 100 : 0;
 
   return (
     <div className="space-y-6 pb-10">
@@ -254,19 +264,23 @@ export default async function DashboardPage() {
       )}
 
       {/* Section E — Monthly Snapshot */}
-      <Card className="flex items-center justify-between">
-        <div>
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
-            Monthly Snapshot
-          </h2>
-          <p className="mt-1 text-sm text-muted">
-            {monthly.sessionsCompleted} completed · {monthly.sessionsPartial} partial ·{" "}
-            {monthly.sessionsSkipped} skipped · {monthly.totalHighlights} highlights
-          </p>
-        </div>
+      <Card className="space-y-3">
+        <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
+          Monthly Snapshot
+        </h2>
+        <SemiDonutGauge
+          pct={monthlyPct}
+          centerLabel={`${monthlyActual}/${monthlyGoal}`}
+          subLabel={`sessions done this month · goal is ${activeProgram?.daysPerWeek ?? 4}/week`}
+          color="var(--accent-lime)"
+        />
+        <p className="text-center text-sm text-muted">
+          {monthly.sessionsCompleted} completed · {monthly.sessionsPartial} partial ·{" "}
+          {monthly.sessionsSkipped} skipped · {monthly.totalHighlights} highlights
+        </p>
         <Link
           href="/calendar"
-          className="rounded-lg border border-border px-3 py-1.5 text-xs text-muted transition hover:text-foreground"
+          className="block rounded-xl bg-accent-lime px-4 py-3 text-center text-sm font-bold text-on-accent transition hover:brightness-110"
         >
           View Calendar →
         </Link>
