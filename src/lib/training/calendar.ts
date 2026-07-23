@@ -1,5 +1,14 @@
 import { prisma } from "@/lib/prisma";
-import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, format } from "date-fns";
+import {
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  startOfDay,
+  endOfDay,
+  eachDayOfInterval,
+  format,
+} from "date-fns";
 
 export interface CalendarSessionSummary {
   id: string;
@@ -86,4 +95,11 @@ export async function getCalendarWeek(anchor: Date): Promise<CalendarDay[]> {
   const end = endOfWeek(anchor);
   const byDay = await fetchSessionsByDay(start, end);
   return buildDays(start, end, byDay);
+}
+
+export async function getCalendarDay(anchor: Date): Promise<CalendarDay> {
+  const start = startOfDay(anchor);
+  const end = endOfDay(anchor);
+  const byDay = await fetchSessionsByDay(start, end);
+  return buildDays(start, end, byDay)[0];
 }
