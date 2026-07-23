@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { startOfDay } from "date-fns";
+import { startOfDay, startOfWeek } from "date-fns";
 import { TRAINED_STATUSES } from "@/lib/stats";
 
 export interface TodaySessionStatus {
@@ -21,6 +21,7 @@ export interface DaySplitStatus {
   goal: string;
   todaySession: TodaySessionStatus | null;
   lastPerformed: LastPerformed | null;
+  thisWeekCount: number;
 }
 
 /** Single source of truth for "how is each of the 4 split days doing" — consumed by
@@ -33,10 +34,11 @@ export async function getWeeklySplitStatus(): Promise<DaySplitStatus[]> {
   if (!program) return [];
 
   const todayStart = startOfDay(new Date());
+  const weekStart = startOfWeek(todayStart, { weekStartsOn: 1 });
 
   const results = await Promise.all(
     program.trainingDays.map(async (day) => {
-      const [todaySessionRaw, lastPerformedRaw] = await Promise.all([
+      const [todaySessionRaw, lastPerformedRaw, thisWeekCount] = await Promise.all([
         prisma.sessionLog.findFirst({
           where: { trainingDayTemplateId: day.id, date: { gte: todayStart } },
           orderBy: { date: "desc" },
@@ -46,6 +48,13 @@ export async function getWeeklySplitStatus(): Promise<DaySplitStatus[]> {
           where: { trainingDayTemplateId: day.id, status: { in: TRAINED_STATUSES } },
           orderBy: { date: "desc" },
           select: { date: true, status: true },
+        }),
+        prisma.sessionLog.count({
+          where: {
+            trainingDayTemplateId: day.id,
+            date: { gte: weekStart },
+            status: { in: TRAINED_STATUSES },
+          },
         }),
       ]);
 
@@ -74,6 +83,7 @@ export async function getWeeklySplitStatus(): Promise<DaySplitStatus[]> {
         lastPerformed: lastPerformedRaw
           ? { date: lastPerformedRaw.date, status: lastPerformedRaw.status }
           : null,
+        thisWeekCount,
       };
     })
   );
