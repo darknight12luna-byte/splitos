@@ -30,10 +30,18 @@ export default async function SessionPage({
     : 0;
   const theme = getCategoryTheme(tags[0] ?? "");
 
+  // A reopened skipped session keeps its original `date` (so it stays on the right
+  // calendar day), but that date is stale for timer purposes — count elapsed time
+  // from now instead of from days ago.
+  const now = new Date();
+  const isStale = now.getTime() - session.date.getTime() > 12 * 60 * 60 * 1000;
+  const startedAt =
+    session.status === "IN_PROGRESS" && isStale ? now.toISOString() : session.date.toISOString();
+
   return (
     <SessionRunner
       sessionId={session.id}
-      startedAt={session.date.toISOString()}
+      startedAt={startedAt}
       initialStatus={session.status}
       savedDurationSec={session.durationSec}
     >

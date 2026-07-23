@@ -107,6 +107,64 @@ export async function skipDay(
   }
 }
 
+export async function deleteSession(
+  sessionId: string
+): Promise<{ success: false; error: string } | { success: true }> {
+  try {
+    if (!sessionId || typeof sessionId !== "string") {
+      return { success: false, error: "Invalid session ID." };
+    }
+
+    // Cascades to its SessionItemLogs via the schema's onDelete: Cascade.
+    await prisma.sessionLog.delete({ where: { id: sessionId } });
+
+    revalidatePath("/calendar");
+    revalidatePath("/dashboard");
+    revalidatePath("/report");
+    revalidatePath("/");
+
+    return { success: true };
+  } catch (error) {
+    console.error("deleteSession error:", error);
+    return { success: false, error: "Failed to delete session. Please try again." };
+  }
+}
+
+export async function reopenSession(
+  sessionId: string
+): Promise<{ success: false; error: string } | { success: true }> {
+  try {
+    if (!sessionId || typeof sessionId !== "string") {
+      return { success: false, error: "Invalid session ID." };
+    }
+
+    const session = await prisma.sessionLog.findUnique({
+      where: { id: sessionId },
+      select: { status: true },
+    });
+    if (!session) {
+      return { success: false, error: "Session not found." };
+    }
+    if (session.status !== "SKIPPED") {
+      return { success: false, error: "Only skipped sessions can be reopened." };
+    }
+
+    await prisma.sessionLog.update({
+      where: { id: sessionId },
+      data: { status: "IN_PROGRESS", durationSec: null },
+    });
+
+    revalidatePath("/calendar");
+    revalidatePath("/dashboard");
+    revalidatePath("/");
+
+    return { success: true };
+  } catch (error) {
+    console.error("reopenSession error:", error);
+    return { success: false, error: "Failed to reopen session. Please try again." };
+  }
+}
+
 export interface SetDetailInput {
   reps: string | null;
   weightKg: number | null;
