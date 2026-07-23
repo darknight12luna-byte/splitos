@@ -3,9 +3,11 @@ import { prisma } from "@/lib/prisma";
 import { getActiveChallenge } from "@/lib/challenge";
 import { getStreakDays } from "@/lib/stats";
 import { getDailyQuote } from "@/lib/quotes";
+import { getWeeklySplitStatus } from "@/lib/training/split-status";
 import { getCategoryTheme } from "@/lib/training/category-theme";
 import { Card } from "@/components/ui/Card";
 import { StatusBadge } from "@/components/ui/StatusBadge";
+import { WeeklyProgressStrip } from "@/components/WeeklyProgressStrip";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +26,7 @@ export default async function HomePage() {
   const todayStart = new Date();
   todayStart.setHours(0, 0, 0, 0);
 
-  const [todaysSession, challenge, streakDays] = await Promise.all([
+  const [todaysSession, challenge, streakDays, splitStatus] = await Promise.all([
     prisma.sessionLog.findFirst({
       where: { date: { gte: todayStart } },
       orderBy: { date: "desc" },
@@ -32,6 +34,7 @@ export default async function HomePage() {
     }),
     getActiveChallenge(),
     getStreakDays(),
+    getWeeklySplitStatus(),
   ]);
 
   const todayTheme = getCategoryTheme(todaysSession?.trainingDayTemplate?.category ?? "");
@@ -120,6 +123,12 @@ export default async function HomePage() {
           </Link>
         )}
       </Card>
+
+      {splitStatus.length > 0 && (
+        <Card>
+          <WeeklyProgressStrip days={splitStatus} />
+        </Card>
+      )}
 
       <p className="rounded-2xl border border-border bg-surface-2 px-4 py-3 text-sm italic text-muted">
         &ldquo;{getDailyQuote()}&rdquo;

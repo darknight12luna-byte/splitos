@@ -43,6 +43,7 @@ export default async function CheckInPage({
     goal: d.goal,
     todaySession: d.todaySession,
     lastPerformed: d.lastPerformed ? d.lastPerformed.date.toISOString() : null,
+    weekStatus: d.weekStatus,
   }));
 
   return (

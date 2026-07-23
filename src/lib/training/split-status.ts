@@ -13,6 +13,8 @@ export interface LastPerformed {
   status: string;
 }
 
+export type WeekStatus = "done" | "skipped" | "not_started";
+
 export interface DaySplitStatus {
   id: string;
   dayNumber: number;
@@ -22,6 +24,7 @@ export interface DaySplitStatus {
   todaySession: TodaySessionStatus | null;
   lastPerformed: LastPerformed | null;
   thisWeekCount: number;
+  weekStatus: WeekStatus;
 }
 
 /** Single source of truth for "how is each of the 4 split days doing" — consumed by
@@ -35,10 +38,25 @@ export async function getWeeklySplitStatus(): Promise<DaySplitStatus[]> {
 
   const todayStart = startOfDay(new Date());
   const weekStart = startOfWeek(todayStart, { weekStartsOn: 1 });
+  const dayIds = program.trainingDays.map((d) => d.id);
+
+  // One query for every day's sessions this week, rather than one query per day —
+  // grouped client-side into thisWeekCount + weekStatus below.
+  const weekSessions = await prisma.sessionLog.findMany({
+    where: { trainingDayTemplateId: { in: dayIds }, date: { gte: weekStart } },
+    select: { trainingDayTemplateId: true, status: true },
+  });
+  const weekSessionsByDay = new Map<string, { status: string }[]>();
+  for (const s of weekSessions) {
+    if (!s.trainingDayTemplateId) continue;
+    const list = weekSessionsByDay.get(s.trainingDayTemplateId) ?? [];
+    list.push({ status: s.status });
+    weekSessionsByDay.set(s.trainingDayTemplateId, list);
+  }
 
   const results = await Promise.all(
     program.trainingDays.map(async (day) => {
-      const [todaySessionRaw, lastPerformedRaw, thisWeekCount] = await Promise.all([
+      const [todaySessionRaw, lastPerformedRaw] = await Promise.all([
         prisma.sessionLog.findFirst({
           where: { trainingDayTemplateId: day.id, date: { gte: todayStart } },
           orderBy: { date: "desc" },
@@ -48,13 +66,6 @@ export async function getWeeklySplitStatus(): Promise<DaySplitStatus[]> {
           where: { trainingDayTemplateId: day.id, status: { in: TRAINED_STATUSES } },
           orderBy: { date: "desc" },
           select: { date: true, status: true },
-        }),
-        prisma.sessionLog.count({
-          where: {
-            trainingDayTemplateId: day.id,
-            date: { gte: weekStart },
-            status: { in: TRAINED_STATUSES },
-          },
         }),
       ]);
 
@@ -73,6 +84,15 @@ export async function getWeeklySplitStatus(): Promise<DaySplitStatus[]> {
           }
         : null;
 
+      const thisWeekSessions = weekSessionsByDay.get(day.id) ?? [];
+      const thisWeekCount = thisWeekSessions.filter((s) => TRAINED_STATUSES.includes(s.status)).length;
+      const weekStatus: WeekStatus =
+        thisWeekCount > 0
+          ? "done"
+          : thisWeekSessions.some((s) => s.status === "SKIPPED")
+          ? "skipped"
+          : "not_started";
+
       return {
         id: day.id,
         dayNumber: day.dayNumber,
@@ -84,6 +104,7 @@ export async function getWeeklySplitStatus(): Promise<DaySplitStatus[]> {
           ? { date: lastPerformedRaw.date, status: lastPerformedRaw.status }
           : null,
         thisWeekCount,
+        weekStatus,
       };
     })
   );

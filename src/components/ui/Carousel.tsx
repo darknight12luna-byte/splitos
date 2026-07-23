@@ -1,20 +1,22 @@
 "use client";
 
-import { useRef, useState, type ReactNode, type TouchEvent } from "react";
+import { useRef, type ReactNode, type TouchEvent } from "react";
 import clsx from "clsx";
 
 export function Carousel({
   children,
-  initialIndex = 0,
+  index,
+  onIndexChange,
 }: {
   children: ReactNode[];
-  initialIndex?: number;
+  index: number;
+  onIndexChange: (index: number) => void;
 }) {
-  const [index, setIndex] = useState(Math.min(Math.max(initialIndex, 0), children.length - 1));
   const touchStartX = useRef<number | null>(null);
   const count = children.length;
+  const clampedIndex = Math.min(Math.max(index, 0), Math.max(count - 1, 0));
 
-  const go = (dir: 1 | -1) => setIndex((i) => (i + dir + count) % count);
+  const go = (dir: 1 | -1) => onIndexChange((clampedIndex + dir + count) % count);
 
   const onTouchStart = (e: TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -34,7 +36,7 @@ export function Carousel({
       <div className="overflow-hidden" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         <div
           className="flex transition-transform duration-300 ease-out"
-          style={{ transform: `translateX(-${index * 100}%)` }}
+          style={{ transform: `translateX(-${clampedIndex * 100}%)` }}
         >
           {children.map((child, i) => (
             <div key={i} className="w-full shrink-0">
@@ -68,11 +70,11 @@ export function Carousel({
               <button
                 key={i}
                 type="button"
-                onClick={() => setIndex(i)}
+                onClick={() => onIndexChange(i)}
                 aria-label={`Go to day ${i + 1}`}
                 className={clsx(
                   "h-1.5 rounded-full transition-all",
-                  i === index ? "w-5 bg-accent-lime" : "w-1.5 bg-border"
+                  i === clampedIndex ? "w-5 bg-accent-lime" : "w-1.5 bg-border"
                 )}
               />
             ))}

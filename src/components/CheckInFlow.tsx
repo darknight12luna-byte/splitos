@@ -6,11 +6,13 @@ import Link from "next/link";
 import clsx from "clsx";
 import { submitCheckIn, skipDay } from "@/lib/actions";
 import { WeeklySplitCard } from "@/components/WeeklySplitCard";
+import { WeeklyProgressStrip } from "@/components/WeeklyProgressStrip";
 import { Carousel } from "@/components/ui/Carousel";
 import { Card } from "@/components/ui/Card";
 import { MoodPicker } from "@/components/ui/MoodPicker";
 import { RatingPicker } from "@/components/ui/RatingPicker";
 import { SessionFocusPicker } from "@/components/ui/SessionFocusPicker";
+import type { WeekStatus } from "@/lib/training/split-status";
 
 export interface CheckInDay {
   id: string;
@@ -20,6 +22,7 @@ export interface CheckInDay {
   goal: string;
   todaySession: { id: string; status: string; completionPct: number } | null;
   lastPerformed: string | null; // ISO date string
+  weekStatus: WeekStatus;
 }
 
 function actionLabel(status: string): string {
@@ -41,6 +44,10 @@ export function CheckInFlow({
 }) {
   const router = useRouter();
   const [selectedDayId, setSelectedDayId] = useState<string | null>(initialSelectedDayId);
+  const [carouselIndex, setCarouselIndex] = useState(() => {
+    const idx = days.findIndex((d) => d.id === initialSelectedDayId);
+    return idx >= 0 ? idx : 0;
+  });
   const [isPending, startTransition] = useTransition();
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
@@ -49,10 +56,26 @@ export function CheckInFlow({
   const remaining = days.filter((d) => !d.todaySession);
   const selectedDay = days.find((d) => d.id === selectedDayId) ?? null;
 
+  // Used by the Start button and the This Week strip — moves the carousel to match,
+  // selects the day, and scrolls the readiness form into view.
   const selectDay = (id: string) => {
     setSelectedDayId(id);
     setErrorMsg(null);
+    const idx = days.findIndex((d) => d.id === id);
+    if (idx >= 0) setCarouselIndex(idx);
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // Used by swiping/arrows/dots on the carousel itself — keeps the readiness form in
+  // sync with whichever card is currently front-facing, without auto-scrolling on
+  // every browse (only an explicit selection does that).
+  const handleCarouselIndexChange = (idx: number) => {
+    setCarouselIndex(idx);
+    const day = days[idx];
+    if (day && !day.todaySession) {
+      setSelectedDayId(day.id);
+      setErrorMsg(null);
+    }
   };
 
   const handleSubmitCheckIn = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -85,11 +108,21 @@ export function CheckInFlow({
 
   return (
     <div className="space-y-6">
+      <WeeklyProgressStrip
+        days={days}
+        selectedDayId={selectedDayId}
+        onSelect={(id) => {
+          const day = days.find((d) => d.id === id);
+          if (day?.todaySession) return;
+          selectDay(id);
+        }}
+      />
+
       <div>
         <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted">
           Your 4-Day Split
         </h2>
-        <Carousel initialIndex={days.findIndex((d) => d.id === selectedDayId)}>
+        <Carousel index={carouselIndex} onIndexChange={handleCarouselIndexChange}>
           {days.map((day) => (
             <div key={day.id} className="px-1 pb-1">
               <WeeklySplitCard
