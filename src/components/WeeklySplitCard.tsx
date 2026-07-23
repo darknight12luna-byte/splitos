@@ -1,11 +1,14 @@
 import type { ReactNode, CSSProperties } from "react";
+import { differenceInCalendarDays } from "date-fns";
 import { Card } from "@/components/ui/Card";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { getCategoryTheme } from "@/lib/training/category-theme";
 
+// Calendar-day difference, not a rolling 24h window — training at 6pm yesterday and
+// checking at 2pm today is "yesterday" even though under 24 raw hours have passed.
 function formatRelative(date: Date | null) {
   if (!date) return "never";
-  const days = Math.floor((Date.now() - date.getTime()) / 86400000);
+  const days = differenceInCalendarDays(new Date(), date);
   if (days === 0) return "today";
   if (days === 1) return "yesterday";
   return `${days}d ago`;

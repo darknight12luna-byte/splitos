@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { differenceInCalendarDays } from "date-fns";
 import { getActiveProgram } from "@/lib/training/program-v2";
 import { getWeeklySplitStatus, actionLabel } from "@/lib/training/split-status";
 import { resolveItem } from "@/lib/training/catalog";
@@ -12,9 +13,11 @@ function sessionHref(id: string, status: string) {
   return status === "COMPLETED" || status === "SKIPPED" ? `/content?session=${id}` : `/session/${id}`;
 }
 
+// Calendar-day difference, not a rolling 24h window — training at 6pm yesterday and
+// checking at 2pm today is "yesterday" even though under 24 raw hours have passed.
 function formatRelative(date: Date | null) {
   if (!date) return "never";
-  const days = Math.floor((Date.now() - date.getTime()) / 86400000);
+  const days = differenceInCalendarDays(new Date(), date);
   if (days === 0) return "today";
   if (days === 1) return "yesterday";
   return `${days}d ago`;
