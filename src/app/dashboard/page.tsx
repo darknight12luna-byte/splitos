@@ -212,8 +212,8 @@ export default async function DashboardPage() {
             {recentSessions.map((s) => {
               const theme = getCategoryTheme(s.trainingDayTemplate?.category ?? "");
               return (
-                <Link key={s.id} href={sessionHref(s.id, s.status)}>
-                  <Card className="flex items-center gap-3 py-3 transition hover:border-accent-blue/40">
+                <Card key={s.id} className="space-y-2.5 py-3">
+                  <div className="flex items-center gap-3">
                     <div
                       className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-lg"
                       style={{ background: `color-mix(in oklab, ${theme.color} 22%, transparent)` }}
@@ -228,8 +228,23 @@ export default async function DashboardPage() {
                       </p>
                     </div>
                     <StatusBadge status={s.status} />
-                  </Card>
-                </Link>
+                  </div>
+                  <div className="flex gap-2">
+                    <Link
+                      href={`/session/${s.id}`}
+                      className="flex-1 rounded-lg px-3 py-1.5 text-center text-xs font-semibold text-on-accent transition hover:brightness-110"
+                      style={{ background: theme.color }}
+                    >
+                      Open Activity →
+                    </Link>
+                    <Link
+                      href={`/content?session=${s.id}`}
+                      className="flex-1 rounded-lg border border-border px-3 py-1.5 text-center text-xs font-semibold text-muted transition hover:text-foreground"
+                    >
+                      View / Edit Content
+                    </Link>
+                  </div>
+                </Card>
               );
             })}
           </div>
