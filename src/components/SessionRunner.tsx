@@ -94,17 +94,36 @@ export function SessionRunner({
   const [summary, setSummary] = useState<SessionSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Pause/resume tracking — pausedMs is the running total of time spent paused,
+  // subtracted from wall-clock elapsed so a break never counts toward the
+  // tracked training duration. Not persisted: a refresh mid-pause resumes as if
+  // running (same as before pause existed), it just won't survive a reload.
+  const [isPaused, setIsPaused] = useState(false);
+  const [pausedMs, setPausedMs] = useState(0);
+  const [pauseStartedAt, setPauseStartedAt] = useState<number | null>(null);
+
   // Anchor the timer to the session's DB creation time (wall clock), not a
   // client-side counter — a page refresh must not reset the tracked gym time.
   useEffect(() => {
-    if (isFinished) return;
+    if (isFinished || isPaused) return;
     const startMs = new Date(startedAt).getTime();
     const tick = () =>
-      setSeconds(Math.max(0, Math.floor((Date.now() - startMs) / 1000)));
+      setSeconds(Math.max(0, Math.floor((Date.now() - startMs - pausedMs) / 1000)));
     tick();
     const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, [startedAt, isFinished]);
+  }, [startedAt, isFinished, isPaused, pausedMs]);
+
+  const togglePause = () => {
+    if (isPaused) {
+      setPausedMs((p) => p + (pauseStartedAt != null ? Date.now() - pauseStartedAt : 0));
+      setPauseStartedAt(null);
+      setIsPaused(false);
+    } else {
+      setPauseStartedAt(Date.now());
+      setIsPaused(true);
+    }
+  };
 
   const hh = Math.floor(seconds / 3600);
   const mm = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
@@ -136,20 +155,39 @@ export function SessionRunner({
           </Card>
         )}
         <div
-          className="fixed bottom-24 left-1/2 flex w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-2xl border border-border bg-surface/95 p-4 shadow-xl shadow-black/10 backdrop-blur"
+          className="fixed bottom-24 left-1/2 flex w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 items-center justify-between gap-2 rounded-2xl border border-border bg-surface/95 p-4 shadow-xl shadow-black/10 backdrop-blur"
         >
           <div>
-            <p className="text-xs text-muted">Timer</p>
-            <p className="font-mono text-2xl font-bold">{display}</p>
+            <p className="text-xs text-muted">{isPaused ? "Paused" : "Timer"}</p>
+            <p className={`font-mono text-2xl font-bold ${isPaused ? "text-muted" : ""}`}>{display}</p>
           </div>
-          <button
-            type="button"
-            disabled={isPending}
-            onClick={finish}
-            className="rounded-xl bg-accent-blue px-6 py-3 font-bold text-on-accent transition hover:brightness-110 disabled:opacity-50"
-          >
-            {isPending ? "Finishing…" : "Finish Session 🚀"}
-          </button>
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              disabled={isPending}
+              onClick={togglePause}
+              aria-label={isPaused ? "Resume session" : "Pause session"}
+              title={isPaused ? "Resume session" : "Pause session"}
+              className="rounded-xl border border-border px-4 py-3 font-bold text-foreground transition hover:bg-surface-2 disabled:opacity-50"
+            >
+              {isPaused ? "▶" : "⏸"}
+            </button>
+            <button
+              type="button"
+              disabled={isPending}
+              onClick={finish}
+              className="rounded-xl bg-accent-blue px-4 py-3 font-bold text-on-accent transition hover:brightness-110 disabled:opacity-50 sm:px-6"
+            >
+              {isPending ? (
+                "Finishing…"
+              ) : (
+                <>
+                  <span className="hidden sm:inline">Finish Session 🚀</span>
+                  <span className="sm:hidden">Finish 🚀</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
       </RestTimerProvider>
