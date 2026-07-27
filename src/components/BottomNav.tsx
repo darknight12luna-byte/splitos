@@ -30,6 +30,9 @@ const TABS = [
 export function BottomNav() {
   const pathname = usePathname();
 
+  // The full-bleed marketing hero owns the whole viewport — no app chrome over it.
+  if (pathname === "/welcome") return null;
+
   return (
     <nav
       className="fixed inset-x-0 bottom-0 z-30 flex justify-center px-2 pb-2 md:bottom-4"
