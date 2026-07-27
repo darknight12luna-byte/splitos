@@ -182,7 +182,18 @@ export function SessionItemLogCard(props: Props) {
   const [actualSpeed, setActualSpeed] = useState(props.actualSpeed ?? "");
   const [actualRestSec, setActualRestSec] = useState(props.actualRestSec?.toString() ?? "");
   const [actualNotes, setActualNotes] = useState(props.actualNotes ?? "");
-  const [setRows, setSetRows] = useState<SetRow[] | null>(() => parseSetDetails(props.setDetails));
+  const [setRows, setSetRows] = useState<SetRow[] | null>(() => {
+    const parsed = parseSetDetails(props.setDetails);
+    if (parsed) return parsed;
+    // Default to per-set planned-vs-actual whenever the plan specifies a set count,
+    // instead of requiring an opt-in tap into "Log per set" first.
+    if (props.plannedSets != null) {
+      const n = Math.min(Math.max(props.plannedSets, 1), 20);
+      const prefillWeight = props.plannedWeightKg != null ? String(props.plannedWeightKg) : "";
+      return Array.from({ length: n }, () => ({ reps: "", weightKg: prefillWeight, done: false }));
+    }
+    return null;
+  });
 
   const markDirty = () => setSaved(false);
 

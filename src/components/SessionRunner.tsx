@@ -89,6 +89,7 @@ export function SessionRunner({
   children: ReactNode;
 }) {
   const isFinished = FINISHED_STATUSES.includes(initialStatus);
+  const storageKey = `gymfit-timer-${sessionId}`;
   const [seconds, setSeconds] = useState(isFinished ? savedDurationSec ?? 0 : 0);
   const [isPending, startTransition] = useTransition();
   const [summary, setSummary] = useState<SessionSummary | null>(null);
@@ -96,23 +97,70 @@ export function SessionRunner({
 
   // Pause/resume tracking — pausedMs is the running total of time spent paused,
   // subtracted from wall-clock elapsed so a break never counts toward the
-  // tracked training duration. Not persisted: a refresh mid-pause resumes as if
-  // running (same as before pause existed), it just won't survive a reload.
+  // tracked training duration. All three fields are persisted to localStorage
+  // (see restore/persist effects below) so pausing, closing the app, and
+  // reopening later holds the exact timing the session was paused at.
   const [isPaused, setIsPaused] = useState(false);
   const [pausedMs, setPausedMs] = useState(0);
   const [pauseStartedAt, setPauseStartedAt] = useState<number | null>(null);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Restore persisted pause state on mount. Done in an effect (not a lazy
+  // useState initializer) because localStorage is client-only and reading it
+  // during render would cause a server/client hydration mismatch.
+  /* eslint-disable react-hooks/set-state-in-effect -- restoring persisted timer state
+     from localStorage on mount legitimately requires setState in an effect (localStorage
+     is client-only; reading it during render would cause a hydration mismatch). */
+  useEffect(() => {
+    if (!isFinished) {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (raw) {
+          const s = JSON.parse(raw) as { pausedMs?: unknown; isPaused?: unknown; pauseStartedAt?: unknown };
+          if (typeof s.pausedMs === "number") setPausedMs(s.pausedMs);
+          if (typeof s.isPaused === "boolean") setIsPaused(s.isPaused);
+          if (s.pauseStartedAt === null || typeof s.pauseStartedAt === "number") {
+            setPauseStartedAt(s.pauseStartedAt);
+          }
+        }
+      } catch {
+        // ignore corrupt/blocked storage — timer just falls back to non-persisted behavior
+      }
+    }
+    setHydrated(true);
+  }, [storageKey, isFinished]);
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  // Persist pause state whenever it changes (only after the initial restore, so
+  // we never overwrite saved state with the pre-restore defaults).
+  useEffect(() => {
+    if (isFinished || !hydrated) return;
+    try {
+      window.localStorage.setItem(
+        storageKey,
+        JSON.stringify({ pausedMs, isPaused, pauseStartedAt })
+      );
+    } catch {
+      // ignore blocked storage
+    }
+  }, [storageKey, isFinished, hydrated, pausedMs, isPaused, pauseStartedAt]);
 
   // Anchor the timer to the session's DB creation time (wall clock), not a
   // client-side counter — a page refresh must not reset the tracked gym time.
+  // When paused, freeze the display at the instant the pause began (pauseStartedAt)
+  // so a refresh mid-pause shows the same timing, no matter how long the app was closed.
   useEffect(() => {
-    if (isFinished || isPaused) return;
+    if (isFinished || !hydrated) return;
     const startMs = new Date(startedAt).getTime();
-    const tick = () =>
-      setSeconds(Math.max(0, Math.floor((Date.now() - startMs - pausedMs) / 1000)));
-    tick();
-    const interval = setInterval(tick, 1000);
+    const compute = () => {
+      const nowRef = isPaused ? pauseStartedAt ?? Date.now() : Date.now();
+      setSeconds(Math.max(0, Math.floor((nowRef - startMs - pausedMs) / 1000)));
+    };
+    compute();
+    if (isPaused) return;
+    const interval = setInterval(compute, 1000);
     return () => clearInterval(interval);
-  }, [startedAt, isFinished, isPaused, pausedMs]);
+  }, [startedAt, isFinished, isPaused, pausedMs, pauseStartedAt, hydrated]);
 
   const togglePause = () => {
     if (isPaused) {
@@ -137,6 +185,11 @@ export function SessionRunner({
       if (!result.success) {
         setError(result.error || "Failed to complete session");
       } else if (result.data) {
+        try {
+          window.localStorage.removeItem(storageKey);
+        } catch {
+          // ignore blocked storage
+        }
         setSummary(result.data);
       }
     });
