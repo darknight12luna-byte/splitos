@@ -71,6 +71,12 @@ export default async function ProgramPage() {
         <p className="text-sm text-muted">
           {program.daysPerWeek}-day rotation · advances automatically each time you check in
         </p>
+        <Link
+          href="/program/edit"
+          className="mt-2 inline-block rounded-full border border-accent-lime/40 px-3 py-1 text-xs font-semibold text-accent-lime hover:bg-accent-lime/10"
+        >
+          ✎ Edit plan
+        </Link>
       </div>
 
       {program.trainingDays.map((day) => {
