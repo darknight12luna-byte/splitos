@@ -2,7 +2,7 @@
 
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { buildItemLogSeeds } from "@/lib/training/program-v2";
+import { createSessionForTemplate, findOpenSessionToday } from "@/lib/training/session-service";
 import { resolveItem } from "@/lib/training/catalog";
 import type { ItemKind } from "@/lib/training/types";
 import { generateCaption, Mood } from "@/lib/caption-generator";
@@ -10,34 +10,6 @@ import { getStreakDays } from "@/lib/stats";
 import { revalidatePath } from "next/cache";
 import { writeFile } from "fs/promises";
 import path from "path";
-
-async function createSessionForTemplate(
-  trainingDayTemplateId: string,
-  checkInId: string | null,
-  status: "IN_PROGRESS" | "SKIPPED"
-) {
-  const trainingDay = await prisma.trainingDayTemplate.findUniqueOrThrow({
-    where: { id: trainingDayTemplateId },
-    include: { planItems: { orderBy: { order: "asc" } } },
-  });
-
-  const itemSeeds = buildItemLogSeeds(trainingDay.planItems).map((seed) => ({
-    ...seed,
-    completionStatus: status === "SKIPPED" ? "SKIPPED" : "PENDING",
-  }));
-
-  return prisma.sessionLog.create({
-    data: {
-      title: trainingDay.label,
-      tags: [trainingDay.category, status === "SKIPPED" ? "skipped" : "planned"].join(","),
-      trainingDayTemplateId: trainingDay.id,
-      dayLabel: `Day ${trainingDay.dayNumber}`,
-      status,
-      checkInId: checkInId ?? undefined,
-      itemLogs: { create: itemSeeds },
-    },
-  });
-}
 
 export async function submitCheckIn(
   formData: FormData
@@ -70,6 +42,12 @@ export async function submitCheckIn(
 
     const focus = (formData.get("focus") as string) || null;
     const note = (formData.get("note") as string) || null;
+
+    // Double-tap / refresh / second tab: resume today's open session instead of duplicating it.
+    const existing = await findOpenSessionToday(trainingDayTemplateId);
+    if (existing) {
+      return { success: true, sessionId: existing.id };
+    }
 
     const checkIn = await prisma.checkInEntry.create({
       data: { mood: mood as Mood, energyLevel, muscleSoreness, sleepQuality, focus, note },
